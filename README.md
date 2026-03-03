@@ -2,7 +2,7 @@
 
 A web tool that converts Finnish text into selkokieli — Plain Finnish.
 
-**Live:** [selkokielelle.fi](https://selkokielelle.fi)
+**Live:** [selkokielelle.online](https://selkokielelle.online)
 
 ---
 
