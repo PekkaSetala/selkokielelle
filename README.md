@@ -1,4 +1,4 @@
-# selkokielelle.fi
+# selkokielelle.online
 
 A web tool that converts Finnish text into selkokieli — Plain Finnish.
 
