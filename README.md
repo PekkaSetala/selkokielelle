@@ -8,7 +8,7 @@ A web tool that converts Finnish text into selkokieli — Plain Finnish.
 
 ## What is selkokieli?
 
-Selkokieli is a formally defined simplified register of Finnish, developed and maintained by [Selkokeskus](https://selkokeskus.fi). It uses shorter sentences, common words, and clear structure to make written Finnish accessible to people who have difficulty reading standard Finnish — including those with cognitive disabilities, learning difficulties, or limited Finnish proficiency.
+Selkokieli is a formally defined simplified register of Finnish. It uses shorter sentences, common words, and clear structure to make written Finnish accessible to people who have difficulty reading standard Finnish — including those with cognitive disabilities, learning difficulties, or limited Finnish proficiency.
 
 Around 750 000 people in Finland benefit from selkokieli.
 
