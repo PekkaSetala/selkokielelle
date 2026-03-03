@@ -1,293 +1,460 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Selkokielelle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg:       #F9F8F6;
+      --ink:      #1C1B19;
+      --mid:      #6B6860;
+      --faint:    #908C83;
+      --rule:     #D0CCBF;
+      --accent:   #2C4BFF;
+      --surface:  #FFFFFF;
+      --radius:   10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #ffffff;
-      color: #1a1a1a;
-      line-height: 1.6;
-      padding: 2rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
+    /* ── WRAPPER ── */
+    .wrap {
+      width: 100%;
+      max-width: 640px;
+      padding: 0 1.5rem;
     }
 
-    header {
-      margin-bottom: 2.5rem;
+    /* ── TOP ── */
+    .top {
+      padding: 3.5rem 0 2.8rem;
+      animation: fadein .5s ease both;
     }
 
-    h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #111;
+    .wordmark {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin-bottom: .35rem;
     }
 
-    .subtitle {
-      margin-top: 0.4rem;
-      color: #555;
-      font-size: 1rem;
+    .tagline {
+      font-size: .85rem;
+      color: var(--mid);
+      font-weight: 300;
     }
 
-    .input-section {
-      margin-bottom: 1.5rem;
+    /* ── RULE ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin-bottom: 2rem;
+      animation: fadein .5s .05s ease both;
     }
 
-    label {
-      display: block;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-      color: #222;
+    /* ── EDITOR BLOCK ── */
+    .editor {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04);
+      animation: fadein .5s .1s ease both;
     }
+
+    .editor-header {
+      padding: .7rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .editor-label {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .char-count {
+      font-size: .7rem;
+      color: var(--faint);
+      font-variant-numeric: tabular-nums;
+      transition: color .2s;
+    }
+    .char-count.warn { color: #C07A20; }
+    .char-count.over { color: #C0392B; }
 
     textarea {
+      display: block;
       width: 100%;
-      min-height: 220px;
-      padding: 0.9rem 1rem;
-      font-family: inherit;
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #1a1a1a;
-      background: #fafafa;
-      border: 1.5px solid #d0d0d0;
-      border-radius: 6px;
-      resize: vertical;
-      transition: border-color 0.15s;
-    }
-
-    textarea:focus {
-      outline: none;
-      border-color: #0057b7;
-      background: #fff;
-    }
-
-    .char-counter {
-      text-align: right;
-      font-size: 0.85rem;
-      color: #777;
-      margin-top: 0.4rem;
-    }
-
-    .char-counter.over-limit {
-      color: #c0392b;
-      font-weight: 600;
-    }
-
-    .submit-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.75rem 1.75rem;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      background: #0057b7;
+      min-height: 180px;
+      padding: 1.1rem 1rem;
       border: none;
-      border-radius: 6px;
+      outline: none;
+      resize: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      background: transparent;
+      caret-color: var(--accent);
+    }
+
+    textarea::placeholder { color: var(--faint); }
+
+    /* ── ACTION ROW ── */
+    .action-row {
+      padding: .75rem 1rem;
+      display: flex;
+      justify-content: flex-end;
+      border-top: 1px solid var(--rule);
+      background: var(--bg);
+    }
+
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem;
+      font-weight: 500;
+      padding: .5rem 1.2rem;
+      border-radius: 99px;
+      border: none;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: opacity .15s, transform .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
     }
 
-    .submit-btn:hover:not(:disabled) {
-      background: #004494;
+    .btn:active { transform: scale(.97); }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
     }
 
-    .submit-btn:disabled {
-      background: #9ab8dc;
+    .btn-primary:hover:not(:disabled) { opacity: .82; }
+
+    .btn-primary:disabled {
+      opacity: .28;
       cursor: not-allowed;
     }
 
-    .loading {
+    .btn-ghost {
+      background: transparent;
+      color: var(--mid);
+      border: 1px solid var(--rule);
+      font-size: .75rem;
+      padding: .35rem .9rem;
+    }
+
+    .btn-ghost:hover { background: var(--bg); }
+
+    /* spinner */
+    .spinner {
+      width: 13px; height: 13px;
+      border: 1.5px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
       display: none;
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-      color: #555;
-      font-style: italic;
+    }
+    .is-loading .spinner { display: block; }
+    .is-loading .btn-arrow { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── ARROW DIVIDER ── */
+    .arrow-sep {
+      display: flex;
+      justify-content: center;
+      padding: .9rem 0;
+      animation: fadein .5s .15s ease both;
+      color: var(--faint);
     }
 
-    .error-message {
-      display: none;
-      margin-top: 1.5rem;
-      padding: 0.85rem 1rem;
-      background: #fdf0ef;
-      border: 1.5px solid #e5b8b4;
-      border-radius: 6px;
-      color: #8b1a14;
-      font-size: 0.95rem;
+    .arrow-sep svg { width: 18px; height: 18px; }
+
+    /* ── OUTPUT ── */
+    .output {
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04);
+      animation: fadein .5s .2s ease both;
     }
 
-    .result-section {
-      display: none;
-      margin-top: 2rem;
+    .output-header {
+      padding: .7rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--rule);
     }
 
-    .result-section h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #222;
-      margin-bottom: 0.75rem;
+    .output-body {
+      padding: 1.1rem 1rem;
+      min-height: 120px;
+      display: flex;
+      align-items: flex-start;
     }
 
-    .result-box {
-      padding: 1.1rem 1.2rem;
-      background: #f4f8ff;
-      border: 1.5px solid #c0d8f5;
-      border-radius: 6px;
+    .output-empty {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      font-size: .85rem;
+      color: var(--faint);
+      font-weight: 300;
+      letter-spacing: .01em;
+    }
+
+    /* skeleton shimmer */
+    .skeleton { display: none; flex-direction: column; gap: .55rem; width: 100%; }
+
+    .sk-line {
+      height: .95em;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--rule) 25%, #ECEAE4 50%, var(--rule) 75%);
+      background-size: 300% 100%;
+      animation: shimmer 1.3s infinite;
+    }
+
+    .sk-line:nth-child(1) { width: 100%; }
+    .sk-line:nth-child(2) { width: 88%; }
+    .sk-line:nth-child(3) { width: 95%; }
+    .sk-line:nth-child(4) { width: 72%; }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    #output-text {
       font-size: 1rem;
-      line-height: 1.7;
-      color: #1a1a1a;
+      line-height: 1.75;
+      font-weight: 300;
+      color: var(--ink);
       white-space: pre-wrap;
-      word-break: break-word;
+      opacity: 0;
+      transition: opacity .35s ease;
+      width: 100%;
     }
 
+    #output-text.visible { opacity: 1; }
+
+    /* states */
+    .state-empty  .output-empty   { display: flex; }
+    .state-empty  .skeleton        { display: none; }
+    .state-empty  #output-text     { display: none; }
+
+    .state-loading .output-empty  { display: none; }
+    .state-loading .skeleton       { display: flex; }
+    .state-loading #output-text    { display: none; }
+
+    .state-done   .output-empty   { display: none; }
+    .state-done   .skeleton        { display: none; }
+    .state-done   #output-text     { display: block; }
+
+    /* copy row */
+    .copy-row {
+      padding: .6rem 1rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: flex-end;
+      background: var(--bg);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s;
+    }
+
+    .copy-row.visible { opacity: 1; pointer-events: auto; }
+
+    /* ── FOOTER ── */
     footer {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #e8e8e8;
-      font-size: 0.85rem;
-      color: #aaa;
+      padding: 2.5rem 0 3rem;
+      font-size: .72rem;
+      color: var(--faint);
+      text-align: center;
+      animation: fadein .5s .25s ease both;
+    }
+
+    footer a { color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    footer a:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .top { padding: 2.5rem 0 2rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Selkokielelle</h1>
-      <p class="subtitle">Muunna teksti helpommin luettavaksi selkokieleksi.</p>
-    </header>
 
-    <main>
-      <div class="input-section">
-        <label for="input-text">Syötä teksti</label>
-        <textarea
-          id="input-text"
-          placeholder="Liitä tai kirjoita tähän muunnettava teksti..."
-          maxlength="3000"
-        ></textarea>
-        <div class="char-counter" id="char-counter">0 / 3000</div>
-      </div>
+<div class="wrap">
 
-      <button class="submit-btn" id="submit-btn" type="button">
-        Muunna selkokielelle
-      </button>
-
-      <div class="loading" id="loading">Muunnetaan&hellip;</div>
-
-      <div class="error-message" id="error-message"></div>
-
-      <div class="result-section" id="result-section">
-        <h2>Selkokielinen teksti</h2>
-        <div class="result-box" id="result-box"></div>
-      </div>
-    </main>
-
-    <footer>
-      selkokielelle.fi
-    </footer>
+  <div class="top">
+    <div class="wordmark">Selkokielelle</div>
+    <div class="tagline">Muuta teksti selkosuomeksi.</div>
   </div>
 
-  <script>
-    const API_URL = '/api/translate'; // PRODUCTION — change to 'http://localhost:8000/api/translate' for local dev
+  <hr>
 
-    const textarea = document.getElementById('input-text');
-    const charCounter = document.getElementById('char-counter');
-    const submitBtn = document.getElementById('submit-btn');
-    const loading = document.getElementById('loading');
-    const errorMessage = document.getElementById('error-message');
-    const resultSection = document.getElementById('result-section');
-    const resultBox = document.getElementById('result-box');
+  <!-- INPUT -->
+  <div class="editor" id="editor">
+    <div class="editor-header">
+      <span class="editor-label">Teksti</span>
+      <span class="char-count" id="char-count">0 / 3000</span>
+    </div>
+    <textarea
+      id="input-text"
+      placeholder="Kirjoita tai liitä teksti tähän…"
+      maxlength="3000"
+      rows="7"
+      aria-label="Syötä muunnettava teksti"
+    ></textarea>
+    <div class="action-row">
+      <button class="btn btn-primary" id="convert-btn" disabled>
+        <div class="spinner"></div>
+        <svg class="btn-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        Muunna
+      </button>
+    </div>
+  </div>
 
-    const MAX_CHARS = 3000;
+  <!-- DIVIDER -->
+  <div class="arrow-sep" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+    </svg>
+  </div>
 
-    textarea.addEventListener('input', updateCounter);
+  <!-- OUTPUT -->
+  <div class="output state-empty" id="output-wrap">
+    <div class="output-header">
+      <span class="editor-label">Selkokieli</span>
+    </div>
+    <div class="output-body">
+      <div class="output-empty">Tulos ilmestyy tähän</div>
+      <div class="skeleton" id="skeleton">
+        <div class="sk-line"></div>
+        <div class="sk-line"></div>
+        <div class="sk-line"></div>
+        <div class="sk-line"></div>
+      </div>
+      <p id="output-text" role="region" aria-live="polite"></p>
+    </div>
+    <div class="copy-row" id="copy-row">
+      <button class="btn btn-ghost" id="copy-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Kopioi
+      </button>
+    </div>
+  </div>
 
-    function updateCounter() {
-      const count = textarea.value.length;
-      charCounter.textContent = count + ' / ' + MAX_CHARS;
-      if (count > MAX_CHARS) {
-        charCounter.classList.add('over-limit');
-      } else {
-        charCounter.classList.remove('over-limit');
-      }
-    }
+  <footer>
+    <a href="https://selkokielelle.online" target="_blank" rel="noopener">selkokielelle.online</a>
+  </footer>
 
-    submitBtn.addEventListener('click', handleSubmit);
+</div>
 
-    async function handleSubmit() {
-      const text = textarea.value;
+<script>
+  const API_URL = '/api/translate'; // PRODUCTION — change to 'http://localhost:8000/api/translate' for local dev
 
-      if (!text || !text.trim()) {
-        showError('Teksti ei voi olla tyhjä.');
-        return;
-      }
+  const inputEl    = document.getElementById('input-text');
+  const countEl    = document.getElementById('char-count');
+  const btnConv    = document.getElementById('convert-btn');
+  const outputWrap = document.getElementById('output-wrap');
+  const outputEl   = document.getElementById('output-text');
+  const copyRow    = document.getElementById('copy-row');
+  const btnCopy    = document.getElementById('copy-btn');
 
-      if (text.length > MAX_CHARS) {
-        showError('Teksti on liian pitkä. Enimmäispituus on 3000 merkkiä.');
-        return;
-      }
+  const MAX = 3000;
 
-      setLoading(true);
-      hideError();
-      hideResult();
+  inputEl.addEventListener('input', () => {
+    const len = inputEl.value.length;
+    countEl.textContent = `${len} / ${MAX}`;
+    countEl.className = 'char-count' + (len >= MAX ? ' over' : len > MAX * .85 ? ' warn' : '');
+    btnConv.disabled = len === 0;
+  });
 
-      try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
+  btnConv.addEventListener('click', async () => {
+    const text = inputEl.value.trim();
+    if (!text) return;
+
+    btnConv.classList.add('is-loading');
+    btnConv.disabled = true;
+    outputWrap.className = 'output state-loading';
+    outputEl.classList.remove('visible');
+    copyRow.classList.remove('visible');
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.result) {
+        outputEl.textContent = data.result;
+        outputWrap.className = 'output state-done';
+        requestAnimationFrame(() => {
+          outputEl.classList.add('visible');
+          copyRow.classList.add('visible');
         });
-
-        const data = await response.json();
-
-        if (response.ok && data.result) {
-          showResult(data.result);
-        } else {
-          const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
-          showError(msg);
-        }
-      } catch (err) {
-        showError('Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.');
-      } finally {
-        setLoading(false);
+      } else {
+        const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
+        outputEl.textContent = msg;
+        outputWrap.className = 'output state-done';
+        outputEl.classList.add('visible');
       }
+    } catch {
+      outputEl.textContent = 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.';
+      outputWrap.className = 'output state-done';
+      outputEl.classList.add('visible');
+    } finally {
+      btnConv.classList.remove('is-loading');
+      btnConv.disabled = inputEl.value.length === 0;
     }
+  });
 
-    function setLoading(active) {
-      submitBtn.disabled = active;
-      loading.style.display = active ? 'block' : 'none';
-    }
-
-    function showError(msg) {
-      errorMessage.textContent = msg;
-      errorMessage.style.display = 'block';
-    }
-
-    function hideError() {
-      errorMessage.style.display = 'none';
-    }
-
-    function showResult(text) {
-      resultBox.textContent = text;
-      resultSection.style.display = 'block';
-    }
-
-    function hideResult() {
-      resultSection.style.display = 'none';
-      resultBox.textContent = '';
-    }
-  </script>
+  btnCopy.addEventListener('click', () => {
+    navigator.clipboard.writeText(outputEl.textContent).then(() => {
+      const orig = btnCopy.innerHTML;
+      btnCopy.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Kopioitu`;
+      setTimeout(() => btnCopy.innerHTML = orig, 2000);
+    });
+  });
+</script>
 </body>
 </html>
