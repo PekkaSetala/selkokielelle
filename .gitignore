@@ -6,3 +6,11 @@ __pycache__/
 venv/
 *.egg-info/
 .venv/
+
+# Build session artefacts — keep locally, not in repo
+README_dev.md
+docs/
+phase-*-complete*.md
+*RDM.md
+selkokielelle_prompts.md
+selkokielelle-v*.html
