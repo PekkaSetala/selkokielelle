@@ -108,12 +108,11 @@
     textarea {
       display: block;
       width: 100%;
-      height: 300px;
+      min-height: 180px;
       padding: 1.1rem 1rem;
       border: none;
       outline: none;
-      resize: vertical;
-      overflow-y: auto;
+      resize: none;
       font-family: 'DM Sans', sans-serif;
       font-size: 1rem;
       font-weight: 300;
@@ -129,8 +128,7 @@
     .action-row {
       padding: .75rem 1rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: flex-end;
       border-top: 1px solid var(--rule);
       background: var(--bg);
     }
@@ -218,8 +216,7 @@
 
     .output-body {
       padding: 1.1rem 1rem;
-      height: 300px;
-      overflow-y: auto;
+      min-height: 120px;
       display: flex;
       align-items: flex-start;
     }
@@ -335,18 +332,17 @@
   <div class="editor" id="editor">
     <div class="editor-header">
       <span class="editor-label">Teksti</span>
-      <span class="char-count" id="char-count">0 / 5000</span>
+      <span class="char-count" id="char-count">0 / 3000</span>
     </div>
     <textarea
       id="input-text"
       placeholder="Kirjoita tai liitä teksti tähän…"
-      maxlength="5000"
+      maxlength="3000"
       rows="7"
       aria-label="Syötä muunnettava teksti"
     ></textarea>
     <div class="action-row">
-      <button class="btn btn-ghost" id="clear-btn" type="button">Tyhjennä</button>
-      <button class="btn btn-primary" id="convert-btn" disabled>
+      <button class="btn btn-primary is-loading" id="convert-btn" disabled>
         <div class="spinner"></div>
         <svg class="btn-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
         Muunna
@@ -386,25 +382,23 @@
 
   <footer>
     <a href="https://selkokielelle.online" target="_blank" rel="noopener">selkokielelle.online</a>
-    &ensp;·&ensp;
-    <a href="tietosuoja.html">Tietosuoja ja tietoja palvelusta</a>
   </footer>
 
 </div>
 
 <script>
-  const API_URL = '/api/translate'; // PRODUCTION — change to 'http://localhost:8000/api/translate' for local dev
-
-  const inputEl    = document.getElementById('input-text');
-  const countEl    = document.getElementById('char-count');
-  const btnConv    = document.getElementById('convert-btn');
-  const btnClear   = document.getElementById('clear-btn');
+  const inputEl  = document.getElementById('input-text');
+  const countEl  = document.getElementById('char-count');
+  const btnConv  = document.getElementById('convert-btn');
   const outputWrap = document.getElementById('output-wrap');
-  const outputEl   = document.getElementById('output-text');
-  const copyRow    = document.getElementById('copy-row');
-  const btnCopy    = document.getElementById('copy-btn');
+  const outputEl = document.getElementById('output-text');
+  const copyRow  = document.getElementById('copy-row');
+  const btnCopy  = document.getElementById('copy-btn');
 
-  const MAX = 5000;
+  const MAX = 3000;
+
+  // remove initial loading state from button
+  btnConv.classList.remove('is-loading');
 
   inputEl.addEventListener('input', () => {
     const len = inputEl.value.length;
@@ -424,46 +418,35 @@
     copyRow.classList.remove('visible');
 
     try {
-      const response = await fetch(API_URL, {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: 'Olet selkokielen asiantuntija. Muunna käyttäjän antama teksti selkokieleksi: käytä lyhyitä lauseita, yleisiä sanoja, aktiivista äänessä. Älä lisää selityksiä tai kommentteja – palauta vain muunnettu teksti.',
+          messages: [{ role: 'user', content: text }]
+        })
       });
 
-      const data = await response.json();
+      const data = await res.json();
+      const result = data?.content?.[0]?.text || '(Ei tulosta)';
 
-      if (response.ok && data.result) {
-        outputEl.textContent = data.result;
-        outputWrap.className = 'output state-done';
-        requestAnimationFrame(() => {
-          outputEl.classList.add('visible');
-          copyRow.classList.add('visible');
-        });
-      } else {
-        const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
-        outputEl.textContent = msg;
-        outputWrap.className = 'output state-done';
+      outputEl.textContent = result;
+      outputWrap.className = 'output state-done';
+      requestAnimationFrame(() => {
         outputEl.classList.add('visible');
-      }
+        copyRow.classList.add('visible');
+      });
+
     } catch {
-      outputEl.textContent = 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.';
+      outputEl.textContent = 'Virhe. Yritä uudelleen.';
       outputWrap.className = 'output state-done';
       outputEl.classList.add('visible');
     } finally {
       btnConv.classList.remove('is-loading');
       btnConv.disabled = inputEl.value.length === 0;
     }
-  });
-
-  btnClear.addEventListener('click', () => {
-    inputEl.value = '';
-    countEl.textContent = `0 / ${MAX}`;
-    countEl.className = 'char-count';
-    btnConv.disabled = true;
-    outputEl.textContent = '';
-    outputEl.classList.remove('visible');
-    outputWrap.className = 'output state-empty';
-    copyRow.classList.remove('visible');
   });
 
   btnCopy.addEventListener('click', () => {
