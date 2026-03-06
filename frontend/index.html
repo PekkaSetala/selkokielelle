@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Selkokielelle</title>
+  <title>Selkokielelle – Muunna teksti selkokielelle</title>
+  <meta name="description" content="Ilmainen työkalu tekstin muuntamiseen selkokielelle tekoälyn avulla." />
+  <link rel="canonical" href="https://selkokielelle.online/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -326,7 +328,7 @@
 
   <div class="top">
     <div class="wordmark">Selkokielelle</div>
-    <div class="tagline">Muuta teksti selkosuomeksi.</div>
+    <div class="tagline">Muunna teksti selkokielelle.</div>
   </div>
 
   <hr>
@@ -467,12 +469,46 @@
   });
 
   btnCopy.addEventListener('click', () => {
-    navigator.clipboard.writeText(outputEl.textContent).then(() => {
+    const text = outputEl.textContent;
+
+    function showCopied() {
       const orig = btnCopy.innerHTML;
       btnCopy.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Kopioitu`;
       setTimeout(() => btnCopy.innerHTML = orig, 2000);
-    });
+    }
+
+    function showFailed() {
+      const orig = btnCopy.innerHTML;
+      btnCopy.innerHTML = '✕ Kopiointi epäonnistui';
+      setTimeout(() => btnCopy.innerHTML = orig, 2000);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(showCopied).catch(() => {
+        execCommandFallback(text) ? showCopied() : showFailed();
+      });
+    } else {
+      execCommandFallback(text) ? showCopied() : showFailed();
+    }
   });
+
+  function execCommandFallback(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      return true;
+    } catch {
+      return false;
+    } finally {
+      document.body.removeChild(ta);
+    }
+  }
 </script>
 </body>
 </html>
