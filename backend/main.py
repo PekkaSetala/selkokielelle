@@ -95,8 +95,8 @@ async def translate(request: TranslateRequest):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://selkokielelle.fi",
-        "X-Title": "selkokielelle.fi",
+        "HTTP-Referer": "https://selkokielelle.online",
+        "X-Title": "selkokielelle.online",
     }
 
     payload = {
