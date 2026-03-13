@@ -25,11 +25,10 @@ function buildPanel() {
       #skl-loading-label { font-size: .8rem; color: #908C83; margin-bottom: .6rem; }
       .skl-skeleton-line { height: 1rem; border-radius: 4px; background: linear-gradient(90deg, #D0CCBF 25%, #ECEAE4 50%, #D0CCBF 75%); background-size: 200% 100%; animation: skl-shimmer 1.4s infinite; }
       #skl-slow-msg { margin-top: 1rem; font-size: 0.8rem; color: #908C83; opacity: 0; transition: opacity 400ms; }
-      #skl-result-header { padding: .7rem 1rem; display: flex; align-items: center; border-bottom: 1px solid #D0CCBF; }
-      #skl-label { font-size: .7rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: #908C83; margin: 0; }
-      #skl-result-body { padding: 1.1rem 1rem; height: 300px; overflow-y: auto; display: flex; align-items: flex-start; }
+      #skl-state-result { display: flex; flex-direction: column; }
+      #skl-result-body { padding: 1.1rem 1rem; flex: 1; overflow-y: auto; display: flex; align-items: flex-start; }
       #skl-result-text { font-size: 1rem; font-weight: 300; line-height: 1.75; color: #1C1B19; margin: 0; white-space: pre-wrap; width: 100%; }
-      #skl-result-copy-row { padding: .6rem 1rem; border-top: 1px solid #D0CCBF; display: flex; justify-content: flex-end; background: #F9F8F6; }
+      #skl-result-copy-row { padding: .6rem 1rem; border-top: 1px solid #D0CCBF; display: flex; justify-content: flex-end; background: #F9F8F6; flex-shrink: 0; }
       #skl-error-msg { font-size: 1.1rem; line-height: 1.7; color: #1C1B19; margin: 0 0 1rem; }
       #skl-retry { display: inline-flex; align-items: center; background: none; border: 1.5px solid #1C1B19; border-radius: 99px; padding: 0.5rem 1.25rem; font-size: 0.95rem; font-weight: 500; font-family: inherit; color: #1C1B19; cursor: pointer; transition: background 120ms, color 120ms; margin-top: 0.25rem; }
       #skl-retry:hover { background: #1C1B19; color: #F9F8F6; }
@@ -60,9 +59,6 @@ function buildPanel() {
         <p id="skl-slow-msg">Tämä kestää hetken...</p>
       </div>
       <div id="skl-state-result" class="skl-state" hidden>
-        <div id="skl-result-header">
-          <span id="skl-label">Selkokieli</span>
-        </div>
         <div id="skl-result-body">
           <p id="skl-result-text"></p>
         </div>
