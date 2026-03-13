@@ -13,26 +13,39 @@ function buildPanel() {
   el.innerHTML = `
     <div id="skl-header">
       <span id="skl-wordmark">Selkokielelle</span>
-      <button id="skl-close" aria-label="Sulje">&#10005;</button>
+      <button id="skl-close" aria-label="Sulje">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+    </button>
     </div>
     <div id="skl-body">
       <div id="skl-state-loading" class="skl-state">
+        <p id="skl-loading-label">Muunnetaan…</p>
         <div class="skl-skeleton-line" style="width:100%"></div>
-        <div class="skl-skeleton-line" style="width:78%"></div>
-        <div class="skl-skeleton-line" style="width:60%"></div>
+        <div class="skl-skeleton-line" style="width:88%"></div>
+        <div class="skl-skeleton-line" style="width:95%"></div>
+        <div class="skl-skeleton-line" style="width:72%"></div>
         <p id="skl-slow-msg">Tämä kestää hetken...</p>
       </div>
       <div id="skl-state-result" class="skl-state" hidden>
-        <span id="skl-label">SELKOKIELI</span>
-        <p id="skl-result-text"></p>
+        <div id="skl-result-header">
+          <span id="skl-label">Selkokieli</span>
+        </div>
+        <div id="skl-result-body">
+          <p id="skl-result-text"></p>
+        </div>
+        <div id="skl-result-copy-row">
+          <button id="skl-copy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Kopioi
+          </button>
+        </div>
       </div>
       <div id="skl-state-error" class="skl-state" hidden>
         <p id="skl-error-msg"></p>
         <button id="skl-retry">Yritä uudelleen</button>
       </div>
-    </div>
-    <div id="skl-footer" hidden>
-      <button id="skl-copy">Kopioi</button>
     </div>
   `;
   return el;
@@ -60,9 +73,9 @@ function showToast(msg) {
   toast.style.cssText = [
     'background:#1C1B19',
     'color:#fff',
-    'font-family:system-ui,-apple-system,sans-serif',
+    'font-family:\'DM Sans\',system-ui,-apple-system,sans-serif',
     'font-size:0.8rem',
-    'border-radius:99px',
+    'border-radius:10px',
     'padding:0.45rem 1rem',
     'opacity:0',
     'transition:opacity 150ms',
@@ -92,9 +105,11 @@ function ensurePanel() {
     'position:fixed',
     'top:0',
     'right:0',
-    'width:360px',
+    'width:400px',
     'height:100vh',
     'z-index:2147483647',
+    'background:#F9F8F6',
+    'overflow:hidden',
     'transform:translateX(100%)',
     'transition:transform 220ms cubic-bezier(0.22,1,0.36,1)',
   ].join(';');
@@ -109,7 +124,7 @@ function ensurePanel() {
   panel = buildPanel();
   shadowRoot.appendChild(panel);
 
-  document.body.appendChild(host);
+  document.documentElement.appendChild(host);
 
   shadowRoot.getElementById('skl-close').addEventListener('click', hidePanel);
   shadowRoot.getElementById('skl-retry').addEventListener('click', () => {
@@ -117,10 +132,12 @@ function ensurePanel() {
   });
   shadowRoot.getElementById('skl-copy').addEventListener('click', () => {
     const text = shadowRoot.getElementById('skl-result-text').textContent;
+    const COPY_HTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Kopioi';
+    const CHECK_HTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Kopioitu';
+    const btn = shadowRoot.getElementById('skl-copy');
     navigator.clipboard.writeText(text).then(() => {
-      const btn = shadowRoot.getElementById('skl-copy');
-      btn.textContent = 'Kopioitu ✓';
-      setTimeout(() => { btn.textContent = 'Kopioi'; }, 2000);
+      btn.innerHTML = CHECK_HTML;
+      setTimeout(() => { btn.innerHTML = COPY_HTML; }, 2000);
     });
   });
 
@@ -140,10 +157,13 @@ function ensurePanel() {
 function showPanel() {
   ensurePanel();
   host.style.transform = 'translateX(0)';
+  document.documentElement.style.transition = 'margin-right 220ms cubic-bezier(0.22,1,0.36,1)';
+  document.documentElement.style.marginRight = '400px';
 }
 
 function hidePanel() {
   if (host) host.style.transform = 'translateX(100%)';
+  document.documentElement.style.marginRight = '';
 }
 
 // ── States ───────────────────────────────────────────────────────────────────
@@ -153,7 +173,6 @@ function setState(name) {
   states.forEach((id) => {
     shadowRoot.getElementById(id).hidden = id !== `skl-state-${name}`;
   });
-  shadowRoot.getElementById('skl-footer').hidden = name !== 'result';
   if (name === 'loading') {
     const slowMsg = shadowRoot.getElementById('skl-slow-msg');
     slowMsg.style.opacity = '0';
