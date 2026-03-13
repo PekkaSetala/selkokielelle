@@ -13,6 +13,7 @@ function buildPanel() {
   el.innerHTML = `
     <style>
       :host { all: initial; }
+      [hidden] { display: none !important; }
       #skl-panel { display: flex; flex-direction: column; width: 100%; height: 100vh; background: #F9F8F6; color: #1C1B19; font-family: 'DM Sans', system-ui, -apple-system, sans-serif; font-size: 17px; box-shadow: -2px 0 0 0 #D0CCBF, -8px 0 32px rgba(0, 0, 0, 0.18); border-left: 1px solid #D0CCBF; }
       #skl-header { display: flex; align-items: center; justify-content: space-between; padding: 0 1.1rem; height: 56px; flex-shrink: 0; border-bottom: 1px solid #D0CCBF; }
       #skl-wordmark { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.5rem; color: #1C1B19; letter-spacing: 0.01em; }
