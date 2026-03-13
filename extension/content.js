@@ -12,9 +12,35 @@ function buildPanel() {
   el.id = 'skl-panel';
   el.innerHTML = `
     <style>
-      #skl-result-body { height: 300px; display: flex; align-items: flex-start; }
-      #skl-result-header { border-bottom: 1px solid #D0CCBF; padding: .7rem 1rem; }
-      #skl-result-copy-row { border-top: 1px solid #D0CCBF; padding: .6rem 1rem; display: flex; justify-content: flex-end; background: #F9F8F6; }
+      :host { all: initial; }
+      #skl-panel { display: flex; flex-direction: column; width: 100%; height: 100vh; background: #F9F8F6; color: #1C1B19; font-family: 'DM Sans', system-ui, -apple-system, sans-serif; font-size: 17px; box-shadow: -2px 0 0 0 #D0CCBF, -8px 0 32px rgba(0, 0, 0, 0.18); border-left: 1px solid #D0CCBF; }
+      #skl-header { display: flex; align-items: center; justify-content: space-between; padding: 0 1.1rem; height: 56px; flex-shrink: 0; border-bottom: 1px solid #D0CCBF; }
+      #skl-wordmark { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.5rem; color: #1C1B19; letter-spacing: 0.01em; }
+      #skl-close { background: none; border: none; cursor: pointer; color: #6B6860; line-height: 1; padding: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-right: -0.5rem; transition: color 120ms, background 120ms; flex-shrink: 0; }
+      #skl-close:hover { color: #1C1B19; background: #EDEAE3; }
+      #skl-close:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
+      #skl-body { flex: 1; overflow-y: auto; padding: 1rem; }
+      .skl-state { background: #FFFFFF; border: 1px solid #D0CCBF; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04); animation: skl-fadein 0.35s ease both; }
+      #skl-state-loading { padding: 1.1rem 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+      #skl-loading-label { font-size: .8rem; color: #908C83; margin-bottom: .6rem; }
+      .skl-skeleton-line { height: 1rem; border-radius: 4px; background: linear-gradient(90deg, #D0CCBF 25%, #ECEAE4 50%, #D0CCBF 75%); background-size: 200% 100%; animation: skl-shimmer 1.4s infinite; }
+      #skl-slow-msg { margin-top: 1rem; font-size: 0.8rem; color: #908C83; opacity: 0; transition: opacity 400ms; }
+      #skl-result-header { padding: .7rem 1rem; display: flex; align-items: center; border-bottom: 1px solid #D0CCBF; }
+      #skl-label { font-size: .7rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: #908C83; margin: 0; }
+      #skl-result-body { padding: 1.1rem 1rem; height: 300px; overflow-y: auto; display: flex; align-items: flex-start; }
+      #skl-result-text { font-size: 1rem; font-weight: 300; line-height: 1.75; color: #1C1B19; margin: 0; white-space: pre-wrap; width: 100%; }
+      #skl-result-copy-row { padding: .6rem 1rem; border-top: 1px solid #D0CCBF; display: flex; justify-content: flex-end; background: #F9F8F6; }
+      #skl-error-msg { font-size: 1.1rem; line-height: 1.7; color: #1C1B19; margin: 0 0 1rem; }
+      #skl-retry { display: inline-flex; align-items: center; background: none; border: 1.5px solid #1C1B19; border-radius: 99px; padding: 0.5rem 1.25rem; font-size: 0.95rem; font-weight: 500; font-family: inherit; color: #1C1B19; cursor: pointer; transition: background 120ms, color 120ms; margin-top: 0.25rem; }
+      #skl-retry:hover { background: #1C1B19; color: #F9F8F6; }
+      #skl-retry:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 3px; }
+      #skl-copy { display: inline-flex; align-items: center; gap: .45rem; background: transparent; border: 1px solid #D0CCBF; border-radius: 99px; padding: .35rem .9rem; font-size: .82rem; font-weight: 500; font-family: inherit; color: #6B6860; cursor: pointer; transition: background 120ms, color 120ms, border-color 120ms; }
+      #skl-copy:hover { background: #EDEAE3; border-color: #908C83; color: #1C1B19; }
+      #skl-copy:active { transform: scale(0.97); }
+      #skl-copy:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
+      @keyframes skl-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+      @keyframes skl-fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
     </style>
     <div id="skl-header">
       <span id="skl-wordmark">Selkokielelle</span>
