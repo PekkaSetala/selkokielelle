@@ -73,17 +73,15 @@
   animation: skl-fadein 0.35s ease both;
 }
 
-#skl-state-loading,
-#skl-state-error {
-  padding: 1.1rem 1rem;
-}
-
-/* ── Loading skeleton ── */
-
 #skl-state-loading {
+  padding: 1.1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+}
+
+#skl-state-error {
+  padding: 1.1rem 1rem;
 }
 
 #skl-loading-label {
@@ -128,7 +126,10 @@
 
 #skl-result-body {
   padding: 1.1rem 1rem;
+  height: 300px;
   overflow-y: auto;
+  display: flex;
+  align-items: flex-start;
 }
 
 #skl-result-text {
@@ -138,6 +139,7 @@
   color: #1C1B19;
   margin: 0;
   white-space: pre-wrap;
+  width: 100%;
 }
 
 #skl-result-copy-row {
