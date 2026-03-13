@@ -4,6 +4,10 @@
   all: initial;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 #skl-panel {
   display: flex;
   flex-direction: column;
