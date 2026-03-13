@@ -11,6 +11,11 @@ function buildPanel() {
   const el = document.createElement('div');
   el.id = 'skl-panel';
   el.innerHTML = `
+    <style>
+      #skl-result-body { height: 300px; display: flex; align-items: flex-start; }
+      #skl-result-header { border-bottom: 1px solid #D0CCBF; padding: .7rem 1rem; }
+      #skl-result-copy-row { border-top: 1px solid #D0CCBF; padding: .6rem 1rem; display: flex; justify-content: flex-end; background: #F9F8F6; }
+    </style>
     <div id="skl-header">
       <span id="skl-wordmark">Selkokielelle</span>
       <button id="skl-close" aria-label="Sulje">
