@@ -7,12 +7,13 @@
 #skl-panel {
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: 100vh;
   background: #F9F8F6;
   color: #1C1B19;
   font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
   font-size: 17px;
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08);
+  box-shadow: -2px 0 0 0 #D0CCBF, -8px 0 32px rgba(0, 0, 0, 0.18);
   border-left: 1px solid #D0CCBF;
 }
 
@@ -23,14 +24,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 1.1rem;
-  height: 48px;
+  height: 56px;
   flex-shrink: 0;
   border-bottom: 1px solid #D0CCBF;
 }
 
 #skl-wordmark {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #1C1B19;
   letter-spacing: 0.01em;
 }
@@ -40,33 +41,41 @@
   border: none;
   cursor: pointer;
   color: #6B6860;
-  font-size: 1.1rem;
   line-height: 1;
-  padding: 0.25rem;
-  border-radius: 4px;
+  padding: 0;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 44px;
+  height: 44px;
+  margin-right: -0.5rem;
   transition: color 120ms, background 120ms;
+  flex-shrink: 0;
 }
 
-#skl-close:hover {
-  color: #1C1B19;
-  background: #EDEAE3;
-}
+#skl-close:hover { color: #1C1B19; background: #EDEAE3; }
+#skl-close:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
 
 /* ── Body ── */
 
 #skl-body {
   flex: 1;
   overflow-y: auto;
-  padding: 1.25rem 1.2rem;
+  padding: 1rem;
 }
 
 .skl-state {
+  background: #FFFFFF;
+  border: 1px solid #D0CCBF;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04);
   animation: skl-fadein 0.35s ease both;
+}
+
+#skl-state-loading,
+#skl-state-error {
+  padding: 1.1rem 1rem;
 }
 
 /* ── Loading skeleton ── */
@@ -77,10 +86,16 @@
   gap: 0.6rem;
 }
 
+#skl-loading-label {
+  font-size: .8rem;
+  color: #908C83;
+  margin-bottom: .6rem;
+}
+
 .skl-skeleton-line {
   height: 1rem;
   border-radius: 4px;
-  background: linear-gradient(90deg, #E8E4DC 25%, #F0EDE7 50%, #E8E4DC 75%);
+  background: linear-gradient(90deg, #D0CCBF 25%, #ECEAE4 50%, #D0CCBF 75%);
   background-size: 200% 100%;
   animation: skl-shimmer 1.4s infinite;
 }
@@ -95,78 +110,93 @@
 
 /* ── Result ── */
 
+#skl-result-header {
+  padding: .7rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #D0CCBF;
+}
+
 #skl-label {
-  display: block;
-  font-size: 0.7rem;
+  font-size: .7rem;
   font-weight: 500;
-  letter-spacing: 0.07em;
-  color: #908C83;
-  margin-bottom: 0.75rem;
+  letter-spacing: .07em;
   text-transform: uppercase;
+  color: #908C83;
+  margin: 0;
+}
+
+#skl-result-body {
+  padding: 1.1rem 1rem;
+  overflow-y: auto;
 }
 
 #skl-result-text {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
-  line-height: 1.85;
+  line-height: 1.75;
   color: #1C1B19;
   margin: 0;
   white-space: pre-wrap;
 }
 
+#skl-result-copy-row {
+  padding: .6rem 1rem;
+  border-top: 1px solid #D0CCBF;
+  display: flex;
+  justify-content: flex-end;
+  background: #F9F8F6;
+}
+
 /* ── Error ── */
 
 #skl-error-msg {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #6B6860;
-  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #1C1B19;
+  margin: 0 0 1rem;
 }
 
 #skl-retry {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #2C4BFF;
-  font-size: 0.95rem;
-  font-family: inherit;
-  padding: 0;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-#skl-retry:hover {
-  color: #1a36e8;
-}
-
-/* ── Footer ── */
-
-#skl-footer {
-  flex-shrink: 0;
-  height: 44px;
-  border-top: 1px solid #D0CCBF;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0 1.1rem;
+  background: none;
+  border: 1.5px solid #1C1B19;
+  border-radius: 99px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #1C1B19;
+  cursor: pointer;
+  transition: background 120ms, color 120ms;
+  margin-top: 0.25rem;
 }
+
+#skl-retry:hover { background: #1C1B19; color: #F9F8F6; }
+#skl-retry:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 3px; }
+
+/* ── Copy Button ── */
 
 #skl-copy {
-  background: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  background: transparent;
   border: 1px solid #D0CCBF;
-  border-radius: 6px;
-  padding: 0.3rem 0.85rem;
-  font-size: 0.85rem;
+  border-radius: 99px;
+  padding: .35rem .9rem;
+  font-size: .82rem;
+  font-weight: 500;
   font-family: inherit;
   color: #6B6860;
   cursor: pointer;
-  transition: border-color 120ms, color 120ms;
+  transition: background 120ms, color 120ms, border-color 120ms;
 }
 
-#skl-copy:hover {
-  border-color: #908C83;
-  color: #1C1B19;
-}
+#skl-copy:hover { background: #EDEAE3; border-color: #908C83; color: #1C1B19; }
+#skl-copy:active { transform: scale(0.97); }
+#skl-copy:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
 
 /* ── Animations ── */
 
