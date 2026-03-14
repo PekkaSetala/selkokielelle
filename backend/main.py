@@ -134,7 +134,7 @@ async def translate(request: Request, body: TranslateRequest):
     payload = {
         "model": MODEL,
         "temperature": 0.3,
-        "max_tokens": 1200,
+        "max_tokens": 2500,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": text},
@@ -162,11 +162,18 @@ async def translate(request: Request, body: TranslateRequest):
 
     try:
         data = response.json()
-        result = data["choices"][0]["message"]["content"]
+        choice = data["choices"][0]
+        result = choice["message"]["content"]
     except (KeyError, IndexError, ValueError):
         return JSONResponse(
             status_code=502,
             content={"error": "Jokin meni pieleen, yritä uudelleen"},
+        )
+
+    if choice.get("finish_reason") == "length":
+        return JSONResponse(
+            status_code=502,
+            content={"error": "Teksti on liian pitkä muunnettavaksi kerralla. Kokeile lyhyempää tekstiä."},
         )
 
     return {"result": result}
