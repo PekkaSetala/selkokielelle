@@ -354,9 +354,13 @@
 
     /* Desktop layout: side-by-side */
     @media (min-width: 800px) {
+      body {
+        height: 100dvh;
+        overflow: hidden;
+      }
+
       .wrap {
         max-width: 1080px;
-        min-height: 0;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto 1fr auto;
