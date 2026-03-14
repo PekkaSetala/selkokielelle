@@ -7,6 +7,11 @@ venv/
 *.egg-info/
 .venv/
 
+# Sensitive files — never commit keys, certs, or env files
+*.key
+*.pem
+*.env
+
 # Build session artefacts — keep locally, not in repo
 README_dev.md
 docs/

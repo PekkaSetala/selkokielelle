@@ -264,10 +264,17 @@
       line-height: 1.75;
       font-weight: 300;
       color: var(--ink);
-      white-space: pre-wrap;
       opacity: 0;
       transition: opacity .35s ease;
       width: 100%;
+    }
+
+    #output-text p {
+      margin: 0 0 1em 0;
+    }
+
+    #output-text p:last-child {
+      margin-bottom: 0;
     }
 
     #output-text.visible { opacity: 1; }
@@ -408,6 +415,14 @@
 
   const MAX = 5000;
 
+  function renderParagraphs(text) {
+    return text.split(/\n\n+/).map(para => {
+      const div = document.createElement('div');
+      div.textContent = para.trim();
+      return `<p>${div.innerHTML}</p>`;
+    }).join('');
+  }
+
   inputEl.addEventListener('input', () => {
     const len = inputEl.value.length;
     countEl.textContent = `${len} / ${MAX}`;
@@ -435,7 +450,7 @@
       const data = await response.json();
 
       if (response.ok && data.result) {
-        outputEl.textContent = data.result;
+        outputEl.innerHTML = renderParagraphs(data.result);
         outputWrap.className = 'output state-done';
         requestAnimationFrame(() => {
           outputEl.classList.add('visible');
@@ -443,12 +458,16 @@
         });
       } else {
         const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
-        outputEl.textContent = msg;
+        const div = document.createElement('div');
+        div.textContent = msg;
+        outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
         outputWrap.className = 'output state-done';
         outputEl.classList.add('visible');
       }
     } catch {
-      outputEl.textContent = 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.';
+      const div = document.createElement('div');
+      div.textContent = 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.';
+      outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
       outputWrap.className = 'output state-done';
       outputEl.classList.add('visible');
     } finally {
@@ -462,7 +481,7 @@
     countEl.textContent = `0 / ${MAX}`;
     countEl.className = 'char-count';
     btnConv.disabled = true;
-    outputEl.textContent = '';
+    outputEl.innerHTML = '';
     outputEl.classList.remove('visible');
     outputWrap.className = 'output state-empty';
     copyRow.classList.remove('visible');
