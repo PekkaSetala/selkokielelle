@@ -80,8 +80,13 @@
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04);
-      animation: fadein .5s .1s ease both;
+      animation: fadein-slide .5s .1s ease both;
+      opacity: 0;
       transition: opacity 0.25s ease;
+    }
+
+    .editor.appeared {
+      opacity: 1;
     }
 
     .editor-header {
@@ -334,6 +339,12 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* slide-only variant: no opacity in keyframes so fill-mode won't lock it */
+    @keyframes fadein-slide {
+      from { transform: translateY(8px); }
+      to   { transform: translateY(0); }
+    }
+
     @media (max-width: 480px) {
       .top { padding: 2.5rem 0 2rem; }
     }
@@ -505,10 +516,10 @@
 
   const limitHint = document.getElementById('limit-hint');
 
-  function muteInput()   { editorEl.style.animation = 'none'; editorEl.style.opacity = '0.7'; }
-  function unmuteInput() { editorEl.style.animation = 'none'; editorEl.style.opacity = ''; }
-
-  inputEl.addEventListener('focus', unmuteInput);
+  /* Initial fade-in: add .appeared after the animation delay so opacity
+     transitions from 0 → 1 via CSS transition, not animation fill-mode.
+     This keeps opacity in the normal cascade layer where :has() can override it. */
+  setTimeout(() => editorEl.classList.add('appeared'), 120);
 
   inputEl.addEventListener('input', () => {
     const len = inputEl.value.length;
@@ -542,7 +553,6 @@
       if (response.ok && data.result) {
         outputEl.innerHTML = renderParagraphs(data.result);
         outputWrap.className = 'output state-done';
-        muteInput();
         requestAnimationFrame(() => {
           outputEl.classList.add('visible');
           btnCopy.disabled = false;
@@ -554,7 +564,6 @@
         outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
         outputWrap.className = 'output state-done';
         outputEl.classList.add('visible');
-        muteInput();
       }
     } catch {
       const div = document.createElement('div');
@@ -562,7 +571,6 @@
       outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
       outputWrap.className = 'output state-done';
       outputEl.classList.add('visible');
-      muteInput();
     } finally {
       btnConv.classList.remove('is-loading');
       btnConv.disabled = inputEl.value.length === 0 || inputEl.value.length > MAX;
@@ -579,7 +587,6 @@
     outputEl.innerHTML = '';
     outputEl.classList.remove('visible');
     outputWrap.className = 'output state-empty';
-    unmuteInput();
   });
 
   btnCopy.addEventListener('click', () => {
