@@ -327,6 +327,57 @@
     @media (max-width: 480px) {
       .top { padding: 2.5rem 0 2rem; }
     }
+
+    /* Desktop layout: side-by-side */
+    @media (min-width: 800px) {
+      .wrap {
+        max-width: 1080px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .top {
+        grid-column: 1 / -1;
+        padding: 3.5rem 0 1.5rem;
+      }
+
+      hr {
+        grid-column: 1 / -1;
+        margin-bottom: 0;
+      }
+
+      .editor {
+        grid-column: 1;
+      }
+
+      .arrow-sep {
+        grid-column: 1 / -1;
+        padding: .6rem 0;
+        transform: rotate(90deg);
+        height: auto;
+      }
+
+      .output {
+        grid-column: 2;
+        height: fit-content;
+      }
+
+      .output-body {
+        height: auto;
+        min-height: 300px;
+      }
+
+      textarea {
+        height: 400px;
+      }
+
+      footer {
+        grid-column: 1 / -1;
+        padding: 2rem 0 3rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -395,6 +446,8 @@
 
   <footer>
     <a href="https://selkokielelle.online" target="_blank" rel="noopener">selkokielelle.online</a>
+    &ensp;·&ensp;
+    <a href="laajennos.html">Laajennus</a>
     &ensp;·&ensp;
     <a href="tietosuoja.html">Tietosuoja ja tietoja palvelusta</a>
   </footer>

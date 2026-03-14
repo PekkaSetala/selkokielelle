@@ -14,9 +14,9 @@ function buildPanel() {
     <style>
       :host { all: initial; }
       [hidden] { display: none !important; }
-      #skl-panel { display: flex; flex-direction: column; width: 100%; height: 100vh; background: #F9F8F6; color: #1C1B19; font-family: 'DM Sans', system-ui, -apple-system, sans-serif; font-size: 17px; box-shadow: -2px 0 0 0 #D0CCBF, -8px 0 32px rgba(0, 0, 0, 0.18); border-left: 1px solid #D0CCBF; }
+      #skl-panel { display: flex; flex-direction: column; width: 100%; height: 100vh; background: #F9F8F6; color: #1C1B19; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 17px; box-shadow: -2px 0 0 0 #D0CCBF, -8px 0 32px rgba(0, 0, 0, 0.18); border-left: 1px solid #D0CCBF; -webkit-font-smoothing: antialiased; }
       #skl-header { display: flex; align-items: center; justify-content: space-between; padding: 0 1.1rem; height: 56px; flex-shrink: 0; border-bottom: 1px solid #D0CCBF; }
-      #skl-wordmark { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.5rem; color: #1C1B19; letter-spacing: 0.01em; }
+      #skl-wordmark { font-family: Georgia, 'Times New Roman', serif; font-size: 1.5rem; font-weight: 600; color: #1C1B19; letter-spacing: 0.01em; }
       #skl-close { background: none; border: none; cursor: pointer; color: #6B6860; line-height: 1; padding: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-right: -0.5rem; transition: color 120ms, background 120ms; flex-shrink: 0; }
       #skl-close:hover { color: #1C1B19; background: #EDEAE3; }
       #skl-close:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
@@ -42,7 +42,6 @@ function buildPanel() {
       #skl-copy:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
       @keyframes skl-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
       @keyframes skl-fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500&family=Instrument+Serif:ital@0;1&display=swap');
     </style>
     <div id="skl-header">
       <span id="skl-wordmark">Selkokielelle</span>
