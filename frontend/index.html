@@ -81,6 +81,7 @@
       overflow: hidden;
       box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04);
       animation: fadein .5s .1s ease both;
+      transition: opacity 0.25s ease;
     }
 
     .editor-header {
@@ -139,7 +140,7 @@
 
     textarea::placeholder { color: var(--faint); }
 
-    .wrap:has(.output.state-done) .editor:not(:focus-within) { opacity: 0.7 !important; }
+    .wrap:has(.output.state-done) .editor:not(:focus-within) { opacity: 0.7; }
 
     /* ── ACTION ROW ── */
     .action-row {
@@ -504,8 +505,8 @@
 
   const limitHint = document.getElementById('limit-hint');
 
-  function muteInput()   { editorEl.style.setProperty('opacity', '0.7', 'important'); }
-  function unmuteInput() { editorEl.style.removeProperty('opacity'); }
+  function muteInput()   { editorEl.style.animation = 'none'; editorEl.style.opacity = '0.7'; }
+  function unmuteInput() { editorEl.style.animation = 'none'; editorEl.style.opacity = ''; }
 
   inputEl.addEventListener('focus', unmuteInput);
 
