@@ -55,7 +55,7 @@
       font-size: 1.5rem;
       letter-spacing: -.01em;
       color: var(--ink);
-      margin-bottom: .35rem;
+      margin-bottom: .55rem;
     }
 
     .tagline {
@@ -226,6 +226,11 @@
       align-items: flex-start;
     }
 
+    .state-empty .output-body {
+      align-items: center;
+      justify-content: center;
+    }
+
     .output-empty {
       width: 100%;
       display: flex;
@@ -305,6 +310,7 @@
     }
 
     .copy-row.visible { opacity: 1; pointer-events: auto; }
+    .copy-row .btn { font-size: .875rem; padding: .5rem 1.2rem; }
 
     /* ── FOOTER ── */
     footer {
@@ -345,7 +351,7 @@
 
       .top {
         grid-column: 1 / -1;
-        padding: 2rem 0 1rem;
+        padding: 2rem 0 1.5rem;
       }
 
       hr {
@@ -387,6 +393,7 @@
 
       textarea {
         height: 400px;
+        resize: none;
       }
 
       footer {
