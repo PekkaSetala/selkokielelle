@@ -146,11 +146,6 @@ function ensurePanel() {
 
   shadowRoot = host.attachShadow({ mode: 'closed' });
 
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = chrome.runtime.getURL('content.css');
-  shadowRoot.appendChild(link);
-
   panel = buildPanel();
   shadowRoot.appendChild(panel);
 
@@ -167,6 +162,10 @@ function ensurePanel() {
     const btn = shadowRoot.getElementById('skl-copy');
     navigator.clipboard.writeText(text).then(() => {
       btn.innerHTML = CHECK_HTML;
+      setTimeout(() => { btn.innerHTML = COPY_HTML; }, 2000);
+    }).catch(() => {
+      const FAIL_HTML = '✕ Kopiointi epäonnistui';
+      btn.innerHTML = FAIL_HTML;
       setTimeout(() => { btn.innerHTML = COPY_HTML; }, 2000);
     });
   });
@@ -189,11 +188,13 @@ function showPanel() {
   host.style.transform = 'translateX(0)';
   document.documentElement.style.transition = 'margin-right 220ms cubic-bezier(0.22,1,0.36,1)';
   document.documentElement.style.marginRight = '400px';
+  document.documentElement.style.overflowX = 'hidden';
 }
 
 function hidePanel() {
   if (host) host.style.transform = 'translateX(100%)';
   document.documentElement.style.marginRight = '';
+  document.documentElement.style.overflowX = '';
 }
 
 // ── States ───────────────────────────────────────────────────────────────────

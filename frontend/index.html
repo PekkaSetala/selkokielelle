@@ -139,7 +139,7 @@
 
     textarea::placeholder { color: var(--faint); }
 
-    .wrap:has(.output.state-done) textarea:not(:focus) { opacity: 0.45; }
+    .wrap:has(.output.state-done) .editor:not(:focus-within) { opacity: 0.7 !important; }
 
     /* ── ACTION ROW ── */
     .action-row {
@@ -460,7 +460,7 @@
         <div class="sk-line"></div>
         <div class="sk-line"></div>
       </div>
-      <p id="output-text" role="region" aria-live="polite"></p>
+      <div id="output-text" role="region" aria-live="polite"></div>
     </div>
     <div class="copy-row" id="copy-row">
       <button class="btn btn-ghost" id="copy-btn" disabled>
@@ -484,6 +484,7 @@
   const API_URL = '/api/translate'; // PRODUCTION — change to 'http://localhost:8000/api/translate' for local dev
 
   const inputEl    = document.getElementById('input-text');
+  const editorEl   = document.getElementById('editor');
   const countEl    = document.getElementById('char-count');
   const btnConv    = document.getElementById('convert-btn');
   const btnClear   = document.getElementById('clear-btn');
@@ -503,8 +504,8 @@
 
   const limitHint = document.getElementById('limit-hint');
 
-  function muteInput()   { inputEl.style.opacity = '0.45'; }
-  function unmuteInput() { inputEl.style.opacity = ''; }
+  function muteInput()   { editorEl.style.setProperty('opacity', '0.7', 'important'); }
+  function unmuteInput() { editorEl.style.removeProperty('opacity'); }
 
   inputEl.addEventListener('focus', unmuteInput);
 
