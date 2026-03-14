@@ -139,6 +139,8 @@
 
     textarea::placeholder { color: var(--faint); }
 
+    .wrap:has(.output.state-done) textarea:not(:focus) { color: var(--faint); }
+
     /* ── ACTION ROW ── */
     .action-row {
       padding: .75rem 1rem;
@@ -501,10 +503,6 @@
 
   const limitHint = document.getElementById('limit-hint');
 
-  inputEl.addEventListener('focus', () => {
-    inputEl.style.color = '';
-  });
-
   inputEl.addEventListener('input', () => {
     const len = inputEl.value.length;
     countEl.textContent = `${len} / ${MAX}`;
@@ -541,7 +539,6 @@
           outputEl.classList.add('visible');
           btnCopy.disabled = false;
         });
-        inputEl.style.color = '#908C83';
       } else {
         const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
         const div = document.createElement('div');
@@ -549,7 +546,6 @@
         outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
         outputWrap.className = 'output state-done';
         outputEl.classList.add('visible');
-        inputEl.style.color = '#908C83';
       }
     } catch {
       const div = document.createElement('div');
@@ -557,7 +553,6 @@
       outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
       outputWrap.className = 'output state-done';
       outputEl.classList.add('visible');
-      inputEl.style.color = '#908C83';
     } finally {
       btnConv.classList.remove('is-loading');
       btnConv.disabled = inputEl.value.length === 0 || inputEl.value.length > MAX;
@@ -574,7 +569,6 @@
     outputEl.innerHTML = '';
     outputEl.classList.remove('visible');
     outputWrap.className = 'output state-empty';
-    inputEl.style.color = '';
   });
 
   btnCopy.addEventListener('click', () => {
