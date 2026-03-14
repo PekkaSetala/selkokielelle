@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selkokielelle-laajennus – Chrome-laajennus</title>
+  <meta name="description" content="Muunna mikä tahansa teksti selkokielelle suoraan verkkoselaimestasi Selkokielelle-laajennuksella." />
+  <link rel="canonical" href="https://selkokielelle.online/laajennos.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #F9F8F6;
+      --ink:      #1C1B19;
+      --mid:      #6B6860;
+      --faint:    #908C83;
+      --rule:     #D0CCBF;
+      --accent:   #2C4BFF;
+      --surface:  #FFFFFF;
+      --radius:   10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 640px;
+      padding: 0 1.5rem;
+    }
+
+    .top {
+      padding: 3.5rem 0 2.8rem;
+      animation: fadein .5s ease both;
+    }
+
+    .wordmark {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin-bottom: .35rem;
+    }
+
+    .tagline {
+      font-size: .85rem;
+      color: var(--mid);
+      font-weight: 300;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin-bottom: 2rem;
+      animation: fadein .5s .05s ease both;
+    }
+
+    .content {
+      animation: fadein .5s .1s ease both;
+    }
+
+    .content h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 2rem 0 1rem;
+      color: var(--ink);
+    }
+
+    .content h2:first-child {
+      margin-top: 0;
+    }
+
+    .content p {
+      line-height: 1.75;
+      margin-bottom: 1rem;
+      color: var(--ink);
+      font-weight: 300;
+    }
+
+    .content ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .content li {
+      margin-bottom: .5rem;
+      color: var(--ink);
+      font-weight: 300;
+    }
+
+    .install-box {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04);
+    }
+
+    .install-box h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: var(--ink);
+    }
+
+    .install-box ol {
+      margin-left: 1.5rem;
+    }
+
+    .install-box li {
+      margin-bottom: .75rem;
+      line-height: 1.65;
+      color: var(--ink);
+      font-weight: 300;
+      font-size: .95rem;
+    }
+
+    .install-box code {
+      background: var(--bg);
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: .85rem;
+      color: var(--ink);
+    }
+
+    .btn {
+      display: inline-block;
+      font-size: .9rem;
+      font-weight: 500;
+      padding: .6rem 1.5rem;
+      border-radius: 99px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .15s, transform .15s;
+      text-align: center;
+      margin-top: .5rem;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .btn-primary:hover { opacity: .82; }
+
+    .note {
+      background: #FFF9E6;
+      border: 1px solid #FFE6B3;
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      font-size: .9rem;
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    footer {
+      padding: 2.5rem 0 3rem;
+      font-size: .72rem;
+      color: var(--faint);
+      text-align: center;
+      animation: fadein .5s .25s ease both;
+    }
+
+    footer a { color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    footer a:hover { color: var(--ink); border-color: var(--ink); }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .top { padding: 2.5rem 0 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <div class="wordmark">Selkokielelle</div>
+    <div class="tagline">Chrome-laajennus</div>
+  </div>
+
+  <hr>
+
+  <div class="content">
+
+    <h2>Mikä on Selkokielelle-laajennus?</h2>
+    <p>Selkokielelle-laajennus muuntaa minkä tahansa verkkosivu-tekstin selkokielelle suoraan selaimessasi. Valitse tekstiä, paina hiiren oikeaa nappia ja valitse <strong>Muunna selkokielelle</strong> — tulos ilmestyy sivupaneeliin.</p>
+
+    <p>Laajennus noudattaa Selkokeskuksen virallisia ohjeita selkokielestä.</p>
+
+    <h2>Ominaisuudet</h2>
+    <ul>
+      <li><strong>Nopea:</strong> Tekstin valinta ja muuntaminen tapahtuu hetimmiten</li>
+      <li><strong>Yksityinen:</strong> Teksti lähetetään vain käännöspalvelulle, sitä ei tallenneta</li>
+      <li><strong>Helppokäyttöinen:</strong> Hiiren oikealla napilla tai Alt+S-näppäimillä</li>
+      <li><strong>Kaikilla sivuilla:</strong> Toimii missä tahansa verkon tekstissä</li>
+    </ul>
+
+    <h2>Asennusohje (kehitysmoodi)</h2>
+
+    <div class="install-box">
+      <h3>1. Lataa lähdekoodi</h3>
+      <p>Kloonaa tai lataa tämä arkisto.</p>
+    </div>
+
+    <div class="install-box">
+      <h3>2. Avaa kehitysmuodon laajennussivu</h3>
+      <ol>
+        <li>Avaa Google Chrome</li>
+        <li>Kirjoita osoitteeseen: <code>chrome://extensions</code></li>
+        <li>Ota <strong>Kehitysmoodi</strong> käyttöön (oikeassa yläkulmassa)</li>
+      </ol>
+    </div>
+
+    <div class="install-box">
+      <h3>3. Lataa laajennus</h3>
+      <ol>
+        <li>Klikkaa <strong>Lataa purettu laajennus</strong> (Load unpacked)</li>
+        <li>Valitse <code>extension</code>-kansio tämän projektin sisällä</li>
+        <li>Laajennus ilmestyy laajennusluetteloon!</li>
+      </ol>
+    </div>
+
+    <div class="note">
+      <strong>Huomio:</strong> Kehitysmodin laajennus ei säily käynnissä seuraavien uudelleenkäynnistysten jälkeen. Pysyvän asennuksen varten laajennus on julkaistava Chrome Web Storessa.
+    </div>
+
+    <h2>Käyttöohje</h2>
+    <ol style="margin-left: 1.5rem; line-height: 1.75;">
+      <li style="margin-bottom: 0.75rem;">Valitse teksti verkkosivulta</li>
+      <li style="margin-bottom: 0.75rem;">Paina hiiren oikeaa nappia valinnassa</li>
+      <li style="margin-bottom: 0.75rem;">Valitse <strong>Muunna selkokielelle</strong></li>
+      <li style="margin-bottom: 0.75rem;">Tai paina <code>Alt+S</code> tavalla valitulla tekstillä</li>
+      <li>Tulos ilmestyy sivupaneeliin oikealla puolella</li>
+    </ol>
+
+    <h2>Rajoitukset</h2>
+    <ul>
+      <li><strong>Enimmäispituus:</strong> 5 000 merkkiä kerralla</li>
+      <li><strong>Nopeus:</strong> 30 pyynnön raja tunnissa samalta IP-osoitteesta</li>
+      <li><strong>Selaimen tuki:</strong> Vain Google Chrome ja Chromium-pohjaisia selaimia (Edge, Brave, jne.)</li>
+    </ul>
+
+    <h2>Tietosuoja</h2>
+    <p>Laajennus lähettää valitun tekstin muuntospalvelulle käännöstä varten. Teksti ei tallennu minnekään — sitä käytetään vain käännöspyyntöön. Lue lisää <a href="tietosuoja.html">tietosuoja- ja tietosivulla</a>.</p>
+
+    <h2>Ongelmat?</h2>
+    <p>Jos laajennus ei toimi oikein, tarkista että:</p>
+    <ul>
+      <li>Olet asentanut sen <code>chrome://extensions</code> kautta</li>
+      <li>Kehitysmoodi on käytössä</li>
+      <li>Sivulla on tekstiä joka on valittavissa</li>
+      <li>Internet-yhteys toimii</li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <a href="index.html">selkokielelle.online</a>
+    &ensp;·&ensp;
+    <a href="tietosuoja.html">Tietosuoja ja tietoja palvelusta</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
