@@ -242,8 +242,7 @@
     }
 
     .state-empty .output-body {
-      align-items: center;
-      justify-content: center;
+      align-items: flex-start;
     }
 
     .output-empty {
@@ -372,13 +371,12 @@
       .editor {
         grid-column: 1;
         grid-row: 3;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
         min-height: 0;
       }
 
       .editor textarea {
-        flex: 1;
         height: auto;
         min-height: 0;
       }
@@ -390,8 +388,8 @@
       .output {
         grid-column: 2;
         grid-row: 3;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
         min-height: 0;
       }
 
