@@ -136,7 +136,6 @@
       transition: color 0.25s ease;
     }
 
-    textarea.input--muted { color: var(--faint); }
 
     textarea::placeholder { color: var(--faint); }
 
@@ -503,7 +502,7 @@
   const limitHint = document.getElementById('limit-hint');
 
   inputEl.addEventListener('focus', () => {
-    inputEl.classList.remove('input--muted');
+    inputEl.style.color = '';
   });
 
   inputEl.addEventListener('input', () => {
@@ -542,7 +541,7 @@
           outputEl.classList.add('visible');
           btnCopy.disabled = false;
         });
-        inputEl.classList.add('input--muted');
+        inputEl.style.color = '#908C83';
       } else {
         const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
         const div = document.createElement('div');
@@ -550,7 +549,7 @@
         outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
         outputWrap.className = 'output state-done';
         outputEl.classList.add('visible');
-        inputEl.classList.add('input--muted');
+        inputEl.style.color = '#908C83';
       }
     } catch {
       const div = document.createElement('div');
@@ -558,7 +557,7 @@
       outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
       outputWrap.className = 'output state-done';
       outputEl.classList.add('visible');
-      inputEl.classList.add('input--muted');
+      inputEl.style.color = '#908C83';
     } finally {
       btnConv.classList.remove('is-loading');
       btnConv.disabled = inputEl.value.length === 0 || inputEl.value.length > MAX;
@@ -575,7 +574,7 @@
     outputEl.innerHTML = '';
     outputEl.classList.remove('visible');
     outputWrap.className = 'output state-empty';
-    inputEl.classList.remove('input--muted');
+    inputEl.style.color = '';
   });
 
   btnCopy.addEventListener('click', () => {
