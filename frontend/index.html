@@ -42,6 +42,7 @@
       width: 100%;
       max-width: 640px;
       padding: 0 1.5rem;
+      flex: 1;
     }
 
     /* ── TOP ── */
@@ -106,6 +107,15 @@
     }
     .char-count.warn { color: #C07A20; }
     .char-count.over { color: #C0392B; }
+
+    .limit-hint {
+      display: none;
+      font-size: .78rem;
+      color: #C0392B;
+      padding: .35rem 1rem .4rem;
+      border-top: 1px solid #F5C6C2;
+    }
+    .limit-hint.visible { display: block; }
 
     textarea {
       display: block;
@@ -339,6 +349,7 @@
         max-width: 1080px;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto 1fr auto;
         column-gap: 2rem;
         row-gap: 1rem;
         align-items: stretch;
@@ -363,12 +374,13 @@
         grid-row: 3;
         display: flex;
         flex-direction: column;
+        min-height: 0;
       }
 
       .editor textarea {
         flex: 1;
         height: auto;
-        min-height: 300px;
+        min-height: 0;
       }
 
       .arrow-sep {
@@ -380,7 +392,7 @@
         grid-row: 3;
         display: flex;
         flex-direction: column;
-        height: auto;
+        min-height: 0;
       }
 
       .output-body {
@@ -421,7 +433,6 @@
     <textarea
       id="input-text"
       placeholder="Kirjoita tai liitä teksti tähän…"
-      maxlength="5000"
       rows="7"
       aria-label="Syötä muunnettava teksti"
     ></textarea>
@@ -433,6 +444,7 @@
         Muunna
       </button>
     </div>
+    <div class="limit-hint" id="limit-hint" aria-live="polite">Teksti on liian pitkä. Lyhennä alle 5 000 merkkiin.</div>
   </div>
 
   <!-- DIVIDER -->
@@ -496,12 +508,16 @@
     }).join('');
   }
 
+  const limitHint = document.getElementById('limit-hint');
+
   inputEl.addEventListener('input', () => {
     const len = inputEl.value.length;
     countEl.textContent = `${len} / ${MAX}`;
-    countEl.className = 'char-count' + (len >= MAX ? ' over' : len > MAX * .85 ? ' warn' : '');
-    btnConv.disabled = len === 0;
+    countEl.className = 'char-count' + (len > MAX ? ' over' : len > MAX * .85 ? ' warn' : '');
+    const over = len > MAX;
+    btnConv.disabled = len === 0 || over;
     btnClear.disabled = len === 0;
+    limitHint.classList.toggle('visible', over);
   });
 
   btnConv.addEventListener('click', async () => {
@@ -546,7 +562,7 @@
       outputEl.classList.add('visible');
     } finally {
       btnConv.classList.remove('is-loading');
-      btnConv.disabled = inputEl.value.length === 0;
+      btnConv.disabled = inputEl.value.length === 0 || inputEl.value.length > MAX;
     }
   });
 
