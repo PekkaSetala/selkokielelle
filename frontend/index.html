@@ -136,7 +136,7 @@
       transition: color 0.25s ease;
     }
 
-    .editor--muted textarea { color: var(--faint); }
+    textarea.input--muted { color: var(--faint); }
 
     textarea::placeholder { color: var(--faint); }
 
@@ -503,7 +503,7 @@
   const limitHint = document.getElementById('limit-hint');
 
   inputEl.addEventListener('focus', () => {
-    inputEl.closest('.editor').classList.remove('editor--muted');
+    inputEl.classList.remove('input--muted');
   });
 
   inputEl.addEventListener('input', () => {
@@ -542,7 +542,7 @@
           outputEl.classList.add('visible');
           btnCopy.disabled = false;
         });
-        document.getElementById('editor').classList.add('editor--muted');
+        inputEl.classList.add('input--muted');
       } else {
         const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
         const div = document.createElement('div');
@@ -550,7 +550,7 @@
         outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
         outputWrap.className = 'output state-done';
         outputEl.classList.add('visible');
-        document.getElementById('editor').classList.add('editor--muted');
+        inputEl.classList.add('input--muted');
       }
     } catch {
       const div = document.createElement('div');
@@ -558,7 +558,7 @@
       outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
       outputWrap.className = 'output state-done';
       outputEl.classList.add('visible');
-      document.getElementById('editor').classList.add('editor--muted');
+      inputEl.classList.add('input--muted');
     } finally {
       btnConv.classList.remove('is-loading');
       btnConv.disabled = inputEl.value.length === 0 || inputEl.value.length > MAX;
@@ -575,7 +575,7 @@
     outputEl.innerHTML = '';
     outputEl.classList.remove('visible');
     outputWrap.className = 'output state-empty';
-    document.getElementById('editor').classList.remove('editor--muted');
+    inputEl.classList.remove('input--muted');
   });
 
   btnCopy.addEventListener('click', () => {
