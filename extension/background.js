@@ -11,12 +11,12 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     chrome.tabs.sendMessage(tab.id, {
       type: 'TRANSLATE',
       text: info.selectionText,
-    });
+    }).catch(() => {});
   }
 });
 
 chrome.commands.onCommand.addListener((command, tab) => {
   if (command === 'trigger-translate') {
-    chrome.tabs.sendMessage(tab.id, { type: 'TRANSLATE_SELECTION' });
+    chrome.tabs.sendMessage(tab.id, { type: 'TRANSLATE_SELECTION' }).catch(() => {});
   }
 });
