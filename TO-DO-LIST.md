@@ -1,4 +1,4 @@
-# TO-DO LIST — selkokielelle.online
+# TO-DO LIST — selkokielelle.fi
 
 ## Remaining Work
 
@@ -8,16 +8,15 @@
 - [ ] Submit to Chrome Web Store
 
 ### 2. Extension tech debt
-- [ ] Self-host fonts or switch to system font stack in extension (eliminates Google Fonts privacy leak)
-- [ ] Remove CSS duplication between `extension/content.js` inline styles and `extension/content.css`
+- [ ] Bundle Instrument Serif + DM Sans in `extension/fonts/` and replace Google Fonts `@import` in `content.js` with local `@font-face` (performance + no external CDN dependency)
+- [ ] Delete `extension/content.css` and remove it from `manifest.json` — it's dead code; Shadow DOM uses inline styles from `content.js` and never sees this file
 
 ### 3. Operations
 - [ ] Confirm log rotation on VPS (`/etc/systemd/journald.conf` — `SystemMaxUse`)
-- [ ] Pin exact package versions in `backend/requirements.txt` (`pip freeze`)
-- [ ] Set up uptime monitoring (UptimeRobot or similar) on `https://selkokielelle.online`
+- [ ] Set up uptime monitoring (UptimeRobot or similar) on `https://selkokielelle.fi`
 
 ### 4. Future features
-- [ ] Add `MODEL=google/gemini-2.0-flash` code path and test output quality vs. gpt-4o-mini
+- [ ] Test `google/gemini-2.0-flash` output quality vs. `gpt-4o-mini` — no code change needed, set `MODEL=google/gemini-2.0-flash` in the systemd unit on VPS
 - [ ] Translation quality feedback (thumbs up/down) — prerequisite for future prompt iteration
 
 ---
@@ -33,6 +32,7 @@
 
 ### Backend
 - [x] Rate limiting — 30 requests/hour per IP via `slowapi`
+- [x] Pin exact package versions in `backend/requirements.txt` (`pip freeze`)
 - [x] `GET /api/health` endpoint
 - [x] `MODEL` environment variable (default: `openai/gpt-4o-mini`)
 - [x] Reduced `max_tokens` from 4000 to 2500

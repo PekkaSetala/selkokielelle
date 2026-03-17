@@ -1,8 +1,8 @@
-# selkokielelle.online
+# selkokielelle.fi
 
 A web tool and browser extension that converts Finnish text into **selkokieli** — Plain Finnish, following official Selkokeskus guidelines.
 
-**Live:** [selkokielelle.online](https://selkokielelle.online)
+**Live:** [selkokielelle.fi](https://selkokielelle.fi)
 
 ---
 
@@ -22,7 +22,7 @@ The [Selkokeskus](https://www.selkokeskus.fi/) (Plain Language Center) publishes
 
 ### Web Tool
 
-Paste any Finnish text into **[selkokielelle.online](https://selkokielelle.online)** and click **Muunna**. The text is sent to an AI model instructed to follow Selkokeskus guidelines and returns a simplified version.
+Paste any Finnish text into **[selkokielelle.fi](https://selkokielelle.fi)** and click **Muunna**. The text is sent to an AI model instructed to follow Selkokeskus guidelines and returns a simplified version.
 
 - Input limit: 5 000 characters
 - No login, no data storage, no history
@@ -71,7 +71,7 @@ deploy.sh                 # Production deployment script
 4. Response returned as `{ "result": "..." }`
 
 **CORS policy:**
-- Web tool: `ALLOWED_ORIGIN` env var (e.g., `https://selkokielelle.online`)
+- Web tool: `ALLOWED_ORIGIN` env var (e.g., `https://selkokielelle.fi`)
 - Extension: `EXTENSION_ORIGIN` env var (e.g., `chrome-extension://YOUR_ID`)
 - Both configured via environment variables in the systemd unit file
 
@@ -145,7 +145,7 @@ For production, set env vars in the systemd unit file:
 ```ini
 [Service]
 Environment="OPENROUTER_API_KEY=your-key"
-Environment="ALLOWED_ORIGIN=https://selkokielelle.online"
+Environment="ALLOWED_ORIGIN=https://selkokielelle.fi"
 Environment="EXTENSION_ORIGIN=chrome-extension://YOUR_PUBLISHED_ID"
 Environment="MODEL=openai/gpt-4o-mini"
 ```

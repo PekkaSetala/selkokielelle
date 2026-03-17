@@ -1,6 +1,6 @@
 # Selkokielelle Chrome Extension
 
-A Chrome extension that converts selected Finnish text into **selkokieli** (Plain Finnish) using the main [selkokielelle.online](https://selkokielelle.online) service. Designed for accessibility—targeting people with reading disabilities, immigrants, and those learning Finnish.
+A Chrome extension that converts selected Finnish text into **selkokieli** (Plain Finnish) using the main [selkokielelle.fi](https://selkokielelle.fi) service. Designed for accessibility—targeting people with reading disabilities, immigrants, and those learning Finnish.
 
 ## Features
 
@@ -36,7 +36,7 @@ background.js sends message to content.js
         ↓
 content.js opens Shadow DOM panel
         ↓
-POST /api/translate to selkokielelle.online
+POST /api/translate to selkokielelle.fi
         ↓
 OpenRouter API (gpt-4o-mini) processes request
         ↓
@@ -52,7 +52,7 @@ User copies or closes panel
 Declares extension metadata, permissions, and entry points:
 
 - `contextMenus` + `activeTab` permissions: Required to add "Muunna selkokielelle" to right-click menus
-- `host_permissions`: Allows API calls to `https://selkokielelle.online/*`
+- `host_permissions`: Allows API calls to `https://selkokielelle.fi/*`
 - `background.service_worker`: Registers the background script
 - `content_scripts`: Injects content.js into all pages
 - `commands`: Defines `Alt+S` keyboard shortcut
@@ -107,7 +107,7 @@ The `hidden` attribute controls visibility (CSS: `[hidden] { display: none !impo
 #### 3. API Integration (`triggerTranslation()`)
 
 ```javascript
-fetch('https://selkokielelle.online/api/translate', {
+fetch('https://selkokielelle.fi/api/translate', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ text })
@@ -199,7 +199,7 @@ To inspect the Shadow DOM:
 
 The extension calls the same backend endpoint as the main site:
 
-**Endpoint**: `POST https://selkokielelle.online/api/translate`
+**Endpoint**: `POST https://selkokielelle.fi/api/translate`
 
 **Request**:
 ```json
@@ -265,7 +265,7 @@ Before submitting to the Chrome Web Store:
 - [ ] **Icons**: Replace placeholder PNGs in `icons/` with proper 16×16, 48×48, 128×128 images
 - [ ] **Manifest description**: Ensure `description` is clear and concise (currently: "Muunna valittu teksti selkokielelle yhdellä klikkauksella.")
 - [ ] **Version**: Update `version` in manifest.json
-- [ ] **Privacy policy**: Provide a privacy policy URL (extension collects no user data; all requests are to selkokielelle.online API)
+- [ ] **Privacy policy**: Provide a privacy policy URL (extension collects no user data; all requests are to selkokielelle.fi API)
 - [ ] **Test on multiple sites**: Verify context menu and shortcuts work on Gmail, Reddit, Medium, etc.
 - [ ] **Check for console errors**: Run on various pages, ensure no JavaScript errors in DevTools
 - [ ] **EXTENSION_ORIGIN**: Set in backend systemd config once you have the permanent ID
@@ -288,7 +288,7 @@ Before submitting to the Chrome Web Store:
 
 **"Yhteysongelma"** (network error):
 - Check your internet connection
-- Verify selkokielelle.online is up (visit the site in a browser)
+- Verify selkokielelle.fi is up (visit the site in a browser)
 - Check if your network has a proxy or firewall blocking the API
 
 **"Liian monta pyyntöä"** (rate limit):
@@ -330,7 +330,7 @@ Before submitting to the Chrome Web Store:
 
 ## License
 
-Same as the main [selkokielelle.online](https://github.com/pekkasetala/selkokielelle) project.
+Same as the main [selkokielelle.fi](https://github.com/pekkasetala/selkokielelle) project.
 
 ## Support
 
