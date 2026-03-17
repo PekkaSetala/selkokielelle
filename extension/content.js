@@ -1,4 +1,4 @@
-const API_URL = 'https://selkokielelle.online/api/translate';
+const API_URL = 'https://selkokielelle.fi/api/translate';
 
 let host = null;
 let shadowRoot = null;
