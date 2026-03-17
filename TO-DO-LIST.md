@@ -50,6 +50,11 @@
 - [x] Extension landing page (`frontend/laajennos.html`)
 - [x] Footer links updated in `index.html` and `tietosuoja.html`
 - [x] Input muting after translation
+- [x] OG meta tags added to `index.html` and `laajennos.html`; canonical added to `tietosuoja.html` (2026-03-17)
+- [x] Favicon (`favicon.svg`) created and linked on all three pages (2026-03-17)
+- [x] `laajennos.html` install step 1: added ZIP download button, GitHub link, and clone command (2026-03-17)
+- [x] `laajennos.html` dev-mode note corrected — persistence behaviour was inaccurate (2026-03-17)
+- [x] `laajennos.html` footer: added self-link for consistent nav (2026-03-17)
 
 ### Extension
 - [x] Chrome extension — Manifest V3, Shadow DOM panel, 4 states
