@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this project is
 
-**selkokielelle.online** — a web tool that converts Finnish text into selkokieli (Plain Finnish). Users paste Finnish text, click Muunna, and receive a simplified version. No login, no data storage.
+**selkokielelle.online** — a web tool and Chrome extension that converts Finnish text into selkokieli (Plain Finnish). Users paste Finnish text, click Muunna, and receive a simplified version. The extension lets users translate selected text on any webpage via right-click or `Alt+S`. No login, no data storage.
 
 Stack: vanilla HTML/CSS/JS frontend · Python/FastAPI backend · OpenRouter API (`openai/gpt-4o-mini`) · Nginx + systemd on Ubuntu VPS.
 
@@ -48,6 +48,7 @@ This pulls main, updates pip dependencies, and restarts the `selkokielelle` syst
 frontend/
   index.html          # entire frontend: HTML + <style> + <script> in one file
   tietosuoja.html     # privacy page
+  laajennos.html      # Chrome extension info and installation guide
 backend/
   main.py             # single FastAPI app: one POST /api/translate endpoint
   requirements.txt
