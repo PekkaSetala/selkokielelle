@@ -4,7 +4,7 @@
   "description": "Muunna valittu teksti selkokielelle yhdellä klikkauksella.",
   "version": "1.0.0",
   "permissions": ["contextMenus", "activeTab"],
-  "host_permissions": ["https://selkokielelle.online/*"],
+  "host_permissions": ["https://selkokielelle.fi/*"],
   "background": {
     "service_worker": "background.js"
   },
