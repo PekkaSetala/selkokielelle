@@ -304,7 +304,6 @@ Before submitting to the Chrome Web Store:
 
 **Check**: Is `Alt+S` / `Option+S` being handled by the browser or page?
 - Some pages define their own `Alt+S` handlers (e.g., Google Docs uses it for "Explore")
-- On Mac, `Option+S` may produce a special character (`ß`) in some input fields — try using the right-click menu instead
 - Try right-click context menu instead
 
 **Solution**: The shortcut can be remapped. Go to `chrome://extensions/shortcuts` to rebind it.
