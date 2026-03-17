@@ -194,7 +194,12 @@ Pulls the latest `main` branch, updates Python dependencies, and restarts the `s
 - Added tietosuoja (privacy) page
 - Improved system prompt for slang handling and output quality
 
-### v1.0.0
+### v1.1.0 — 2026-03-03
+- Fixed live URL in README
+- Removed incorrect Selkokeskus authorship claim
+- Removed CLAUDE.md from public repository
+
+### v1.0.0 — 2026-03-03
 - Initial release
 
 ## License
