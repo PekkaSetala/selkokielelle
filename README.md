@@ -30,7 +30,7 @@ Paste any Finnish text into **[selkokielelle.online](https://selkokielelle.onlin
 
 ### Chrome Extension
 
-Select text on any website → right-click **Muunna selkokielelle** (or press `Alt+S`) → result appears in a side panel.
+Select text on any website → right-click **Muunna selkokielelle** (or press `Alt+S` on Windows/Linux, `Option+S` on Mac) → result appears in a side panel.
 
 **Installation (dev mode):**
 1. Go to `chrome://extensions`
@@ -168,7 +168,7 @@ Pulls the latest `main` branch, updates Python dependencies, and restarts the `s
 ## Changelog
 
 ### v1.4.0 — 2026-03-17
-- Chrome extension: translate selected text on any webpage via right-click or `Alt+S`
+- Chrome extension: translate selected text on any webpage via right-click or `Alt+S` (Windows/Linux) / `Option+S` (Mac)
 - Responsive layout: side-by-side input/output on desktop (800px+)
 - Extension landing page (`laajennos.html`) with installation guide
 - System prompt v3.1: paragraph, list, heading, and date formatting guidance; strengthened injection defense

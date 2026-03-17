@@ -5,7 +5,7 @@ A Chrome extension that converts selected Finnish text into **selkokieli** (Plai
 ## Features
 
 - **One-click translation**: Right-click any selected text → "Muunna selkokielelle" → result slides in from the right
-- **Keyboard shortcut**: Select text and press `Alt+S` for instant translation
+- **Keyboard shortcut**: Select text and press `Alt+S` (Windows/Linux) or `Option+S` (Mac) for instant translation
 - **Clean sidebar UI**: Minimal design matching the main site, optimized for readability
 - **Live feedback**: Skeleton loading animation during translation
 - **Copy to clipboard**: One-click copy button with visual confirmation
@@ -30,7 +30,7 @@ extension/
 ```
 User selects text on any webpage
         ↓
-Right-click OR Alt+S
+Right-click OR Alt+S / Option+S (Mac)
         ↓
 background.js sends message to content.js
         ↓
@@ -176,7 +176,7 @@ Stylesheet for the Shadow DOM. Imported via `<link>` in `buildPanel()`. Mirrors 
 
 1. Open any page with Finnish text (e.g., Wikipedia)
 2. Select some text
-3. Right-click → "Muunna selkokielelle" OR press `Alt+S`
+3. Right-click → "Muunna selkokielelle" OR press `Alt+S` (Windows/Linux) / `Option+S` (Mac)
 4. Panel slides in; skeleton animation plays
 5. After ~1-2 seconds, translated text appears
 6. Click copy button to copy result
@@ -273,7 +273,7 @@ Before submitting to the Chrome Web Store:
 
 ## Troubleshooting
 
-### Panel doesn't appear when I right-click or press Alt+S
+### Panel doesn't appear when I right-click or press Alt+S / Option+S
 
 **Check**: Is the extension loaded? Go to `chrome://extensions` and verify Selkokielelle is listed and **enabled**.
 
@@ -300,10 +300,11 @@ Before submitting to the Chrome Web Store:
 - Check the browser's **DevTools Console** (`F12`) for details
 - Report the error message in GitHub Issues
 
-### Keyboard shortcut (Alt+S) doesn't work
+### Keyboard shortcut (Alt+S / Option+S) doesn't work
 
-**Check**: Is `Alt+S` being handled by the browser or page?
+**Check**: Is `Alt+S` / `Option+S` being handled by the browser or page?
 - Some pages define their own `Alt+S` handlers (e.g., Google Docs uses it for "Explore")
+- On Mac, `Option+S` may produce a special character (`ß`) in some input fields — try using the right-click menu instead
 - Try right-click context menu instead
 
 **Solution**: The shortcut can be remapped. Go to `chrome://extensions/shortcuts` to rebind it.
