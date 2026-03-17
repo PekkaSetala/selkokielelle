@@ -1,67 +1,61 @@
 # TO-DO LIST — selkokielelle.online
 
-## Execution Order
+## Remaining Work
 
-### 1. Security fixes
-- [ ] Fix rate limiting: Nginx `proxy_set_header X-Forwarded-For $remote_addr;` in `/api/` location
-- [ ] Fix rate limiting: systemd unit ExecStart add `--proxy-headers --forwarded-allow-ips='127.0.0.1'`
-- [ ] Add startup assertions in backend/main.py for OPENROUTER_API_KEY and ALLOWED_ORIGIN
-- [ ] Update .gitignore: add `*.key`, `*.pem`, `*.env` entries
-- [ ] (Dashboard action) Set monthly spending cap in OpenRouter ($10/month)
+### 1. Chrome Web Store preparation
+- [ ] Replace placeholder icons in `extension/icons/` (16×16, 48×48, 128×128)
+- [ ] Set `EXTENSION_ORIGIN` in systemd unit to real extension ID after Store submission
+- [ ] Submit to Chrome Web Store
 
-### 2. Cost model evaluation
-- [ ] Reduce `max_tokens` from 4000 to 1200 in backend/main.py (gpt-4o-mini)
-- [ ] Add MODEL env var to backend/main.py (default: openrouter gpt-4o-mini)
-- [ ] Add Gemini 2.0 Flash code path (Google AI Studio) on separate branch
-- [ ] Test Finnish output quality with both models
-- [ ] Decide which model to use going forward
+### 2. Extension tech debt
+- [ ] Self-host fonts or switch to system font stack in extension (eliminates Google Fonts privacy leak)
+- [ ] Remove CSS duplication between `extension/content.js` inline styles and `extension/content.css`
 
-### 3. Prompt refinement
-- [ ] Add paragraph guidance to SYSTEM_PROMPT (split on \n\n for multiple ideas)
-- [ ] Add list guidance to SYSTEM_PROMPT (use bullet lists for enumerations)
-- [ ] Add headings guidance to SYSTEM_PROMPT (use sparingly for clear sections)
-- [ ] Add numbers and dates guidance to SYSTEM_PROMPT (Finnish format: 14.3.2026, spell under 12)
+### 3. Operations
+- [ ] Confirm log rotation on VPS (`/etc/systemd/journald.conf` — `SystemMaxUse`)
+- [ ] Pin exact package versions in `backend/requirements.txt` (`pip freeze`)
+- [ ] Set up uptime monitoring (UptimeRobot or similar) on `https://selkokielelle.online`
 
-### 4. Paragraph rendering
-- [ ] Implement paragraph rendering on website (split on \n\n, create <p> elements)
-- [ ] Implement paragraph rendering in extension (same approach in content.js)
-
-### 5. GitHub / README overhaul
-- [ ] Rewrite README.md: what selkokieli is, extension section, architecture diagram, prompt engineering rationale
-- [ ] Add Chrome extension how-to-load in dev mode to README
-- [ ] Explain injection defense and Selkokeskus guidelines in README
-- [ ] (Optional) Clean up or remove TO-DO-LIST.md from public visibility
-
-### 6. Responsive layout
-- [ ] Add responsive 800px+ breakpoint to index.html (side-by-side layout)
-- [ ] Expand `.wrap` max-width to ~1080px on desktop
-- [ ] Update `.arrow-sep` styling (rotate 90° or hide on desktop)
-- [ ] Adjust textarea heights for desktop layout
-
-### 7. Extension landing page
-- [ ] Create `frontend/laajennos.html` (extension description + installation instructions)
-- [ ] Add footer links in `index.html` pointing to laajennos.html
-- [ ] Add footer link in `tietosuoja.html` pointing to laajennos.html
-
-### 8. Extension tech debt
-- [ ] Self-host Google Fonts (or use system font stack) to eliminate privacy leak
-- [ ] Remove CSS duplication between content.js inline styles and content.css
-- [ ] Fix @import position in content.js
+### 4. Future features
+- [ ] Add `MODEL=google/gemini-2.0-flash` code path and test output quality vs. gpt-4o-mini
+- [ ] Translation quality feedback (thumbs up/down) — prerequisite for future prompt iteration
 
 ---
 
-## Key Files to Modify
-- `backend/main.py` — startup assertions, max_tokens, MODEL env var, prompt additions
-- `.gitignore` — add *.key, *.pem, *.env
-- Nginx config (on VPS) — X-Forwarded-For fix
-- systemd unit (on VPS) — --proxy-headers flag
-- `frontend/index.html` — paragraph rendering, responsive layout, footer link
-- `extension/content.js` — paragraph rendering, font handling
-- `README.md` — full rewrite
-- `frontend/laajennos.html` — new file
+## Completed
 
----
+### Security
+- [x] Fix rate limiting: Nginx `proxy_set_header X-Forwarded-For` (done on VPS)
+- [x] Fix rate limiting: systemd `--proxy-headers --forwarded-allow-ips='127.0.0.1'` (done on VPS)
+- [x] Startup assertions for `OPENROUTER_API_KEY` and `ALLOWED_ORIGIN`
+- [x] Updated `.gitignore` — added `*.key`, `*.pem`, `*.env`
+- [x] Set monthly spending cap in OpenRouter dashboard
 
-**Git history:** Clean (no secrets ever committed, safe for public repo)
+### Backend
+- [x] Rate limiting — 30 requests/hour per IP via `slowapi`
+- [x] `GET /api/health` endpoint
+- [x] `MODEL` environment variable (default: `openai/gpt-4o-mini`)
+- [x] Reduced `max_tokens` from 4000 to 2500
 
-**Plan reference:** `/Users/pekkasetala/.claude/plans/happy-discovering-sedgewick.md`
+### Prompt
+- [x] Paragraph guidance (split on `\n\n`)
+- [x] List guidance (`-` or `•` for enumerations)
+- [x] Heading guidance (use sparingly)
+- [x] Number and date formatting (Finnish format, spell 1–11)
+- [x] Strengthened injection defense
+
+### Frontend
+- [x] Paragraph rendering (semantic `<p>` elements)
+- [x] Responsive layout — 800px+ side-by-side grid
+- [x] Extension landing page (`frontend/laajennos.html`)
+- [x] Footer links updated in `index.html` and `tietosuoja.html`
+- [x] Input muting after translation
+
+### Extension
+- [x] Chrome extension — Manifest V3, Shadow DOM panel, 4 states
+- [x] Right-click context menu + `Alt+S` keyboard shortcut
+- [x] Paragraph rendering in extension
+
+### Documentation
+- [x] README overhaul — architecture, system design, prompt engineering rationale
+- [x] `docs/v1.4.0.md` release notes
