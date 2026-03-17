@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this project is
 
-**selkokielelle.online** — a web tool and Chrome extension that converts Finnish text into selkokieli (Plain Finnish). Users paste Finnish text, click Muunna, and receive a simplified version. The extension lets users translate selected text on any webpage via right-click or `Alt+S`. No login, no data storage.
+**selkokielelle.fi** — a web tool and Chrome extension that converts Finnish text into selkokieli (Plain Finnish). Users paste Finnish text, click Muunna, and receive a simplified version. The extension lets users translate selected text on any webpage via right-click or `Alt+S`. No login, no data storage.
 
 Stack: vanilla HTML/CSS/JS frontend · Python/FastAPI backend · OpenRouter API (`openai/gpt-4o-mini`) · Nginx + systemd on Ubuntu VPS.
 
