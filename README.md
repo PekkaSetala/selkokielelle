@@ -55,8 +55,7 @@ backend/
 extension/
   manifest.json           # Manifest V3: contextMenus + activeTab permissions
   background.js           # Service worker: registers context menu + Alt+S command
-  content.js              # Injected script: Shadow DOM panel, 4 states, API call
-  content.css             # Panel styles (scoped inside Shadow DOM)
+  content.js              # Injected script: Shadow DOM panel, 4 states, API call (styles inlined)
   icons/                  # Placeholder icon files — replace before Store submission
 
 deploy.sh                 # Production deployment script
@@ -114,57 +113,6 @@ The system prompt explicitly prevents prompt injection:
 - The model returns a fixed Finnish error message instead of processing them
 - Only selkokieli translation occurs — no other tasks
 
-## Running Locally
-
-### Backend
-```bash
-cd backend
-python3 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-
-# Create .env with your OpenRouter API key
-echo 'OPENROUTER_API_KEY=your-key-here' > .env
-echo 'ALLOWED_ORIGIN=http://localhost:3000' >> .env
-
-uvicorn main:app --reload
-```
-
-Backend runs on `http://localhost:8000`.
-
-### Frontend
-```bash
-cd frontend
-python3 -m http.server 3000
-```
-
-**Note:** For local testing, change `API_URL` in `frontend/index.html` from `'/api/translate'` to `'http://localhost:8000/api/translate'`. Always reset before committing.
-
-### Environment Variables
-
-For production, set env vars in the systemd unit file:
-```ini
-[Service]
-Environment="OPENROUTER_API_KEY=your-key"
-Environment="ALLOWED_ORIGIN=https://selkokielelle.fi"
-Environment="EXTENSION_ORIGIN=chrome-extension://YOUR_PUBLISHED_ID"
-Environment="MODEL=openai/gpt-4o-mini"
-```
-
-## Deployment
-
-```bash
-./deploy.sh
-```
-
-Pulls the latest `main` branch, updates Python dependencies, and restarts the `selkokielelle` systemd service.
-
-## Security Notes
-
-- **Nginx:** Add `proxy_set_header X-Forwarded-For $remote_addr;` in the `/api/` location block for accurate rate limiting
-- **Systemd:** Add `--proxy-headers --forwarded-allow-ips='127.0.0.1'` to the uvicorn `ExecStart` line
-- **OpenRouter:** Set a monthly spending cap in the account dashboard
-- **Secrets:** Never commit `.env`, `*.key`, or `*.pem` files
-
 ## Changelog
 
 ### v1.5.0 — 2026-03-23
@@ -212,4 +160,4 @@ Pulls the latest `main` branch, updates Python dependencies, and restarts the `s
 
 ## License
 
-MIT
+© Pekka Setälä. All rights reserved.
