@@ -1,11 +1,13 @@
 import os
+import re
 import httpx
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
-from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
@@ -124,7 +126,22 @@ Teksti on helppo ymmärtää ensimmäisellä lukukerralla.
 
 app = FastAPI()
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"error": "Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen."},
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=400,
+        content={"error": "Virheellinen pyyntö"},
+    )
 
 _origins = [ALLOWED_ORIGIN]
 if EXTENSION_ORIGIN:
@@ -204,6 +221,8 @@ async def translate(request: Request, body: TranslateRequest):
         data = response.json()
         choice = data["choices"][0]
         result = choice["message"]["content"]
+        # Security: strip any HTML tags from LLM output (defense-in-depth)
+        result = re.sub(r'<[^>]+>', '', result)
     except (KeyError, IndexError, ValueError):
         return JSONResponse(
             status_code=502,
