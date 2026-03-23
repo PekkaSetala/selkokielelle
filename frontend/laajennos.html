@@ -18,7 +18,7 @@
       --bg:       #F9F8F6;
       --ink:      #1C1B19;
       --mid:      #6B6860;
-      --faint:    #908C83;
+      --faint:    #706C63;
       --rule:     #D0CCBF;
       --accent:   #2C4BFF;
       --surface:  #FFFFFF;
@@ -60,6 +60,23 @@
       color: var(--ink);
       margin-bottom: .35rem;
     }
+
+    h1.wordmark {
+      font-size: inherit;
+      font-weight: inherit;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--mid);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color .15s;
+    }
+
+    .back-link:hover { color: var(--ink); }
 
     .tagline {
       font-size: .85rem;
@@ -203,7 +220,8 @@
 <div class="wrap">
 
   <div class="top">
-    <div class="wordmark">Selkokielelle</div>
+    <a class="back-link" href="index.html">← Takaisin</a>
+    <h1 class="wordmark">Selkokielelle</h1>
     <div class="tagline">Chrome-laajennus</div>
   </div>
 
@@ -292,7 +310,7 @@
   <footer>
     <a href="index.html">Selkokielelle</a>
     &ensp;·&ensp;
-    <a href="laajennos.html">Laajennus</a>
+    <a href="laajennos.html">Selainlaajennus</a>
     &ensp;·&ensp;
     <a href="tietosuoja.html">Tietosuoja</a>
   </footer>

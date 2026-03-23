@@ -11,6 +11,24 @@
   <meta property="og:description" content="Ilmainen työkalu tekstin muuntamiseen selkokielelle tekoälyn avulla." />
   <meta property="og:url" content="https://selkokielelle.fi/" />
   <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Selkokielelle",
+    "url": "https://selkokielelle.fi",
+    "description": "Ilmainen työkalu tekstin muuntamiseen selkokielelle tekoälyn avulla.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "inLanguage": "fi",
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -18,7 +36,7 @@
       --bg:       #F9F8F6;
       --ink:      #1C1B19;
       --mid:      #6B6860;
-      --faint:    #908C83;
+      --faint:    #706C63;
       --rule:     #D0CCBF;
       --accent:   #2C4BFF;
       --surface:  #FFFFFF;
@@ -26,6 +44,23 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--ink);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: var(--radius);
+      font-size: .875rem;
+      font-weight: 500;
+      z-index: 1000;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
 
     html, body {
       margin: 0;
@@ -72,6 +107,11 @@
       letter-spacing: -.01em;
       color: var(--ink);
       margin-bottom: .55rem;
+    }
+
+    h1.wordmark {
+      font-size: inherit;
+      font-weight: inherit;
     }
 
     .tagline {
@@ -216,6 +256,16 @@
       cursor: not-allowed;
     }
 
+    textarea:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     /* spinner */
     .spinner {
       width: 13px; height: 13px;
@@ -319,15 +369,15 @@
     /* states */
     .state-empty  .output-empty   { display: flex; }
     .state-empty  .skeleton        { display: none; }
-    .state-empty  #output-text     { display: none; }
+    .state-empty  #output-text     { visibility: hidden; height: 0; overflow: hidden; position: absolute; }
 
     .state-loading .output-empty  { display: none; }
     .state-loading .skeleton       { display: flex; }
-    .state-loading #output-text    { display: none; }
+    .state-loading #output-text    { visibility: hidden; height: 0; overflow: hidden; position: absolute; }
 
     .state-done   .output-empty   { display: none; }
     .state-done   .skeleton        { display: none; }
-    .state-done   #output-text     { display: block; }
+    .state-done   #output-text     { visibility: visible; height: auto; overflow: visible; position: static; display: block; }
 
     /* copy row */
     .copy-row {
@@ -366,10 +416,30 @@
       .top { padding: 2.5rem 0 2rem; }
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     /* Desktop layout: side-by-side */
     @media (min-width: 800px) {
       body {
-        overflow: hidden;
+        overflow: auto;
       }
 
       .wrap {
@@ -390,6 +460,15 @@
       .top {
         grid-column: 1 / -1;
         padding: 2rem 0 1.5rem;
+      }
+
+      header {
+        grid-column: 1 / -1;
+      }
+
+      main {
+        grid-column: 1 / -1;
+        display: contents;
       }
 
       hr {
@@ -440,15 +519,20 @@
 </head>
 <body>
 
+<a href="#input-text" class="skip-link">Siirry tekstikenttään</a>
+
 <div class="wrap">
 
+  <header>
   <div class="top">
-    <div class="wordmark">Selkokielelle</div>
+    <h1 class="wordmark">Selkokielelle</h1>
     <div class="tagline">Muunna teksti selkokielelle.</div>
   </div>
+  </header>
 
   <hr>
 
+  <main>
   <!-- INPUT -->
   <div class="editor" id="editor">
     <div class="editor-header">
@@ -465,7 +549,7 @@
       <button class="btn btn-ghost" id="clear-btn" type="button" disabled>Tyhjennä</button>
       <button class="btn btn-primary" id="convert-btn" disabled>
         <div class="spinner"></div>
-        <svg class="btn-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        <svg class="btn-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
         Muunna
       </button>
     </div>
@@ -496,11 +580,13 @@
     </div>
     <div class="copy-row" id="copy-row">
       <button class="btn btn-ghost" id="copy-btn" disabled>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         Kopioi
       </button>
+      <span id="copy-status" class="sr-only" aria-live="assertive"></span>
     </div>
   </div>
+  </main>
 
   <footer>
     <a href="laajennos.html">Selainlaajennus</a>
@@ -541,9 +627,12 @@
 
   inputEl.addEventListener('input', () => {
     const len = inputEl.value.length;
-    countEl.textContent = `${len} / ${MAX}`;
-    countEl.className = 'char-count' + (len > MAX ? ' over' : len > MAX * .85 ? ' warn' : '');
+    const warn = len > MAX * .85;
     const over = len > MAX;
+
+    const prefix = over ? '\u26A0 ' : warn ? '! ' : '';
+    countEl.textContent = `${prefix}${len} / ${MAX}`;
+    countEl.className = 'char-count' + (over ? ' over' : warn ? ' warn' : '');
     btnConv.disabled = len === 0 || over;
     btnClear.disabled = len === 0;
     limitHint.classList.toggle('visible', over);
@@ -554,17 +643,25 @@
     if (!text) return;
 
     btnConv.classList.add('is-loading');
+    btnConv.setAttribute('aria-label', 'Muunnetaan, odota...');
+    btnConv.setAttribute('aria-busy', 'true');
     btnConv.disabled = true;
     outputWrap.className = 'output state-loading';
     outputEl.classList.remove('visible');
     btnCopy.disabled = true;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
 
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text }),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       const data = await response.json();
 
@@ -576,21 +673,33 @@
           btnCopy.disabled = false;
         });
       } else {
-        const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
+        let msg;
+        if (response.status === 429) {
+          msg = 'Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen.';
+        } else {
+          msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
+        }
         const div = document.createElement('div');
         div.textContent = msg;
         outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
         outputWrap.className = 'output state-done';
         outputEl.classList.add('visible');
       }
-    } catch {
+    } catch (err) {
+      clearTimeout(timeoutId);
       const div = document.createElement('div');
-      div.textContent = 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.';
+      if (err.name === 'AbortError') {
+        div.textContent = 'Tämä kestää odotettua kauemmin. Yritä uudelleen tai kokeile lyhyempää tekstiä.';
+      } else {
+        div.textContent = 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.';
+      }
       outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
       outputWrap.className = 'output state-done';
       outputEl.classList.add('visible');
     } finally {
       btnConv.classList.remove('is-loading');
+      btnConv.removeAttribute('aria-label');
+      btnConv.removeAttribute('aria-busy');
       btnConv.disabled = inputEl.value.length === 0 || inputEl.value.length > MAX;
     }
   });
@@ -612,14 +721,22 @@
 
     function showCopied() {
       const orig = btnCopy.innerHTML;
-      btnCopy.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Kopioitu`;
-      setTimeout(() => btnCopy.innerHTML = orig, 2000);
+      btnCopy.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Kopioitu`;
+      document.getElementById('copy-status').textContent = 'Kopioitu';
+      setTimeout(() => {
+        btnCopy.innerHTML = orig;
+        document.getElementById('copy-status').textContent = '';
+      }, 2000);
     }
 
     function showFailed() {
       const orig = btnCopy.innerHTML;
-      btnCopy.innerHTML = '✕ Kopiointi epäonnistui';
-      setTimeout(() => btnCopy.innerHTML = orig, 2000);
+      btnCopy.innerHTML = '\u2715 Kopiointi epäonnistui';
+      document.getElementById('copy-status').textContent = 'Kopiointi epäonnistui';
+      setTimeout(() => {
+        btnCopy.innerHTML = orig;
+        document.getElementById('copy-status').textContent = '';
+      }, 2000);
     }
 
     if (navigator.clipboard && navigator.clipboard.writeText) {

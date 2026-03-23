@@ -4,12 +4,15 @@ let host = null;
 let shadowRoot = null;
 let panel = null;
 let lastText = null;
+let previousFocus = null;
 
 // ── Panel HTML template ─────────────────────────────────────────────────────
 
 function buildPanel() {
   const el = document.createElement('div');
   el.id = 'skl-panel';
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-label', 'Selkokielelle-muunnos');
   el.innerHTML = `
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500&display=swap');
@@ -33,6 +36,7 @@ function buildPanel() {
       #skl-result-text p { margin: 0 0 1em 0; }
       #skl-result-text p:last-child { margin-bottom: 0; }
       #skl-result-copy-row { padding: .6rem 1rem; border-top: 1px solid #D0CCBF; display: flex; justify-content: flex-end; background: #F9F8F6; flex-shrink: 0; }
+      #skl-state-error { padding: 1.1rem 1rem; }
       #skl-error-msg { font-size: 1.1rem; line-height: 1.7; color: #1C1B19; margin: 0 0 1rem; }
       #skl-retry { display: inline-flex; align-items: center; background: none; border: 1.5px solid #1C1B19; border-radius: 99px; padding: 0.5rem 1.25rem; font-size: 0.95rem; font-weight: 500; font-family: inherit; color: #1C1B19; cursor: pointer; transition: background 120ms, color 120ms; margin-top: 0.25rem; }
       #skl-retry:hover { background: #1C1B19; color: #F9F8F6; }
@@ -54,7 +58,7 @@ function buildPanel() {
     </div>
     <div id="skl-body">
       <div id="skl-state-loading" class="skl-state">
-        <p id="skl-loading-label">Muunnetaan…</p>
+        <p id="skl-loading-label" role="status">Muunnetaan…</p>
         <div class="skl-skeleton-line" style="width:100%"></div>
         <div class="skl-skeleton-line" style="width:88%"></div>
         <div class="skl-skeleton-line" style="width:95%"></div>
@@ -63,7 +67,7 @@ function buildPanel() {
       </div>
       <div id="skl-state-result" class="skl-state" hidden>
         <div id="skl-result-body">
-          <p id="skl-result-text"></p>
+          <p id="skl-result-text" aria-live="polite"></p>
         </div>
         <div id="skl-result-copy-row">
           <button id="skl-copy">
@@ -97,6 +101,7 @@ function showToast(msg) {
     'z-index:2147483647',
     'pointer-events:none',
   ].join(';');
+  toastHost.setAttribute('role', 'alert');
 
   const toast = document.createElement('div');
   toast.textContent = msg;
@@ -144,7 +149,7 @@ function ensurePanel() {
     'transition:transform 220ms cubic-bezier(0.22,1,0.36,1)',
   ].join(';');
 
-  shadowRoot = host.attachShadow({ mode: 'closed' });
+  shadowRoot = host.attachShadow({ mode: 'open' });
 
   panel = buildPanel();
   shadowRoot.appendChild(panel);
@@ -189,12 +194,21 @@ function showPanel() {
   document.documentElement.style.transition = 'margin-right 220ms cubic-bezier(0.22,1,0.36,1)';
   document.documentElement.style.marginRight = '400px';
   document.documentElement.style.overflowX = 'hidden';
+  previousFocus = document.activeElement;
+  setTimeout(() => {
+    const closeBtn = shadowRoot.getElementById('skl-close');
+    if (closeBtn) closeBtn.focus();
+  }, 250);
 }
 
 function hidePanel() {
   if (host) host.style.transform = 'translateX(100%)';
   document.documentElement.style.marginRight = '';
   document.documentElement.style.overflowX = '';
+  if (previousFocus && typeof previousFocus.focus === 'function') {
+    previousFocus.focus();
+    previousFocus = null;
+  }
 }
 
 // ── States ───────────────────────────────────────────────────────────────────
@@ -235,7 +249,15 @@ function triggerTranslation(text) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error('Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen.');
+        }
+        throw new Error('Jokin meni pieleen. Yritä uudelleen.');
+      }
+      return res.json();
+    })
     .then((data) => {
       if (data.result) {
         const resultEl = shadowRoot.getElementById('skl-result-text');
@@ -245,8 +267,8 @@ function triggerTranslation(text) {
         showError(data.error || 'Jokin meni pieleen. Yritä uudelleen.');
       }
     })
-    .catch(() => {
-      showError('Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.');
+    .catch((err) => {
+      showError(err.message || 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.');
     });
 }
 
