@@ -253,9 +253,14 @@
     }
 
     textarea:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 2px;
-      border-color: var(--accent);
+      outline: none;
+    }
+
+    .editor:focus-within {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(28,27,25,.10),
+                  0 1px 3px rgba(0,0,0,.04),
+                  0 4px 20px rgba(0,0,0,.04);
     }
 
     .btn:focus-visible {
