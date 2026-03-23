@@ -16,7 +16,7 @@ load_dotenv()
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN")
 EXTENSION_ORIGIN = os.environ.get("EXTENSION_ORIGIN", "")
-MODEL = os.environ.get("MODEL", "openai/gpt-4o-mini")
+MODEL = os.environ.get("MODEL", "anthropic/claude-haiku-4-5-20251001")
 
 # Startup assertions: fail fast if required env vars are missing
 assert OPENROUTER_API_KEY, "OPENROUTER_API_KEY is required"
