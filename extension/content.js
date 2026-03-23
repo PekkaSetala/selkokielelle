@@ -1,4 +1,3 @@
-const API_URL = 'https://selkokielelle.fi/api/translate';
 
 let host = null;
 let shadowRoot = null;
@@ -244,32 +243,19 @@ function triggerTranslation(text) {
   showPanel();
   setState('loading');
 
-  fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        if (res.status === 429) {
-          throw new Error('Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen.');
-        }
-        throw new Error('Jokin meni pieleen. Yritä uudelleen.');
-      }
-      return res.json();
-    })
-    .then((data) => {
-      if (data.result) {
-        const resultEl = shadowRoot.getElementById('skl-result-text');
-        resultEl.innerHTML = renderParagraphs(data.result);
-        setState('result');
-      } else {
-        showError(data.error || 'Jokin meni pieleen. Yritä uudelleen.');
-      }
-    })
-    .catch((err) => {
-      showError(err.message || 'Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.');
-    });
+  chrome.runtime.sendMessage({ type: 'FETCH_TRANSLATE', text }, (response) => {
+    if (!response) {
+      showError('Yhteysongelma. Tarkista verkkoyhteys ja yritä uudelleen.');
+    } else if (response.ok && response.data.result) {
+      const resultEl = shadowRoot.getElementById('skl-result-text');
+      resultEl.innerHTML = renderParagraphs(response.data.result);
+      setState('result');
+    } else if (response.status === 429) {
+      showError('Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen.');
+    } else {
+      showError(response.data.error || 'Jokin meni pieleen. Yritä uudelleen.');
+    }
+  });
 }
 
 function showError(msg) {
