@@ -1,3 +1,4 @@
+import logging
 import os
 import re
 import httpx
@@ -12,6 +13,12 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
 load_dotenv()
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+)
+logger = logging.getLogger(__name__)
 
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN")
@@ -157,7 +164,7 @@ class TranslateRequest(BaseModel):
     text: str
 
 
-@app.get("/api/health")
+@app.api_route("/api/health", methods=["GET", "HEAD"])
 async def health():
     return {"status": "ok"}
 
@@ -192,7 +199,7 @@ async def translate(request: Request, body: TranslateRequest):
         "max_tokens": 2500,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": text},
+            {"role": "user", "content": f"<teksti>{text}</teksti>"},
         ],
     }
 
@@ -204,12 +211,14 @@ async def translate(request: Request, body: TranslateRequest):
                 json=payload,
             )
     except httpx.TimeoutException:
+        logger.error("OpenRouter timeout for request from %s", request.client.host)
         return JSONResponse(
             status_code=504,
             content={"error": "Palvelu ei vastaa juuri nyt, yritä uudelleen"},
         )
 
     if response.status_code != 200:
+        logger.error("OpenRouter returned %s: %s", response.status_code, response.text[:200])
         return JSONResponse(
             status_code=502,
             content={"error": "Jokin meni pieleen, yritä uudelleen"},
@@ -221,13 +230,15 @@ async def translate(request: Request, body: TranslateRequest):
         result = choice["message"]["content"]
         # Security: strip any HTML tags from LLM output (defense-in-depth)
         result = re.sub(r'<[^>]+>', '', result)
-    except (KeyError, IndexError, ValueError):
+    except (KeyError, IndexError, ValueError) as e:
+        logger.error("Failed to parse OpenRouter response: %s | body: %s", e, response.text[:200])
         return JSONResponse(
             status_code=502,
             content={"error": "Jokin meni pieleen, yritä uudelleen"},
         )
 
     if choice.get("finish_reason") == "length":
+        logger.warning("finish_reason=length for text of %d chars", len(text))
         return JSONResponse(
             status_code=502,
             content={"error": "Teksti on liian pitkä muunnettavaksi kerralla. Kokeile lyhyempää tekstiä."},
