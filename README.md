@@ -96,21 +96,29 @@ The system prompt in `backend/main.py` encodes Selkokeskus guidelines as explici
 - Imperative for instructions: `Lähetä lomake.`
 
 ### Content Preservation
-- Never omit facts or essential information
-- Remove only redundancy and unnecessary elaboration
+- Never omit facts or essential information; remove only redundancy
+- Preserve modal verb strength: `pitäisi` (should) ≠ `pitää` (must)
+- Preserve conditional structure: `Jos X, niin Y` must stay conditional, not become a statement of fact
+- Preserve named actors in active voice: `Purra myönsi` ≠ `on myönnetty`
 - Add brief explanations only for unavoidable complex concepts
-- Return **only** the simplified text — no introduction or commentary
 
 ### Reader Focus
 - Use `sinä` (you) when text concerns the reader's rights or obligations
 - Frame readers as active agents, not passive recipients
 - Accessible, respectful tone — never patronising
 
+### Format
+- Numbers 1–11 written as words, 12+ as digits
+- Dates: `14.3.2026` or `14. maaliskuuta 2026`
+- Paragraphs: 2–4 short sentences, separated by double newline
+- Lists and headings used only when they genuinely aid clarity
+
 ## Injection Defense
 
-The system prompt explicitly prevents prompt injection:
-- Inputs that are not recognisable text (questions, commands, meta-instructions) are rejected
-- The model returns a fixed Finnish error message instead of processing them
+The system prompt handles adversarial input without rejecting legitimate text:
+- Questions are simplified as questions — not answered
+- Role-switching or instruction-override commands are silently ignored; any actual text in the input is still translated
+- User input is wrapped in `<teksti>` delimiters before being passed to the model, separating it structurally from the system prompt
 - Only selkokieli translation occurs — no other tasks
 
 ## Changelog
