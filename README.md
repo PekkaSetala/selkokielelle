@@ -167,6 +167,14 @@ Pulls the latest `main` branch, updates Python dependencies, and restarts the `s
 
 ## Changelog
 
+### v1.5.0 — 2026-03-23
+- Security: server-side HTML stripping on LLM output; Finnish 429/400 error messages; FastAPI validation error suppression
+- Extension: ARIA roles (`role="dialog"`, `aria-live`, `role="status"`, `role="alert"`); focus management; Shadow DOM switched to `open` mode; `content.css` deleted (was dead code)
+- Accessibility: `<header>`, `<main>`, `<h1>` landmarks on all pages; skip link; focus-visible styles; `aria-live` output region fix; loading button `aria-busy`; copy feedback for screen readers; `prefers-reduced-motion` support; contrast fix (`--faint` → `#706C63`, 4.8:1)
+- UX: client-side 20s timeout via AbortController; character counter adds `!`/`⚠` prefix (non-color signal); desktop `overflow: auto` (fixes zoom clipping)
+- SEO: `robots.txt`, `sitemap.xml`, Schema.org WebApplication structured data
+- Deploy: `deploy.sh` prints rollback commit hash before pulling
+
 ### v1.4.0 — 2026-03-17
 - Chrome extension: translate selected text on any webpage via right-click or `Alt+S` (Windows/Linux) / `Option+S` (Mac)
 - Responsive layout: side-by-side input/output on desktop (800px+)
