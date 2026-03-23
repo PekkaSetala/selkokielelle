@@ -104,14 +104,10 @@
     .wordmark {
       font-family: 'Instrument Serif', serif;
       font-size: 1.5rem;
+      font-weight: 400;
       letter-spacing: -.01em;
       color: var(--ink);
       margin-bottom: .55rem;
-    }
-
-    h1.wordmark {
-      font-size: inherit;
-      font-weight: inherit;
     }
 
     .tagline {
@@ -174,7 +170,7 @@
       font-size: .78rem;
       color: #C0392B;
       padding: .35rem 1rem .4rem;
-      border-top: 1px solid #F5C6C2;
+      border-bottom: 1px solid #F5C6C2;
     }
     .limit-hint.visible { display: block; }
 
@@ -545,6 +541,7 @@
       rows="7"
       aria-label="Syötä muunnettava teksti"
     ></textarea>
+    <div class="limit-hint" id="limit-hint" aria-live="polite">Teksti on liian pitkä. Lyhennä alle 5 000 merkkiin.</div>
     <div class="action-row">
       <button class="btn btn-ghost" id="clear-btn" type="button" disabled>Tyhjennä</button>
       <button class="btn btn-primary" id="convert-btn" disabled>
@@ -553,7 +550,6 @@
         Muunna
       </button>
     </div>
-    <div class="limit-hint" id="limit-hint" aria-live="polite">Teksti on liian pitkä. Lyhennä alle 5 000 merkkiin.</div>
   </div>
 
   <!-- DIVIDER -->
