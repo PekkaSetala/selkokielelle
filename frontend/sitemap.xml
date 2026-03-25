@@ -11,7 +11,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://selkokielelle.fi/tietosuoja.html</loc>
+    <loc>https://selkokielelle.fi/tietoja.html</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
