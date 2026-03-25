@@ -38,8 +38,6 @@ Select text on any website → right-click **Muunna selkokielelle** (or press `A
 3. Click **Load unpacked**
 4. Select the `extension/` folder from this repository
 
-Before submitting to the Chrome Web Store, replace placeholder icons in `extension/icons/` and set `EXTENSION_ORIGIN` in the systemd unit file.
-
 ## Architecture
 
 ```
@@ -56,7 +54,7 @@ extension/
   manifest.json           # Manifest V3: contextMenus + activeTab permissions
   background.js           # Service worker: registers context menu + Alt+S command
   content.js              # Injected script: Shadow DOM panel, 4 states, API call (styles inlined)
-  icons/                  # Placeholder icon files — replace before Store submission
+  icons/                  # Extension icons (16px, 48px, 128px)
 
 deploy.sh                 # Production deployment script
 ```
