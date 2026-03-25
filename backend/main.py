@@ -60,6 +60,7 @@ Teksti on helppo ymmärtää ensimmäisellä lukukerralla.
 - **Yksi lause = yksi asia.**
 - Tavoite: **10–15 sanaa** per lause.
 - **Käytä aktiivia:** "Sinä teet." Vältä passiivia, ellei tekijä ole tuntematon.
+- **Nollapersoona:** Säilytä nollapersoona ("Jos tuhoaa alueen..."). Älä korvaa sitä yksikön 2. persoonalla ("tuhoat"), ellei teksti selkeästi viittaa lukijaan.
 - **Käytä imperatiivia**, jos teksti antaa ohjeen: "Lähetä lomake."
 - Perussanajärjestys: tekijä → teko → kohde.
 - **Vältä partisiippi- ja infinitiivirakenteita.**

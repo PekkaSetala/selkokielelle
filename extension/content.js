@@ -22,7 +22,7 @@ function buildPanel() {
       #skl-wordmark { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-weight: 400; color: #1C1B19; letter-spacing: -.01em; }
       #skl-close { background: none; border: none; cursor: pointer; color: #6B6860; line-height: 1; padding: 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-right: -0.5rem; transition: color 120ms, background 120ms; flex-shrink: 0; }
       #skl-close:hover { color: #1C1B19; background: #EDEAE3; }
-      #skl-close:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
+      #skl-close:focus-visible { outline: 2px solid #1C1B19; outline-offset: 2px; }
       #skl-body { flex: 1; overflow-y: auto; padding: 1rem; }
       .skl-state { background: #FFFFFF; border: 1px solid #D0CCBF; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04); animation: skl-fadein 0.35s ease both; }
       #skl-state-loading { padding: 1.1rem 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
@@ -39,11 +39,11 @@ function buildPanel() {
       #skl-error-msg { font-size: 1.1rem; line-height: 1.7; color: #1C1B19; margin: 0 0 1rem; }
       #skl-retry { display: inline-flex; align-items: center; background: none; border: 1.5px solid #1C1B19; border-radius: 99px; padding: 0.5rem 1.25rem; font-size: 0.95rem; font-weight: 500; font-family: inherit; color: #1C1B19; cursor: pointer; transition: background 120ms, color 120ms; margin-top: 0.25rem; }
       #skl-retry:hover { background: #1C1B19; color: #F9F8F6; }
-      #skl-retry:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 3px; }
+      #skl-retry:focus-visible { outline: 2px solid #1C1B19; outline-offset: 3px; }
       #skl-copy { display: inline-flex; align-items: center; gap: .45rem; background: transparent; border: 1px solid #D0CCBF; border-radius: 99px; padding: .35rem .9rem; font-size: .82rem; font-weight: 500; font-family: inherit; color: #6B6860; cursor: pointer; transition: background 120ms, color 120ms, border-color 120ms; }
       #skl-copy:hover { background: #EDEAE3; border-color: #908C83; color: #1C1B19; }
       #skl-copy:active { transform: scale(0.97); }
-      #skl-copy:focus-visible { outline: 2px solid #2C4BFF; outline-offset: 2px; }
+      #skl-copy:focus-visible { outline: 2px solid #1C1B19; outline-offset: 2px; }
       @keyframes skl-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
       @keyframes skl-fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
     </style>
