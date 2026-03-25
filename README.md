@@ -121,6 +121,9 @@ The system prompt handles adversarial input without rejecting legitimate text:
 
 ## Changelog
 
+### v1.5.1 — 2026-03-25
+- Extension: floating "Muunna" button appears near text selection while the panel is open, eliminating the need to right-click or use Alt+S for subsequent translations
+
 ### v1.5.0 — 2026-03-23
 - Security: server-side HTML stripping on LLM output; Finnish 429/400 error messages; FastAPI validation error suppression
 - Extension: ARIA roles (`role="dialog"`, `aria-live`, `role="status"`, `role="alert"`); focus management; Shadow DOM switched to `open` mode; `content.css` deleted (was dead code)

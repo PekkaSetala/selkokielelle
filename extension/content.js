@@ -5,6 +5,9 @@ let panel = null;
 let lastText = null;
 let previousFocus = null;
 
+let floatHost = null;
+let panelOpen = false;
+
 // ── Panel HTML template ─────────────────────────────────────────────────────
 
 function buildPanel() {
@@ -24,7 +27,7 @@ function buildPanel() {
       #skl-close:hover { color: #1C1B19; background: #EDEAE3; }
       #skl-close:focus-visible { outline: 2px solid #1C1B19; outline-offset: 2px; }
       #skl-body { flex: 1; overflow-y: auto; padding: 1rem; }
-      .skl-state { background: #FFFFFF; border: 1px solid #D0CCBF; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04); animation: skl-fadein 0.35s ease both; }
+      .skl-state { background: #FFFFFF; border: 1px solid #D0CCBF; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04); animation: skl-fadein 0.35s ease both; }
       #skl-state-loading { padding: 1.1rem 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
       #skl-loading-label { font-size: .8rem; color: #908C83; margin-bottom: .6rem; }
       .skl-skeleton-line { height: 1rem; border-radius: 4px; background: linear-gradient(90deg, #D0CCBF 25%, #ECEAE4 50%, #D0CCBF 75%); background-size: 200% 100%; animation: skl-shimmer 1.4s infinite; }
@@ -178,17 +181,13 @@ function ensurePanel() {
     if (e.key === 'Escape') hidePanel();
   });
 
-  document.addEventListener('mousedown', (e) => {
-    if (host && !host.contains(e.target) && host.style.transform !== 'translateX(100%)') {
-      hidePanel();
-    }
-  });
 }
 
 // ── Panel visibility ─────────────────────────────────────────────────────────
 
 function showPanel() {
   ensurePanel();
+  panelOpen = true;
   host.style.transform = 'translateX(0)';
   document.documentElement.style.transition = 'margin-right 220ms cubic-bezier(0.22,1,0.36,1)';
   document.documentElement.style.marginRight = '400px';
@@ -201,6 +200,8 @@ function showPanel() {
 }
 
 function hidePanel() {
+  panelOpen = false;
+  hideFloatBtn();
   if (host) host.style.transform = 'translateX(100%)';
   document.documentElement.style.marginRight = '';
   document.documentElement.style.overflowX = '';
@@ -262,6 +263,98 @@ function showError(msg) {
   shadowRoot.getElementById('skl-error-msg').textContent = msg;
   setState('error');
 }
+
+// ── Floating translate button ─────────────────────────────────────────────────
+
+function ensureFloatBtn() {
+  if (floatHost) return;
+
+  floatHost = document.createElement('div');
+  floatHost.id = 'skl-float-host';
+  floatHost.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;pointer-events:none;z-index:2147483647;';
+
+  const sr = floatHost.attachShadow({ mode: 'open' });
+  sr.innerHTML = `
+    <style>
+      :host { all: initial; }
+      #skl-float-btn {
+        position: fixed;
+        display: inline-flex;
+        align-items: center;
+        background: #1C1B19;
+        color: #F9F8F6;
+        font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+        font-size: .82rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 99px;
+        padding: .4rem 1rem;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0,0,0,.25);
+        pointer-events: all;
+        z-index: 2147483647;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 120ms, transform 120ms;
+      }
+      #skl-float-btn.visible { opacity: 1; transform: translateY(0); }
+      #skl-float-btn:hover { background: #3a3935; }
+    </style>
+    <button id="skl-float-btn" aria-label="Muunna valittu teksti selkokielelle">Muunna</button>
+  `;
+
+  const btn = sr.getElementById('skl-float-btn');
+
+  btn.addEventListener('pointerdown', (e) => {
+    e.preventDefault(); // keep selection alive through the click
+  });
+
+  btn.addEventListener('click', () => {
+    const sel = window.getSelection().toString().trim();
+    if (!sel || sel.length > 5000) return;
+    hideFloatBtn();
+    triggerTranslation(sel);
+  });
+
+  document.documentElement.appendChild(floatHost);
+}
+
+function showFloatBtn(mouseX, mouseY) {
+  ensureFloatBtn();
+  const btn = floatHost.shadowRoot.getElementById('skl-float-btn');
+  const btnW = 80;
+  const margin = 10;
+  const left = Math.max(8, Math.min(mouseX - btnW / 2, window.innerWidth - btnW - 8));
+  const top = mouseY + margin;
+  btn.style.left = left + 'px';
+  btn.style.top = top + 'px';
+  requestAnimationFrame(() => btn.classList.add('visible'));
+}
+
+function hideFloatBtn() {
+  if (!floatHost) return;
+  floatHost.shadowRoot.getElementById('skl-float-btn').classList.remove('visible');
+}
+
+function isPanelOpen() {
+  return panelOpen;
+}
+
+document.addEventListener('mouseup', (e) => {
+  if (!isPanelOpen()) return;
+  // Ignore clicks inside the extension panel itself
+  if (host && host.contains(e.target)) return;
+  setTimeout(() => {
+    const text = window.getSelection().toString().trim();
+    if (!text || text.length > 5000) { hideFloatBtn(); return; }
+    showFloatBtn(e.clientX, e.clientY);
+  }, 10);
+});
+
+document.addEventListener('selectionchange', () => {
+  if (!window.getSelection().toString().trim()) hideFloatBtn();
+});
 
 // ── Message listener ─────────────────────────────────────────────────────────
 
