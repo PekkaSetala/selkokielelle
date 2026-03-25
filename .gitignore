@@ -14,3 +14,9 @@ venv/
 
 # Build session artefacts — keep locally, not in repo
 README_dev.md
+
+# Public docs whitelist — only these two files are tracked in docs/
+docs/*
+!docs/architecture.md
+!docs/CHANGELOG.md
+.vibe-check/

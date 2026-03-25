@@ -57,8 +57,7 @@ deploy.sh             # production deploy script
 extension/
   manifest.json       # Manifest V3, contextMenus + activeTab permissions
   background.js       # service worker: registers context menu item + Alt+S command
-  content.js          # injected into all pages: Shadow DOM panel, 4 states, API call
-  content.css         # panel styles (scoped inside Shadow DOM)
+  content.js          # injected into all pages: Shadow DOM panel, 4 states, API call (styles inlined)
   icons/              # placeholder PNGs — replace before Chrome Web Store submission
 ```
 

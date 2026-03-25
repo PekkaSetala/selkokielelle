@@ -1,6 +1,6 @@
 # Architecture — selkokielelle.fi
 
-**Current version:** v1.4.0+ (post-release patches applied)
+**Current version:** v1.5.0
 **Live:** [selkokielelle.fi](https://selkokielelle.fi)
 
 ---
@@ -60,8 +60,7 @@ selkokielelle/
 ├── extension/
 │   ├── manifest.json       # Manifest V3, contextMenus + activeTab
 │   ├── background.js       # Service worker: context menu + Alt+S command
-│   ├── content.js          # Shadow DOM panel injected into pages
-│   ├── content.css         # Panel styles (Shadow DOM scoped)
+│   ├── content.js          # Shadow DOM panel injected into pages (styles inlined)
 │   └── icons/              # Placeholder PNGs — replace before Store submission
 ├── docs/
 │   ├── CHANGELOG.md        # Version history
@@ -147,7 +146,7 @@ Single HTML file with embedded CSS and JS. Entire UI in Finnish.
 
 ```css
 --bg: #F9F8F6    --ink: #1C1B19    --mid: #6B6860
---faint: #908C83  --rule: #D0CCBF   --accent: #2C4BFF
+--faint: #706C63  --rule: #D0CCBF   --accent: #2C4BFF
 --surface: #FFFFFF --radius: 10px
 ```
 
@@ -160,7 +159,7 @@ Fonts: Instrument Serif (wordmark), DM Sans (body) — Google Fonts.
 
 ### Interactive behaviour
 
-- **Character counter:** Live update, color states at >85% (amber) and 100% (red)
+- **Character counter:** Live update, `!` prefix at >85% + amber, `⚠` prefix + red at limit
 - **Submit:** Disabled when empty or during request. Shows spinner + "Muunnetaan..."
 - **Clear (Tyhjennä):** Resets everything, no confirmation
 - **Copy:** Two-path — `navigator.clipboard.writeText()` primary, `execCommand('copy')` fallback for iOS Safari. Shows "Kopioitu" or "✕ Kopiointi epäonnistui"
@@ -188,8 +187,7 @@ Manifest V3. User selects text on any page → right-click "Muunna selkokielelle
 ### Architecture
 
 - `background.js` — Service worker. Registers context menu item and keyboard shortcut. Sends message to content script on trigger
-- `content.js` — Injected into all pages. Creates Shadow DOM panel attached to `document.documentElement`. Calls `POST /api/translate` directly. 4 states: loading (skeleton shimmer), result, error, empty-selection toast
-- `content.css` — Panel styles, scoped inside Shadow DOM. No host page interference
+- `content.js` — Injected into all pages. Creates Shadow DOM panel (open mode) attached to `document.documentElement`. Calls `POST /api/translate` directly. 4 states: loading (skeleton shimmer), result, error, empty-selection toast. Panel styles inlined in `buildPanel()`
 
 ### Panel features
 
@@ -253,7 +251,7 @@ A records for `@` and `www` → 37.27.14.199. Nginx redirects `www` → non-www 
 | Layer | Mechanism | Detail |
 |-------|-----------|--------|
 | Network | Nginx rate limiting | 10 req/min per IP on `/api/` |
-| Application | `slowapi` rate limiting | 30 req/hour per IP. **Bug:** 429 response is English (slowapi default), not Finnish as intended |
+| Application | `slowapi` rate limiting | 30 req/hour per IP. Custom handler returns Finnish message |
 | Application | CORS | Only `ALLOWED_ORIGIN` + `EXTENSION_ORIGIN` |
 | Application | Input validation | Non-empty, ≤5000 chars — before any OpenRouter call |
 | Application | Request timeout | 15s on all httpx calls |
