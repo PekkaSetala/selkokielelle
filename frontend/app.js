@@ -49,6 +49,7 @@ btnConv.addEventListener('click', async () => {
   btnConv.disabled = true;
   outputWrap.className = 'output state-loading';
   outputEl.classList.remove('visible');
+  outputWrap.querySelector('.output-body').style.height = '';
   btnCopy.disabled = true;
 
   const controller = new AbortController();
@@ -72,6 +73,14 @@ btnConv.addEventListener('click', async () => {
       requestAnimationFrame(() => {
         outputEl.classList.add('visible');
         btnCopy.disabled = false;
+
+        // C: Adaptive card height (mobile only — desktop uses height: auto)
+        if (!window.matchMedia('(min-width: 800px)').matches) {
+          const bodyEl = outputWrap.querySelector('.output-body');
+          const VPAD = 37; // 1.1rem top + 1.1rem bottom at 17px root = ~37.4px
+          const targetH = Math.max(120, outputEl.offsetHeight + VPAD);
+          bodyEl.style.height = targetH + 'px';
+        }
       });
     } else {
       let msg;
@@ -113,6 +122,7 @@ btnClear.addEventListener('click', () => {
   btnClear.disabled = true;
   btnCopy.disabled = true;
   outputEl.innerHTML = '';
+  outputWrap.querySelector('.output-body').style.height = '';
   outputEl.classList.remove('visible');
   outputWrap.className = 'output state-empty';
 });
