@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === 'FETCH_TRANSLATE') {
     fetch('https://selkokielelle.fi/api/translate', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Client': 'extension' },
       body: JSON.stringify({ text: msg.text }),
     })
       .then(async (res) => {

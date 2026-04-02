@@ -68,6 +68,7 @@ btnConv.addEventListener('click', async () => {
     const data = await response.json();
 
     if (response.ok && data.result) {
+      if (window.goatcounter) window.goatcounter.count({ path: 'translate', title: 'Muunna clicked' });
       outputEl.innerHTML = renderParagraphs(data.result);
       outputWrap.className = 'output state-done';
       requestAnimationFrame(() => {
