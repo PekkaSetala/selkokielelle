@@ -1,6 +1,6 @@
 # Architecture — selkokielelle.fi
 
-**Current version:** v1.5.0
+**Current version:** v1.5.2
 **Live:** [selkokielelle.fi](https://selkokielelle.fi)
 
 ---

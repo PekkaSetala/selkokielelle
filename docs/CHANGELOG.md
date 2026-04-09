@@ -6,6 +6,21 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Tags follow semantic ve
 
 ---
 
+## v1.5.2 — 2026-04-02
+
+**Tag:** `v1.5.2` · **Previous:** `v1.5.1`
+
+Analytics and reading ergonomics.
+
+### Added
+- **GoatCounter analytics** — privacy-friendly page view tracking added to all frontend pages. File: `frontend/index.html` (and other pages)
+- **Extension request tagging** — extension-originated API calls tagged with a source identifier for analytics separation. File: `extension/content.js`
+
+### Changed
+- **Adaptive output card height on mobile** — output card grows to fit content instead of a fixed height, improving reading ergonomics on small screens. File: `frontend/index.html`
+
+---
+
 ## v1.5.0 — 2026-03-23
 
 **Tag:** `v1.5.0` · **Previous:** `v1.4.0`

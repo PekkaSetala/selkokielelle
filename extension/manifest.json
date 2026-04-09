@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Selkokielelle",
   "description": "Muunna valittu teksti selkokielelle yhdellä klikkauksella.",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "permissions": ["contextMenus", "activeTab"],
   "host_permissions": ["https://selkokielelle.fi/*"],
   "background": {

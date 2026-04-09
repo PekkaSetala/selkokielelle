@@ -121,6 +121,10 @@ The system prompt handles adversarial input without rejecting legitimate text:
 
 ## Changelog
 
+### v1.5.2 — 2026-04-02
+- Analytics: GoatCounter added to all frontend pages; extension requests tagged for source separation
+- Mobile UX: adaptive output card height (grows to fit content instead of fixed height)
+
 ### v1.5.1 — 2026-03-25
 - Extension: floating "Muunna" button appears near text selection while the panel is open, eliminating the need to right-click or use Alt+S for subsequent translations
 
