@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: 'selkokielelle-translate',
-    title: 'Muunna selkokielelle',
+    title: 'Selkeytä teksti',
     contexts: ['selection'],
   });
 });

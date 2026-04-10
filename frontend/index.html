@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Selkokielelle – Muunna teksti selkokielelle</title>
-  <meta name="description" content="Ilmainen työkalu tekstin muuntamiseen selkokielelle tekoälyn avulla." />
+  <title>Selkokielelle – Selkeytä tekstiä tekoälyllä</title>
+  <meta name="description" content="Ilmainen tekoälytyökalu tekstin selkeyttämiseen. Tarkista tulos selkokielen asiantuntijan kanssa ennen julkaisua." />
   <link rel="canonical" href="https://selkokielelle.fi/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <meta property="og:title" content="Selkokielelle – Muunna teksti selkokielelle" />
-  <meta property="og:description" content="Ilmainen työkalu tekstin muuntamiseen selkokielelle tekoälyn avulla." />
+  <meta property="og:title" content="Selkokielelle – Selkeytä tekstiä tekoälyllä" />
+  <meta property="og:description" content="Ilmainen tekoälytyökalu tekstin selkeyttämiseen. Tarkista tulos selkokielen asiantuntijan kanssa ennen julkaisua." />
   <meta property="og:url" content="https://selkokielelle.fi/" />
   <meta property="og:type" content="website" />
   <script type="application/ld+json">
@@ -17,7 +17,7 @@
     "@type": "WebApplication",
     "name": "Selkokielelle",
     "url": "https://selkokielelle.fi",
-    "description": "Ilmainen työkalu tekstin muuntamiseen selkokielelle tekoälyn avulla.",
+    "description": "Ilmainen tekoälytyökalu tekstin selkeyttämiseen. Tarkista tulos selkokielen asiantuntijan kanssa ennen julkaisua.",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "All",
     "offers": {
@@ -154,6 +154,16 @@
       letter-spacing: .07em;
       text-transform: uppercase;
       color: var(--faint);
+    }
+
+    .output-label-link {
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 1px dotted var(--rule);
+      transition: border-color .15s;
+    }
+    .output-label-link:hover {
+      border-bottom-color: var(--ink);
     }
 
     .char-count {
@@ -528,7 +538,7 @@
   <header>
   <div class="top">
     <h1 class="wordmark">Selkokielelle</h1>
-    <div class="tagline">Muunna teksti selkokielelle.</div>
+    <div class="tagline">Selkeytä tekstiä tekoälyllä.</div>
   </div>
   </header>
 
@@ -545,7 +555,7 @@
       id="input-text"
       placeholder="Kirjoita tai liitä teksti tähän…"
       rows="7"
-      aria-label="Syötä muunnettava teksti"
+      aria-label="Syötä selkeytettävä teksti"
     ></textarea>
     <div class="limit-hint" id="limit-hint" aria-live="polite">Teksti on liian pitkä. Lyhennä alle 5 000 merkkiin.</div>
     <div class="action-row">
@@ -553,7 +563,7 @@
       <button class="btn btn-primary" id="convert-btn" disabled>
         <div class="spinner"></div>
         <svg class="btn-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-        Muunna
+        Selkeytä
       </button>
     </div>
   </div>
@@ -568,7 +578,7 @@
   <!-- OUTPUT -->
   <div class="output state-empty" id="output-wrap">
     <div class="output-header">
-      <span class="editor-label">Selkokieli</span>
+      <a class="editor-label output-label-link" href="tietoja.html#tekoaly-ja-selkokieli">Selkeytetty teksti</a>
     </div>
     <div class="output-body">
       <div class="output-empty">Tulos ilmestyy tähän</div>

@@ -14,7 +14,7 @@ function buildPanel() {
   const el = document.createElement('div');
   el.id = 'skl-panel';
   el.setAttribute('role', 'dialog');
-  el.setAttribute('aria-label', 'Selkokielelle-muunnos');
+  el.setAttribute('aria-label', 'Selkokielelle');
   el.innerHTML = `
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500&display=swap');
@@ -30,6 +30,7 @@ function buildPanel() {
       .skl-state { background: #FFFFFF; border: 1px solid #D0CCBF; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.04); animation: skl-fadein 0.35s ease both; }
       #skl-state-loading { padding: 1.1rem 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
       #skl-loading-label { font-size: .8rem; color: #908C83; margin-bottom: .6rem; }
+      #skl-result-label { font-size: .8rem; color: #908C83; padding: 1.1rem 1rem 0; margin: 0; }
       .skl-skeleton-line { height: 1rem; border-radius: 4px; background: linear-gradient(90deg, #D0CCBF 25%, #ECEAE4 50%, #D0CCBF 75%); background-size: 200% 100%; animation: skl-shimmer 1.4s infinite; }
       #skl-slow-msg { margin-top: 1rem; font-size: 0.8rem; color: #908C83; opacity: 0; transition: opacity 400ms; }
       #skl-state-result { display: flex; flex-direction: column; }
@@ -60,7 +61,7 @@ function buildPanel() {
     </div>
     <div id="skl-body">
       <div id="skl-state-loading" class="skl-state">
-        <p id="skl-loading-label" role="status">Muunnetaan…</p>
+        <p id="skl-loading-label" role="status">Selkeytetään…</p>
         <div class="skl-skeleton-line" style="width:100%"></div>
         <div class="skl-skeleton-line" style="width:88%"></div>
         <div class="skl-skeleton-line" style="width:95%"></div>
@@ -68,6 +69,7 @@ function buildPanel() {
         <p id="skl-slow-msg">Tämä kestää hetken...</p>
       </div>
       <div id="skl-state-result" class="skl-state" hidden>
+        <p id="skl-result-label">Selkeytetty teksti</p>
         <div id="skl-result-body">
           <p id="skl-result-text" aria-live="polite"></p>
         </div>
@@ -252,7 +254,7 @@ function triggerTranslation(text) {
       resultEl.innerHTML = renderParagraphs(response.data.result);
       setState('result');
     } else if (response.status === 429) {
-      showError('Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen.');
+      showError('Liian monta pyyntöä. Voit tehdä 30 pyyntöä tunnissa. Odota hetki ja yritä uudelleen.');
     } else {
       showError(response.data.error || 'Jokin meni pieleen. Yritä uudelleen.');
     }
@@ -301,7 +303,7 @@ function ensureFloatBtn() {
       #skl-float-btn.visible { opacity: 1; transform: translateY(0); }
       #skl-float-btn:hover { background: #3a3935; }
     </style>
-    <button id="skl-float-btn" aria-label="Muunna valittu teksti selkokielelle">Muunna</button>
+    <button id="skl-float-btn" aria-label="Selkeytä valittu teksti">Muunna</button>
   `;
 
   const btn = sr.getElementById('skl-float-btn');

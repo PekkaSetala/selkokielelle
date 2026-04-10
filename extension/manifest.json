@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Selkokielelle",
-  "description": "Muunna valittu teksti selkokielelle yhdellä klikkauksella.",
+  "description": "Selkeytä valittu teksti tekoälyllä.",
   "version": "1.5.2",
   "permissions": ["contextMenus", "activeTab"],
   "host_permissions": ["https://selkokielelle.fi/*"],
@@ -26,7 +26,7 @@
         "default": "Alt+S",
         "mac": "Alt+S"
       },
-      "description": "Muunna valittu teksti selkokielelle"
+      "description": "Selkeytä valittu teksti"
     }
   }
 }
