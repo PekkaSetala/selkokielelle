@@ -27,7 +27,7 @@ ALLOWED_ORIGIN=http://localhost:3000
 cd frontend
 python3 -m http.server 3000
 ```
-For local testing, temporarily change `API_URL` in `index.html` from `'/api/translate'` to `'http://localhost:8000/api/translate'`. **Always reset it before committing.**
+For local testing, temporarily change `API_URL` in `frontend/app.js` (line 1) from `'/api/translate'` to `'http://localhost:8000/api/translate'`. **Always reset it before committing.**
 
 **Install dependencies:**
 ```bash
@@ -65,7 +65,7 @@ extension/
 
 **CORS:** backend allows `ALLOWED_ORIGIN` (web tool) and `EXTENSION_ORIGIN` (extension, optional). Set `EXTENSION_ORIGIN=chrome-extension://YOUR_ID` in the systemd unit file after publishing to the Chrome Web Store. During development `EXTENSION_ORIGIN` can be left unset — the extension must be tested against the live API or a local backend with CORS temporarily opened to `*`.
 
-**Frontend API_URL:** hardcoded as `const API_URL = '/api/translate';` in `index.html`. Nginx proxies `/api/` to FastAPI on `127.0.0.1:8000`.
+**Frontend API_URL:** hardcoded as `const API_URL = '/api/translate';` on line 1 of `frontend/app.js`. Nginx proxies `/api/` to FastAPI on `127.0.0.1:8000`.
 
 ## Chrome extension
 
