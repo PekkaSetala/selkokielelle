@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN")
 EXTENSION_ORIGIN = os.environ.get("EXTENSION_ORIGIN", "")
-MODEL = os.environ.get("MODEL", "openai/gpt-4o-mini")
+MODEL = os.environ.get("MODEL", "anthropic/claude-sonnet-4.6")
 
 # Startup assertions: fail fast if required env vars are missing
 assert OPENROUTER_API_KEY, "OPENROUTER_API_KEY is required"
@@ -31,7 +31,9 @@ assert ALLOWED_ORIGIN, "ALLOWED_ORIGIN is required"
 
 limiter = Limiter(key_func=get_remote_address)
 
-# SYSTEM_PROMPT v4.0 — grounded in Selkokielen mittari 2.0 (Selkokeskus 2022).
+# SYSTEM_PROMPT v4.2 — grounded in Selkokielen mittari 2.0 (Selkokeskus 2022).
+# v4.2: added full text-level few-shot example respecting strict Kielto 1
+# (no external context — only source-internal vocabulary definitions).
 # Full source trail and design rationale: docs/internal/system-prompt-v4-design.md
 # Primary sources: selkokeskus.fi/selkokieli/selkokielen-mittari,
 # Selkokeskus 2024c kannanotto, Helovuo & Uusikartano (graduate theses),
@@ -233,11 +235,62 @@ Huomaa:
 - "mikäli käsittelijä näin edellyttää" → "kun käsittelijä pyytää" (ehto säilyy, rekisteri arkisempi)
 - Jaettu neljään lyhyeen virkkeeseen.
 
+**Tekstitasolla (uutinen):**
+
+Lähde:
+"Oppositiojohtaja Péter Magyarin voitto Unkarin sunnuntaisissa vaaleissa herättää Brysselissä ja muissa EU-pääkaupungeissa toivoa, että Unkari luopuu Venäjää myötäilevästä ja oikeusvaltiota horjuttavasta linjastaan.
+
+Vaalit hävinnyt pääministeri Viktor Orbán rakensi Unkarista 16 vuoden aikana 'illiberaaliksi' kutsumansa järjestelmän, missä oikeusistuimet ja media palvelevat valtapuolue Fideszin etua. Viime vuosina Orbán myös asettui yhä voimakkaammin hidastamaan ja estämään Ukrainan tukemista ja Venäjän talouspakotteita koskevia päätöksiä.
+
+Muut eurooppalaiset johtajat iloitsevat avoimesti Magyarin vaalivoitosta.
+
+'Tämä on erittäin tärkeä tulos paitsi Unkarille myös Euroopalle ja kaikille niille, jotka uskovat liberaaliin demokratiaan', tasavallan presidentti Alexander Stubb kirjoitti viestipalvelu X:ssä.
+
+'Unkarin kansa on valinnut eurooppalaisen tien', sanoi komission puheenjohtaja Ursula von der Leyen."
+
+Selkeytetty:
+
+Unkarissa pidettiin vaalit sunnuntaina. Vaalit voitti Péter Magyar. Hän on opposition johtaja. Oppositio tarkoittaa puolueita, jotka eivät kuulu hallitukseen.
+
+Vaalien tulos herättää toivoa muualla Euroopassa. EU-maiden johtajat toivovat, että Unkari muuttuu. He toivovat kahta asiaa.
+
+Ensinnäkin he toivovat, että Unkari ei enää myötäile Venäjää.
+
+Toiseksi he toivovat, että Unkari ei enää horjuta oikeusvaltiota. Oikeusvaltio tarkoittaa maata, jossa kaikkia kohdellaan lakien mukaan.
+
+Vaalit hävisi Viktor Orbán. Orbán on ollut Unkarin pääministeri 16 vuotta. Orbánin puolue on Fidesz, joka on ollut Unkarin valtapuolue.
+
+Orbán on rakentanut Unkarista järjestelmän, jota hän kutsuu "illiberaaliksi". Tässä järjestelmässä oikeusistuimet ja tiedotusvälineet palvelevat Fideszin etua. Oikeusistuin on paikka, jossa tuomari ratkaisee asioita.
+
+Viime vuosina Orbán on hidastanut päätöksiä Ukrainan tukemisesta. Hän on jopa yrittänyt estää näitä päätöksiä.
+
+Orbán on toiminut samoin päätöksissä, jotka koskevat Venäjän talouspakotteita. Talouspakotteet tarkoittavat sitä, että maan kanssa ei saa käydä kauppaa.
+
+Muut Euroopan johtajat iloitsevat Magyarin voitosta avoimesti.
+
+Tasavallan presidentti Alexander Stubb kirjoitti viestipalvelu X:ssä:
+"Tämä on erittäin tärkeä tulos. Tulos on tärkeä Unkarille. Se on tärkeä myös Euroopalle. Se on tärkeä kaikille, jotka uskovat liberaaliin demokratiaan."
+
+Komission puheenjohtaja Ursula von der Leyen sanoi:
+"Unkarin kansa on valinnut eurooppalaisen tien."
+
+Huomaa:
+- Vaikeat termit selitetty heti ensimmäisellä esiintymällä, lähdetekstin sisäisin vihjein: "oppositio", "oikeusvaltio", "oikeusistuin", "talouspakotteet". Selitykset ovat sanaston määritelmiä, eivät ulkopuolista taustatietoa.
+- Ei lisätty lähdetekstin ulkopuolelta mitään tapahtumaa, päivämäärää, lukua, nimeä eikä historiallista taustaa (Kielto 1).
+- Pitkä virke "Brysselissä ja muissa EU-pääkaupungeissa" → "muualla Euroopassa" + "EU-maiden johtajat". Metonymia (Bryssel = EU-instituutiot) puretaan suoraksi, säilyttäen merkityksen.
+- "rakensi 16 vuoden aikana" → "on ollut pääministeri 16 vuotta" + "on rakentanut". Faktatieto säilyy, rakenne suora.
+- Pitkä Stubbin lainaus pilkottu neljään lyhyeen virkkeeseen, säilyttäen sisällön ja "paitsi/myös"-rakenteen sisällön.
+- "Iloitsevat avoimesti" säilyy — alkuperäisen sävy.
+- Tehtäväluettelo, jonka EU-johtajat toivovat ("luopuu linjasta"), avataan kahdeksi konkreettiseksi toiveeksi.
+- Sanaston yhtenäisyys: "Orbán" sama kaikkialla, "Fidesz" sama, "Magyar" sama. Ei synonyymikiertoa.
+- Modaalisävy ("herättää toivoa") säilyy. Modaaliverbit ja rajaukset koskemattomia.
+- Ei lisätty arvioita, mielipiteitä eikä päätelmiä.
+
 ---
 
 **Palauta AINOASTAAN selkeytetty teksti.**
 
-*Versio 4.1 · 11.4.2026 · Perustuu Selkokielen mittariin 2.0 (Selkokeskus 2022)*"""
+*Versio 4.2 · 14.4.2026 · Perustuu Selkokielen mittariin 2.0 (Selkokeskus 2022)*"""
 
 app = FastAPI()
 app.state.limiter = limiter
@@ -247,7 +300,13 @@ app.state.limiter = limiter
 async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
     return JSONResponse(
         status_code=429,
-        content={"error": "Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen."},
+        content={
+            "error": (
+                "Päiväkohtainen raja täynnä (5 muunnosta vuorokaudessa). "
+                "Jos haluat käyttää palvelua enemmän, ota yhteyttä: "
+                "https://pekkasetala.carrd.co/"
+            )
+        },
     )
 
 
@@ -280,7 +339,7 @@ async def health():
 
 
 @app.post("/api/translate")
-@limiter.limit("30/hour")
+@limiter.limit("5/day")
 async def translate(request: Request, body: TranslateRequest):
     text = body.text
 
@@ -290,7 +349,7 @@ async def translate(request: Request, body: TranslateRequest):
             content={"error": "Teksti ei voi olla tyhjä"},
         )
 
-    if len(text) > 5000:
+    if len(text) > 2500:
         return JSONResponse(
             status_code=400,
             content={"error": "Teksti on liian pitkä"},
