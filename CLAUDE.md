@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **selkokielelle.fi** — a web tool and Chrome extension that converts Finnish text into selkokieli (Plain Finnish). Users paste Finnish text, click Muunna, and receive a simplified version. The extension lets users translate selected text on any webpage via right-click or `Alt+S`. No login, no data storage.
 
-Stack: vanilla HTML/CSS/JS frontend · Python/FastAPI backend · OpenRouter API (`openai/gpt-4o-mini`) · Nginx + systemd on Ubuntu VPS.
+Stack: vanilla HTML/CSS/JS frontend · Python/FastAPI backend · OpenRouter API (`anthropic/claude-sonnet-4.6`) · Nginx + systemd on Ubuntu VPS.
 
 ## Local development
 
@@ -33,6 +33,13 @@ For local testing, temporarily change `API_URL` in `frontend/app.js` (line 1) fr
 ```bash
 cd backend && source venv/bin/activate && pip install -r requirements.txt
 ```
+
+**Run tests:**
+```bash
+cd backend && source venv/bin/activate && pip install -r requirements-dev.txt
+python -m pytest tests/ -v
+```
+Tests mock OpenRouter via `respx` and cover the success path, validation, upstream errors, output sanitisation, and the per-IP daily rate limit. All 13 tests must pass before deploying.
 
 ## Deployment
 
@@ -61,7 +68,7 @@ extension/
   icons/              # placeholder PNGs — replace before Chrome Web Store submission
 ```
 
-**Request flow:** `index.html` → `POST /api/translate` → FastAPI validates (5000 char max) → OpenRouter (`gpt-4o-mini`, temperature 0.3) → returns `{"result": "..."}`.
+**Request flow:** `index.html` → `POST /api/translate` → FastAPI validates (2500 char max) → OpenRouter (`anthropic/claude-sonnet-4.6`, temperature 0.3) → returns `{"result": "..."}`.
 
 **CORS:** backend allows `ALLOWED_ORIGIN` (web tool) and `EXTENSION_ORIGIN` (extension, optional). Set `EXTENSION_ORIGIN=chrome-extension://YOUR_ID` in the systemd unit file after publishing to the Chrome Web Store. During development `EXTENSION_ORIGIN` can be left unset — the extension must be tested against the live API or a local backend with CORS temporarily opened to `*`.
 
@@ -73,7 +80,7 @@ extension/
 
 **How it works:** user selects text on any page → right-click "Muunna selkokielelle" (or `Alt+S`) → `background.js` sends a message to `content.js` → `content.js` calls `POST /api/translate` directly → result shown in a Shadow DOM sidebar panel that slides in from the right.
 
-**Rate limiting:** the backend enforces 30 requests/hour per IP via `slowapi`. Returns 429 with a Finnish error message on breach.
+**Rate limiting:** the backend enforces 5 requests/day per IP via `slowapi`. Returns 429 with a Finnish error message on breach. The message includes a contact link (`https://pekkasetala.carrd.co/`) for users who need higher quota.
 
 **Before Chrome Web Store submission:** replace placeholder icons in `extension/icons/`, set `EXTENSION_ORIGIN` in the systemd unit, and update the `host_permissions` in `manifest.json` if the API URL changes.
 

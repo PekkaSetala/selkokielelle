@@ -28,7 +28,7 @@ Serves static files      FastAPI on 127.0.0.1:8000
 (index.html, etc.)            |
                               | HTTPS to OpenRouter
                               v
-                       openai/gpt-4o-mini
+                       anthropic/claude-sonnet-4.6
                               |
                        JSON → user browser
 ```
@@ -81,7 +81,7 @@ selkokielelle/
 | Frontend | Vanilla HTML/CSS/JS | Single interaction, zero dependencies, fast load |
 | Backend | Python + FastAPI + Uvicorn | Lightweight, async, excellent validation |
 | AI Provider | OpenRouter | Model-swappable without code changes |
-| AI Model | `openai/gpt-4o-mini` | Strong Finnish support, reliable prompt following. ~€2/month at normal traffic |
+| AI Model | `anthropic/claude-sonnet-4.6` | Best-in-class Finnish, strong rule following for selkokieli judgment calls. Capped at 5 req/day per IP, ~$2/month at the cap |
 | Web Server | Nginx | Static serving + API proxy. Industry standard |
 | SSL | Certbot / Let's Encrypt | Free, auto-renews every 90 days |
 | Hosting | Ubuntu VPS (37.27.14.199) | Full control, no additional cost |
@@ -107,14 +107,14 @@ Single-file FastAPI application. Stateless — each request is independent (syst
 | Condition | Status | Message |
 |-----------|--------|---------|
 | Empty or whitespace | 400 | Teksti ei voi olla tyhjä |
-| Exceeds 5000 chars | 400 | Teksti on liian pitkä |
+| Exceeds 2500 chars | 400 | Teksti on liian pitkä |
 | Rate limit exceeded | 429 | Finnish rate limit message |
 | OpenRouter timeout (>15s) | 504 | Palvelu ei vastaa juuri nyt, yritä uudelleen |
 | Unexpected upstream error | 502 | Jokin meni pieleen, yritä uudelleen |
 
 ### Rate limiting
 
-`slowapi` enforces 30 requests/hour per IP at the application level. Nginx also rate-limits at 10 req/min per IP on `/api/`. Two independent layers.
+`slowapi` enforces 5 requests/day per IP at the application level. The 429 response includes a contact link (`https://pekkasetala.carrd.co/`) for users who need higher quota. Nginx also rate-limits at 10 req/min per IP on `/api/`. Two independent layers.
 
 ### Configuration
 
@@ -122,14 +122,14 @@ Single-file FastAPI application. Stateless — each request is independent (syst
 |---------|----------|-------------|
 | `OPENROUTER_API_KEY` | Yes | Never in code or version control |
 | `ALLOWED_ORIGIN` | Yes | `https://selkokielelle.fi` in prod, `http://localhost:3000` locally |
-| `MODEL` | No | Defaults to `openai/gpt-4o-mini` |
+| `MODEL` | No | Defaults to `anthropic/claude-sonnet-4.6` |
 | `EXTENSION_ORIGIN` | No | `chrome-extension://ID` for extension CORS (currently `*`) |
 
 Startup assertions fail fast if `OPENROUTER_API_KEY` or `ALLOWED_ORIGIN` are missing.
 
 ### AI integration
 
-- Model: `openai/gpt-4o-mini` via OpenRouter API, temperature 0.3
+- Model: `anthropic/claude-sonnet-4.6` via OpenRouter API, temperature 0.3
 - System prompt defined as `SYSTEM_PROMPT` constant in `main.py` — this is the source of truth
 - Based on official Selkokeskus guidelines: vocabulary rules, sentence structure, passive→active voice, slang substitutions, reader framing
 - Injection defense: prompt explicitly rejects questions, commands, and meta-instructions in user input
@@ -251,9 +251,9 @@ A records for `@` and `www` → 37.27.14.199. Nginx redirects `www` → non-www 
 | Layer | Mechanism | Detail |
 |-------|-----------|--------|
 | Network | Nginx rate limiting | 10 req/min per IP on `/api/` |
-| Application | `slowapi` rate limiting | 30 req/hour per IP. Custom handler returns Finnish message |
+| Application | `slowapi` rate limiting | 5 req/day per IP. Custom handler returns Finnish message with contact link |
 | Application | CORS | Only `ALLOWED_ORIGIN` + `EXTENSION_ORIGIN` |
-| Application | Input validation | Non-empty, ≤5000 chars — before any OpenRouter call |
+| Application | Input validation | Non-empty, ≤2500 chars — before any OpenRouter call |
 | Application | Request timeout | 15s on all httpx calls |
 | Application | Startup assertions | Fail-fast on missing API key or origin |
 | AI | Prompt injection defense | System prompt rejects off-task instructions |
@@ -264,7 +264,7 @@ A records for `@` and `www` → 37.27.14.199. Nginx redirects `www` → non-www 
 
 - CAPTCHA / bot verification
 - User authentication
-- Content filtering (gpt-4o-mini has built-in moderation)
+- Content filtering (Claude Sonnet 4.6 has built-in safety guardrails)
 - DDoS mitigation beyond rate limiting
 
 ---

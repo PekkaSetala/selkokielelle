@@ -24,7 +24,7 @@ The [Selkokeskus](https://www.selkokeskus.fi/) (Plain Language Center) publishes
 
 Paste any Finnish text into **[selkokielelle.fi](https://selkokielelle.fi)** and click **Muunna**. The text is sent to an AI model instructed to follow Selkokeskus guidelines and returns a simplified version.
 
-- Input limit: 5 000 characters
+- Input limit: 2 500 characters
 - No login, no data storage, no history
 - Entire UI in Finnish
 
@@ -63,7 +63,7 @@ deploy.sh                 # Production deployment script
 
 **Request flow:**
 1. Client sends `POST /api/translate` with `{ "text": "..." }`
-2. Backend validates input (max 5 000 chars, non-empty)
+2. Backend validates input (max 2 500 chars, non-empty)
 3. OpenRouter API receives request with system prompt encoding Selkokeskus rules
 4. Response returned as `{ "result": "..." }`
 
@@ -73,8 +73,8 @@ deploy.sh                 # Production deployment script
 - Both configured via environment variables in the systemd unit file
 
 **Rate limiting:**
-- 30 requests/hour per IP via `slowapi`
-- Returns HTTP 429 with Finnish error message on breach
+- 5 requests/day per IP via `slowapi`
+- Returns HTTP 429 with a Finnish error message and a contact link (`https://pekkasetala.carrd.co/`) for users who need higher quota
 - Requires `X-Forwarded-For` header forwarding from Nginx for accurate per-client limiting
 
 ## Prompt Engineering
