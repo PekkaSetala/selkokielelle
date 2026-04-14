@@ -38,7 +38,7 @@ content.js opens Shadow DOM panel
         ↓
 POST /api/translate to selkokielelle.fi
         ↓
-OpenRouter API (gpt-4o-mini) processes request
+OpenRouter API (anthropic/claude-sonnet-4.6) processes request
         ↓
 Result displayed in panel
         ↓
@@ -114,9 +114,9 @@ fetch('https://selkokielelle.fi/api/translate', {
 })
 ```
 
-- **Max input**: 5000 characters (validated before send; exceeding shows toast: "Valittu teksti on liian pitkä")
+- **Max input**: 2500 characters (validated before send; exceeding shows toast: "Valittu teksti on liian pitkä")
 - **Response**: `{ result: "simplified text" }` or `{ error: "reason" }`
-- **Rate limit**: Backend enforces 30 req/hour per IP. Breach returns HTTP 429 with Finnish error message.
+- **Rate limit**: Backend enforces 5 requests/day per IP. Breach returns HTTP 429 with a Finnish message containing a contact link.
 
 #### 4. Interactivity
 
@@ -130,7 +130,7 @@ fetch('https://selkokielelle.fi/api/translate', {
 
 **Toast notifications** (appear top-center, auto-dismiss after 2.5s):
 - "Valitse ensin teksti." — triggered when user presses Alt+S with no selection
-- "Valittu teksti on liian pitkä (yli 5 000 merkkiä)." — text exceeds limit
+- "Valittu teksti on liian pitkä (yli 2 500 merkkiä)." — text exceeds limit
 - Network/API errors from the backend
 
 **Panel animation**: 220ms cubic-bezier slide-in (right to left), with smooth fade-in on result card (350ms).

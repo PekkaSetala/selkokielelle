@@ -253,10 +253,11 @@ function triggerTranslation(text) {
       const resultEl = shadowRoot.getElementById('skl-result-text');
       resultEl.innerHTML = renderParagraphs(response.data.result);
       setState('result');
-    } else if (response.status === 429) {
-      showError('Liian monta pyyntöä. Voit tehdä 30 pyyntöä tunnissa. Odota hetki ja yritä uudelleen.');
     } else {
-      showError(response.data.error || 'Jokin meni pieleen. Yritä uudelleen.');
+      // Backend always returns a localized error message (including the rate-limit
+      // text and contact link for HTTP 429). Use it directly so the wording stays
+      // in one place.
+      showError(response.data && response.data.error ? response.data.error : 'Jokin meni pieleen. Yritä uudelleen.');
     }
   });
 }
@@ -314,7 +315,7 @@ function ensureFloatBtn() {
 
   btn.addEventListener('click', () => {
     const sel = window.getSelection().toString().trim();
-    if (!sel || sel.length > 5000) return;
+    if (!sel || sel.length > 2500) return;
     hideFloatBtn();
     triggerTranslation(sel);
   });
@@ -349,7 +350,7 @@ document.addEventListener('mouseup', (e) => {
   if (host && host.contains(e.target)) return;
   setTimeout(() => {
     const text = window.getSelection().toString().trim();
-    if (!text || text.length > 5000) { hideFloatBtn(); return; }
+    if (!text || text.length > 2500) { hideFloatBtn(); return; }
     showFloatBtn(e.clientX, e.clientY);
   }, 10);
 });
@@ -375,8 +376,8 @@ chrome.runtime.onMessage.addListener((msg) => {
       showToast('Valitse ensin teksti.');
       return;
     }
-    if (sel.length > 5000) {
-      showToast('Valittu teksti on liian pitkä (yli 5 000 merkkiä).');
+    if (sel.length > 2500) {
+      showToast('Valittu teksti on liian pitkä (yli 2 500 merkkiä).');
       return;
     }
     triggerTranslation(sel);

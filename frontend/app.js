@@ -9,7 +9,7 @@ const outputWrap = document.getElementById('output-wrap');
 const outputEl   = document.getElementById('output-text');
 const btnCopy    = document.getElementById('copy-btn');
 
-const MAX = 5000;
+const MAX = 2500;
 
 function renderParagraphs(text) {
   return text.split(/\n\n+/).map(para => {
@@ -84,12 +84,9 @@ btnConv.addEventListener('click', async () => {
         }
       });
     } else {
-      let msg;
-      if (response.status === 429) {
-        msg = 'Liian monta pyyntöä. Voit tehdä 30 muunnosta tunnissa. Odota hetki ja yritä uudelleen.';
-      } else {
-        msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
-      }
+      // Backend always returns a localized error message in data.error.
+      // Use it directly so the rate-limit text and contact link stay in one place.
+      const msg = (data && data.error) ? data.error : 'Jokin meni pieleen, yritä uudelleen.';
       const div = document.createElement('div');
       div.textContent = msg;
       outputEl.innerHTML = `<p>${div.innerHTML}</p>`;
