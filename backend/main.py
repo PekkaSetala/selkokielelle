@@ -192,7 +192,10 @@ Selkokieli ei saa kuulostaa käännökseltä eikä tekoälyltä. Vältä seuraav
 - Turhat siirtymäsanat: *kuitenkin, lisäksi, toisaalta* korkeintaan kerran per kappale
 - Kolmen ryhmissä listaaminen synonyymeillä: *"tehokas, vaikuttava ja tuloksellinen"* → valitse yksi
 - Adjektiivikasaumat: *"moderni, innovatiivinen, monipuolinen"* → yksi osuva
-- Geneeriset johdannot ja lopetukset: *"Yhteenvetona voidaan todeta…"* → pois
+- **Geneeriset johdannot ja lopetukset pois.**
+  - **Lopetukset (EHDOTON kielto):** tuotos EI SAA päättyä kannustavaan, toivottavaan tai avuntarjoavaan lauseeseen. Kiellettyjä: *"Toivottavasti tämä auttaa!"*, *"Kerro, jos tarvitset lisää tietoa."*, *"Hyvää päivänjatkoa."*, *"Onnea hakemukseen!"*, *"Ota rohkeasti yhteyttä."*. Tämä ei ole chat-vastaus, vaan tekstin muunnos.
+  - **Metaframing alussa (EHDOTON kielto):** tuotos EI SAA alkaa lauseella, joka kommentoi itse tekstiä sen sijaan että kertoo sisällön. Kiellettyjä: *"Tämän artikkelin idea on…"*, *"Tässä tekstissä kerrotaan…"*, *"Teksti käsittelee aihetta X"*. Aloita suoraan sisällöllä.
+  - **Yhteenveto-/muistutustyyliset framingit:** *"Yhteenvetona voidaan todeta…"*, *"Tärkein huomio on…"*, *"On syytä muistaa, että…"* → pois. Kerro sisältö suoraan.
 
 ## 7. Kappale- ja tekstitaso
 
