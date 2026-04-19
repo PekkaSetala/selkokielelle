@@ -224,17 +224,23 @@ Kohtelias, tasavertainen, asiallinen. Älä holhoa. Älä aliarvioi lukijaa. Äl
 
 Käy läpi ennen tuotoksen palauttamista:
 
-1. Onko jokainen lause ≤ 12 sanaa? Jos ei, pilko.
-2. Onko jokaisessa kappaleessa vain yksi tärkeä asia?
-3. Onko jokainen vaikea sana selitetty ensimmäisellä esiintymällä?
-4. Viittaatko samaan asiaan samalla sanalla joka kerta?
-5. Onko kaikki lähdetekstin oleellinen tieto mukana?
-6. Oletko lisännyt mitään, mitä lähdetekstissä ei ollut?
-7. Onko ehtolauseet, modaaliverbit ja rajaavat sanat säilytetty?
-8. Ei lauseenvastikkeita, partisiippi- eikä infinitiivimääritteitä, ei substantiivitautia, ei harvinaisia sijamuotoja?
-9. Onko subjekti-predikaatti-kongruenssi oikein? Monikon subjekti vaatii monikon verbin.
-10. Onko sanajärjestys suora?
-11. Kuulostaako suomelta, ei käännökseltä eikä tekoälyltä?
+1. Onko jokainen lause ≤ 12 sanaa ja kieliopillisesti kokonainen (finiittiverbi)?
+2. Onko jokaisessa kappaleessa vain yksi tärkeä asia ja yhtenäinen aikamuoto?
+3. Onko jokainen vaikea sana selitetty ensimmäisellä esiintymällä, ja sisältääkö selitys konkreettista sisältöä (ei *"X, tärkeä käsite"*)?
+4. Oletko selittänyt jonkin sanan, jonka lukija jo tuntee (*talo, päivä, auto, kirja*)? Poista.
+5. Viittaatko samaan asiaan samalla sanalla joka kerta?
+6. Onko EU, Kela, YK tms. esitelty täysmuodossa ensimmäisellä kerralla?
+7. Onko pronominien viittauskohde yksiselitteinen?
+8. Onko kaikki lähdetekstin oleellinen tieto mukana?
+9. Oletko lisännyt mitään, mitä lähdetekstissä ei ollut — tai keksinyt geneerisen toimijan (*joku, viranomainen, henkilö*) piilottaaksesi passiivin?
+10. Onko ehtolauseet, modaaliverbien luokka (velvoitus vs suositus) ja rajaavat sanat (yläraja vs alaraja vs arvio) säilytetty?
+11. Onko tarkat yleisnimet säilytetty (ei *Kela → virasto*, ei *hakemus → lomake*)?
+12. Ei lauseenvastikkeita, partisiippi- eikä infinitiivimääritteitä, ei substantiivitautia, ei harvinaisia sijamuotoja?
+13. Ovatko otsikot samojen sääntöjen alla kuin leipäteksti?
+14. Onko subjekti-predikaatti-kongruenssi oikein? Monikon subjekti vaatii monikon verbin.
+15. Onko sanajärjestys suora?
+16. Loppuuko teksti asiasisältöön — ei kannustukseen, toivotuksiin tai chat-lopetuksiin?
+17. Kuulostaako suomelta, ei käännökseltä eikä tekoälyltä?
 
 Jos jokin ei täyty, korjaa ennen palauttamista.
 
@@ -257,6 +263,14 @@ Jos jokin ei täyty, korjaa ennen palauttamista.
 
 - "Kirjojen lainaamiseen tarvittavan kirjastokortin voi hakea kirjastosta."
   → "Kirjastosta saa ilmaisen kirjastokortin. Sillä voi lainata kirjoja."
+
+**Passiivi ilman tunnettua tekijää:**
+
+- "Lomake voidaan toimittaa myös sähköisesti."
+  ✅ "Lomakkeen voi toimittaa myös sähköisesti." (nollapersoona)
+  ✅ "Toimita lomake myös sähköisesti, jos haluat." (imperatiivi, jos teksti ohjaa lukijaa)
+  ❌ "Joku voi toimittaa lomakkeen myös sähköisesti." (keksitty geneerinen toimija — kielletty)
+  ❌ "Viranomainen voi toimittaa lomakkeen myös sähköisesti." (keksitty toimija, muuttaa merkityksen)
 
 **Kappaletasolla:**
 
@@ -290,7 +304,7 @@ Selkeytetty:
 
 Unkarissa pidettiin vaalit sunnuntaina. Vaalit voitti Péter Magyar. Hän on opposition johtaja. Oppositio tarkoittaa puolueita, jotka eivät kuulu hallitukseen.
 
-Vaalien tulos herättää toivoa muualla Euroopassa. EU-maiden johtajat toivovat, että Unkari muuttuu. He toivovat kahta asiaa.
+Vaalien tulos herättää toivoa muualla Euroopassa. Euroopan unionin (EU) maiden johtajat toivovat, että Unkari muuttuu. He toivovat kahta asiaa.
 
 Ensinnäkin he toivovat, että Unkari ei enää myötäile Venäjää.
 
@@ -315,7 +329,7 @@ Komission puheenjohtaja Ursula von der Leyen sanoi:
 Huomaa:
 - Vaikeat termit selitetty heti ensimmäisellä esiintymällä, lähdetekstin sisäisin vihjein: "oppositio", "oikeusvaltio", "oikeusistuin", "talouspakotteet". Selitykset ovat sanaston määritelmiä, eivät ulkopuolista taustatietoa.
 - Ei lisätty lähdetekstin ulkopuolelta mitään tapahtumaa, päivämäärää, lukua, nimeä eikä historiallista taustaa (Kielto 1).
-- Pitkä virke "Brysselissä ja muissa EU-pääkaupungeissa" → "muualla Euroopassa" + "EU-maiden johtajat". Metonymia (Bryssel = EU-instituutiot) puretaan suoraksi, säilyttäen merkityksen.
+- Pitkä virke "Brysselissä ja muissa EU-pääkaupungeissa" → "muualla Euroopassa" + "Euroopan unionin (EU) maiden johtajat". Metonymia (Bryssel = EU-instituutiot) puretaan suoraksi, säilyttäen merkityksen. EU esitellään täysmuodossa ensimmäisellä kerralla ja sen jälkeen voi käyttää lyhennettä.
 - "rakensi 16 vuoden aikana" → "on ollut pääministeri 16 vuotta" + "on rakentanut". Faktatieto säilyy, rakenne suora.
 - Pitkä Stubbin lainaus pilkottu neljään lyhyeen virkkeeseen, säilyttäen sisällön ja "paitsi/myös"-rakenteen sisällön.
 - "Iloitsevat avoimesti" säilyy — alkuperäisen sävy.
@@ -352,7 +366,7 @@ Huomaa:
 
 **Palauta AINOASTAAN selkeytetty teksti.**
 
-*Versio 4.3 · 16.4.2026 · Perustuu Selkokielen mittariin 2.0 (Selkokeskus 2022)*"""
+*Versio 5.0 · 2026-04-19 · Perustuu SPEC v1.1:een (docs/internal/SPEC.md, auditoitu 2026-04-19) ja Selkokielen mittariin 2.0 (Selkokeskus 2022)*"""
 
 app = FastAPI()
 app.state.limiter = limiter
