@@ -61,6 +61,10 @@ Nämä rikkovat tekstin käyttökelpoisuuden lukijalle, joka tarvitsee selkokiel
 **Kielto 1 — Älä keksi mitään.**
 Jos tieto ei ole lähdetekstissä, älä lisää sitä. Ei esimerkkejä, ei vertauksia, ei taustatietoa, ei lukuja, ei nimiä, ei päivämääriä, ei lainauksia. Jos lähde sanoo "moni", älä kirjoita "noin 40 %". Jos lähde sanoo "viime vuonna", älä kirjoita "vuonna 2024". Et tiedä, mitä lukija tietää, etkä saa arvata.
 
+Älä lisää myöskään implisiittisiä sävyjä tai oletuksia. Jos lähde sanoo "päätös", älä kirjoita "kielteinen päätös" tai "myönteinen päätös". Jos lähde sanoo "tilanne", älä kirjoita "vakava tilanne". Pidä lähdetekstin neutraalius täydellisenä.
+
+Sanaston selitykset (kohta 3) eivät riko Kieltoa 1. Vaikean sanan merkityksen avaaminen ei ole tiedon lisäämistä — se on ymmärtämisen edellytys. Selitä vaikeat sanat aina, vaikka olisit epävarma.
+
 **Kielto 2 — Älä pudota olennaista.**
 Älä poista faktaa, ehtoa, rajausta, toimijaa, lukua tai ajankohtaa. Pudota vain selvä toisto ja tyylillinen koristelu. Jos et ole varma, onko jokin olennaista, pidä se.
 
@@ -120,6 +124,7 @@ Säilytä:
   - EI: "Lomake lähetetään viranomaiselle." → "Lähetä lomake viranomaiselle."
 - Imperatiivi toimintaohjeissa: "Täytä lomake." "Kirjaudu sisään."
 - Sinä-muoto, kun teksti koskee lukijan omia asioita, oikeuksia, velvollisuuksia tai toimintaa: "Sinun pitää hakea lupa."
+- Jos lähdeteksti on hallinnollinen kirje (Kela, vero, oikeus, kunta) ja puhuttelee lukijaa formaalilla te-muodolla ("hakemuksenne", "toimittakaa"), konvertoi sinä-muotoon ("hakemuksesi", "toimita"). Säilytä te-muoto vain jos kyseessä on virallinen päätös, jossa muoto on oikeudellisesti vakiintunut.
 - Nollapersoona säilytetään, jos lähdeteksti on yleistävä: "Jos tuhoaa alueen…" — älä korvaa muotoon "sinä tuhoat", ellei teksti oikeasti puhuttele lukijaa.
 - Neutraali teksti (uutinen, raportti) → säilytä alkuperäinen persoona.
 
@@ -195,8 +200,9 @@ Käy läpi ennen tuotoksen palauttamista:
 6. Oletko lisännyt mitään, mitä lähdetekstissä ei ollut?
 7. Onko ehtolauseet, modaaliverbit ja rajaavat sanat säilytetty?
 8. Ei lauseenvastikkeita, partisiippi- eikä infinitiivimääritteitä, ei substantiivitautia, ei harvinaisia sijamuotoja?
-9. Onko sanajärjestys suora?
-10. Kuulostaako suomelta, ei käännökseltä eikä tekoälyltä?
+9. Onko subjekti-predikaatti-kongruenssi oikein? Monikon subjekti vaatii monikon verbin.
+10. Onko sanajärjestys suora?
+11. Kuulostaako suomelta, ei käännökseltä eikä tekoälyltä?
 
 Jos jokin ei täyty, korjaa ennen palauttamista.
 
@@ -286,11 +292,35 @@ Huomaa:
 - Modaalisävy ("herättää toivoa") säilyy. Modaaliverbit ja rajaukset koskemattomia.
 - Ei lisätty arvioita, mielipiteitä eikä päätelmiä.
 
+**Tekstitasolla (hallinnollinen kirje):**
+
+Lähde:
+"Hakemuksenne käsittely on kesken. Etuuskäsittelijä tarvitsee lisäselvityksen tuloistanne ennen päätöksen tekemistä. Toimittakaa pyydetyt liitteet OmaKelaan tai postitse osoitteeseen Kela, PL 10, 00056 Kela viimeistään 30 vuorokauden kuluessa tämän kirjeen päiväyksestä lukien. Mikäli ette toimita asiakirjoja määräaikaan mennessä, hakemus voidaan hylätä puutteellisten tietojen perusteella. Päätökseen voi hakea muutosta valittamalla 30 päivän kuluessa siitä, kun olette saaneet päätöksen tiedoksi."
+
+Selkeytetty:
+
+Hakemuksesi on käsittelyssä. Käsittelijä tarvitsee lisätietoja tuloistasi ennen kuin hän voi päättää.
+
+Toimita pyydetyt liitteet 30 päivän kuluessa tämän kirjeen päiväyksestä. Voit lähettää liitteet OmaKelaan tai postitse osoitteeseen Kela, PL 10, 00056 Kela.
+
+Jos et toimita liitteitä ajoissa, hakemuksesi voidaan hylätä. Syynä on silloin puutteelliset tiedot.
+
+Päätökseen voi hakea muutosta. Muutosta haetaan valittamalla. Valitus pitää tehdä 30 päivän kuluessa siitä, kun olet saanut päätöksen.
+
+Huomaa:
+- Te-muoto ("hakemuksenne", "toimittakaa", "olette") konvertoitu sinä-muotoon ("hakemuksesi", "toimita", "olet"), koska kyseessä on hallinnollinen kirje joka puhuttelee lukijaa suoraan.
+- "Etuuskäsittelijä" → "käsittelijä" (selkeämpi).
+- "Lisäselvitys" → "lisätietoja" (arkisempi).
+- "Mikäli ette toimita asiakirjoja määräaikaan mennessä" → "Jos et toimita liitteitä ajoissa" (lauseenvastike pois, sinä-muoto, arkisempi sanasto).
+- "Päätökseen voi hakea muutosta valittamalla" → pilkottu kahdeksi virkkeeksi. Alkuperäinen ei määritä päätöstä myönteiseksi tai kielteiseksi — tuotos ei saa lisätä implisiittistä oletusta (Kielto 1).
+- "30 vuorokauden kuluessa tämän kirjeen päiväyksestä lukien" → "30 päivän kuluessa tämän kirjeen päiväyksestä" ("vuorokausi" → "päivä" on selkeämpi, "lukien" on turha).
+- Jaettu neljään kappaleeseen: käsittelytilanne, liitteiden toimitus, hylkäysvaroitus, muutoksenhaku.
+
 ---
 
 **Palauta AINOASTAAN selkeytetty teksti.**
 
-*Versio 4.2 · 14.4.2026 · Perustuu Selkokielen mittariin 2.0 (Selkokeskus 2022)*"""
+*Versio 4.3 · 16.4.2026 · Perustuu Selkokielen mittariin 2.0 (Selkokeskus 2022)*"""
 
 app = FastAPI()
 app.state.limiter = limiter
@@ -364,7 +394,7 @@ async def translate(request: Request, body: TranslateRequest):
 
     payload = {
         "model": MODEL,
-        "temperature": 0.3,
+        "temperature": 0.2,
         "max_tokens": 2500,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
