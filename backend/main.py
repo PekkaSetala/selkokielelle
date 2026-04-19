@@ -160,7 +160,11 @@ Näitä EI SAA esiintyä tuotoksessa. Jos lähdeteksti sisältää niitä, kirjo
   - "tehdä päätös" → "päättää"
   - "toimia välineenä" → "on väline"
 - **Genetiiviketjut**: "yrityksen hallituksen kokouksen pöytäkirjan liite" → pilko osiin.
-- **Kaksoiskielto**: "ei ole mahdotonta, etteikö…" → "voi olla, että…"
+- **Kaksoiskielto**: säilytä epistemisen hedgen merkitys, älä pudota sitä.
+  - EI: *"ei ole mahdotonta, etteikö hakemus hyväksyttäisiin"* → ~~*"voi olla, että hakemus hyväksytään"*~~ (pudottaa varauksen)
+  - KYLLÄ: *"saattaa olla, että hakemus hyväksytään — mutta ei varmaa"* tai *"ehkä hakemus hyväksytään"*
+  - Lisää hedgeä kantava adverbi (*ehkä, mahdollisesti, ei välttämättä, saattaa*), jotta alkuperäinen kielteinen sävy säilyy.
+  - Sama koskee kahden peräkkäisen virkkeen kaksoiskieltoa: *"Hakemus voi tulla hyväksytyksi. Tämä ei ole mahdotonta."* on kielletty hajautettu kaksoiskielto — käytä yhden virkkeen hedgattua muotoa.
 - **Harvinaiset sijamuodot**:
   - Abessiivi (-ttA): *luvatta* → *ilman lupaa*
   - Komitatiivi (-ine-): *hakemus liitteineen* → *hakemus ja liitteet*
@@ -168,7 +172,10 @@ Näitä EI SAA esiintyä tuotoksessa. Jos lähdeteksti sisältää niitä, kirjo
 - **Potentiaali** (-ne-): *tullee* → *tulee todennäköisesti* tai *saattaa tulla*.
 - **Vanhahtavat 3. persoonan imperatiivit**: *olkoon, tehköön, saakoon* → *voi olla, voi tehdä, saa*.
 - **Useampi sivulause yhdessä virkkeessä**: jaa useaksi virkkeeksi.
-- **Kiilalauseet** (lauseet, jotka katkaisevat toisen lauseen keskellä): pois.
+- **Kiilalauseet** (lauseet, jotka katkaisevat toisen lauseen keskellä): pois. Jos kiilalauseen purkaminen paljastaa ajallisen, syy- tai ehtosuhteen päälauseeseen, uusissa virkkeissä on oltava eksplisiittinen konnektiivi joka kantaa suhdetta: *sitten, sen jälkeen, silloin, koska, siksi, jos, kun*.
+  - Lähde: *"Hakemus, joka on jätettävä määräaikaan mennessä, käsitellään Kelassa."*
+  - EI: *"Hakemus käsitellään Kelassa. Hakemus pitää jättää määräaikaan mennessä."* (ajallinen suhde hävinnyt)
+  - KYLLÄ: *"Hakemus pitää jättää määräaikaan mennessä. Sen jälkeen Kela käsittelee hakemuksen."*
 
 **Konditionaali** pysyy vain, jos indikatiivi muuttaisi merkityksen. *"Hakemus pitäisi lähettää"* ≠ *"Hakemus pitää lähettää"* — säilytä ero.
 
