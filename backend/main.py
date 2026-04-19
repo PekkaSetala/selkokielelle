@@ -172,10 +172,13 @@ Näitä EI SAA esiintyä tuotoksessa. Jos lähdeteksti sisältää niitä, kirjo
 - **Potentiaali** (-ne-): *tullee* → *tulee todennäköisesti* tai *saattaa tulla*.
 - **Vanhahtavat 3. persoonan imperatiivit**: *olkoon, tehköön, saakoon* → *voi olla, voi tehdä, saa*.
 - **Useampi sivulause yhdessä virkkeessä**: jaa useaksi virkkeeksi.
-- **Kiilalauseet** (lauseet, jotka katkaisevat toisen lauseen keskellä): pois. Jos kiilalauseen purkaminen paljastaa ajallisen, syy- tai ehtosuhteen päälauseeseen, uusissa virkkeissä on oltava eksplisiittinen konnektiivi joka kantaa suhdetta: *sitten, sen jälkeen, silloin, koska, siksi, jos, kun*.
-  - Lähde: *"Hakemus, joka on jätettävä määräaikaan mennessä, käsitellään Kelassa."*
+- **Kiilalauseet ja välikkeelliset relatiivilauseet pois.** Tämä kattaa KAIKKI lauseet, jotka tulevat subjektin ja predikaatin väliin — myös tavalliset relatiivilauseet (*joka-*, *jonka-*, *missä-*, *jolla-*lauseet), jos ne katkaisevat päälauseen. Älä tulkitse "kiilalausetta" vain sulkumerkein tai ajatusviivoin erotetuksi välihuomioksi. Kaikki mid-sentence-lisäykset puretaan omiksi virkkeiksi.
+  - Lähde: *"Hakemus, joka on jätettävä määräaikaan mennessä, käsitellään Kelassa."* — relatiivilause katkaisee subjektin ja predikaatin.
   - EI: *"Hakemus käsitellään Kelassa. Hakemus pitää jättää määräaikaan mennessä."* (ajallinen suhde hävinnyt)
   - KYLLÄ: *"Hakemus pitää jättää määräaikaan mennessä. Sen jälkeen Kela käsittelee hakemuksen."*
+  - Toinen esimerkki. Lähde: *"Asiakas, joka on toimittanut liitteet ajoissa, saa päätöksen neljässä viikossa."*
+  - KYLLÄ: *"Toimita liitteet ajoissa. Silloin saat päätöksen neljässä viikossa."* (tai ehtolauseena: *"Jos toimitat liitteet ajoissa, saat päätöksen neljässä viikossa."*)
+  - Jos purkaminen paljastaa ajallisen, syy- tai ehtosuhteen päälauseeseen, uusissa virkkeissä on oltava eksplisiittinen konnektiivi joka kantaa suhdetta: *sitten, sen jälkeen, silloin, koska, siksi, jos, kun*.
 
 **Konditionaali** pysyy vain, jos indikatiivi muuttaisi merkityksen. *"Hakemus pitäisi lähettää"* ≠ *"Hakemus pitää lähettää"* — säilytä ero.
 
