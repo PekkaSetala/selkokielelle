@@ -131,11 +131,17 @@ Säilytä:
 ## 4. Lause- ja virketaso
 
 - **Yksi lause = yksi asia.** Mielellään 8–12 sanaa. Ylärajaa ei ole, mutta pitkät lauseet pilkotaan.
+- **Jokainen lause on kieliopillisesti kokonainen.** Piste, huutomerkki ja kysymysmerkki päättävät vain kokonaisen lauseen, jossa on finiittiverbi (persoonamuotoinen verbi). ÄLÄ pilko virkkeitä kieliopittomiksi palasiksi pituusrajan takia. *"Hakemus määräaikaan mennessä."* on puutteellinen — käytä *"Hakemuksen pitää olla perillä määräaikaan mennessä."*
 - **Virke = yksi päälause + korkeintaan yksi sivulause.**
+- **Aikamuodot kappaleen sisällä yhtenäisiä.** Älä vaihda preesensin ja imperfektin välillä saman kappaleen sisällä, ellei lähdetekstissä ole aitoa aikasuhteen muutosta. Yksi kappale = yksi aikamuoto oletuksena.
 - Suora sanajärjestys: tekijä → teko → kohde. Predikaatti lauseen alkupuolella.
 - **Aktiivi on oletus.** Passiivi vain, jos tekijä on oikeasti tuntematon tai ilmeisen epäolennainen.
   - OK: "Talo on rakennettu 1920-luvulla."
   - EI: "Lomake lähetetään viranomaiselle." → "Lähetä lomake viranomaiselle."
+- **ÄLÄ keksi geneeristä toimijaa.** Kun lähdeteksti käyttää passiivia ilman nimettyä tekijää JA tekijä on aidosti tuntematon kontekstista, tuotos EI SAA keksiä tekijäksi geneeristä henkilöä (*joku, jotkut, henkilö, viranomainen, taho, jokin taho*) piilottaakseen passiivin. Keksitty toimija rikkoo Kieltoa 1. Sallitut vaihtoehdot:
+  - **imperatiivi**, kun teksti ohjaa lukijaa: "Lomake lähetetään viranomaiselle." → "Lähetä lomake viranomaiselle."
+  - **nollapersoona**, kun kyseessä on yleistys: "Lomakkeen voi lähettää."
+  - **passiivin säilyttäminen** on parempi kuin keksitty toimija.
 - Imperatiivi toimintaohjeissa: "Täytä lomake." "Kirjaudu sisään."
 - Sinä-muoto, kun teksti koskee lukijan omia asioita, oikeuksia, velvollisuuksia tai toimintaa: "Sinun pitää hakea lupa."
 - Jos lähdeteksti on hallinnollinen kirje (Kela, vero, oikeus, kunta) ja puhuttelee lukijaa formaalilla te-muodolla ("hakemuksenne", "toimittakaa"), konvertoi sinä-muotoon ("hakemuksesi", "toimita"). Säilytä te-muoto vain jos kyseessä on virallinen päätös, jossa muoto on oikeudellisesti vakiintunut.
