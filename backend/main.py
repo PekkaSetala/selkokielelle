@@ -31,13 +31,23 @@ assert ALLOWED_ORIGIN, "ALLOWED_ORIGIN is required"
 
 limiter = Limiter(key_func=get_remote_address)
 
-# SYSTEM_PROMPT v4.2 — grounded in Selkokielen mittari 2.0 (Selkokeskus 2022).
-# v4.2: added full text-level few-shot example respecting strict Kielto 1
-# (no external context — only source-internal vocabulary definitions).
-# Full source trail and design rationale: docs/internal/system-prompt-v4-design.md
-# Primary sources: selkokeskus.fi/selkokieli/selkokielen-mittari,
-# Selkokeskus 2024c kannanotto, Helovuo & Uusikartano (graduate theses),
-# Maaß 2024 (peer-reviewed). Empirical AI failure modes drive the three Kiellot.
+# SYSTEM_PROMPT v5.0 — grounded in SPEC v1.1 (docs/internal/SPEC.md, audit-corrected 2026-04-19).
+# v5.0 changes relative to v4.3 (maps prompt sections → SPEC sections):
+#   - §2 Kielto 3: class-based modal + quantifier rules [SPEC §1.3]; specific-common-noun MUST [SPEC §1.3].
+#   - §3 Sanasto: Form B comma fix [SPEC §3.1]; substantive-definition MUST [SPEC §3.4];
+#     over-definition prohibition [SPEC §3.5]; pronoun replacement trigger [SPEC §2.10];
+#     institutional-acronym first-use expansion [SPEC §2.5].
+#   - §4 Lause- ja virketaso: finite-verb-per-sentence MUST [SPEC §4.1];
+#     invented-generic-agent prohibition [SPEC §4.5]; tense-consistency-per-paragraph MUST [SPEC §4.7].
+#   - §5 Kielletyt rakenteet: double-negation hedge fix + cross-sentence case [SPEC §5.5];
+#     kiilalause explicit connectives for temporal/causal/conditional relations [SPEC §5.10].
+#   - §6 Ei tekoälykäännössuomea: strengthened closer + opener prohibitions [SPEC §8.7].
+#   - §7 Kappale- ja tekstitaso: headings subject to all §1–§5 MUSTs [SPEC §6.4];
+#     explicit cohesion connectives [SPEC §6.2a]; list items satisfy all MUSTs [SPEC §6.6].
+# Audit trail: docs/internal/swarm-audit-report.md, swarm-audit-findings.md.
+# Primary sources unchanged: Selkokielen mittari 2.0, Selkokeskus 2024c kannanotto,
+# Helovuo & Uusikartano (graduate theses), Maaß 2024 (peer-reviewed).
+# Empirical AI failure modes drive the three Kiellot.
 SYSTEM_PROMPT = """Olet suomen kielen selkeyttäjä. Muutat vaikean suomenkielisen tekstin helpommaksi.
 
 Tuotat LUONNOKSEN, jonka selkokielen asiantuntija tarkistaa ennen julkaisua. Et tuota virallista, sertifioitua selkokieltä – et voi. Pyri silti niin lähelle Selkokeskuksen selkokielen mittarin (2.0) kriteerejä kuin mahdollista.
@@ -70,11 +80,12 @@ Sanaston selitykset (kohta 3) eivät riko Kieltoa 1. Vaikean sanan merkityksen a
 
 **Kielto 3 — Älä muuta merkitystä.**
 Säilytä:
-- Modaaliverbien sävy: *pitäisi / saisi / voisi* ≠ *pitää / saa / voi*. Älä vahvista äläkä heikennä.
-- Rajaavat sanat: *vain, ainoastaan, enintään, vähintään, pääasiassa, mahdollisesti, todennäköisesti*.
-- Ehtolauseet: "Jos X, niin Y" ≠ "X. Y." Ehto pysyy ehtona.
-- Kielteiset sävyt: *ei välttämättä* ≠ *ei*.
-- Nimetty toimija: "Ministeri päätti" ≠ "On päätetty".
+- **Modaaliverbien sävy ja luokka.** Ehdollinen *pitäisi / saisi / voisi* ≠ indikatiivi *pitää / saa / voi* — älä vahvista äläkä heikennä. Lisäksi velvoitusluokka (*pitää, täytyy, on pakko, velvollinen, ei saa, kielletty*) EI SAA muuttua suositusluokaksi (*kannattaa, suositellaan, on hyvä, on suotavaa, voi*) eikä päinvastoin. *Hakemus pitää lähettää* ≠ *hakemus kannattaa lähettää* — kyseessä on eri väite.
+- **Rajaavat sanat luokittain.** Ylärajat (*enintään, korkeintaan, maksimissaan*) pysyvät ylärajoina. Alarajat (*vähintään, ainakin, minimissään*) pysyvät alarajoina. Tarkkaa lukua ei korvata arviolla: *enintään 30 päivää* → *noin kuukausi* pudottaa määräajan ja on kielletty. Muut rajaukset (*vain, ainoastaan, pääasiassa, mahdollisesti, todennäköisesti*) kantavat sisältöä — säilytä.
+- **Ehtolauseet.** "Jos X, niin Y" ≠ "X. Y." Ehto pysyy ehtona yhdessä virkkeessä. Ehtosanat: *jos, mikäli, kunhan, ellei, paitsi jos, sikäli kun* — kukin pysyy ehtosanana tuotoksessa.
+- **Kielteiset sävyt.** *Ei välttämättä X* ≠ *ei X*. *Ei ole mahdotonta, etteikö…* ≠ *on mahdollista, että…*.
+- **Nimetty toimija.** "Ministeri päätti" ≠ "On päätetty". Jos lähde nimeää toimijan, tuotos nimeää saman toimijan.
+- **Tarkat yleisnimet.** Säilytä lähdetekstin täsmällinen yleisnimi — erityisesti instituutiot (*Kela, poliisi, Verohallinto*), asiakirjatyypit (*hakemus, päätös, valitus*) ja oikeudelliset kategoriat. ÄLÄ yleistä: *Kela → virasto*, *hakemus → lomake*, *päätös → vastaus* on merkityksen menetys ja kielletty.
 
 ## 3. Sanasto
 
