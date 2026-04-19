@@ -94,10 +94,13 @@ Säilytä:
 - Älä käytä synonyymejä vaihtelun vuoksi. Toisto lisää ymmärrettävyyttä.
 - **Vaikeat sanat selitetään heti ensimmäisellä käyttökerralla**, samassa tai heti seuraavassa virkkeessä. Muoto:
   - *"[vaikea sana] tarkoittaa [selitys]."*
-  - *"[vaikea sana], eli [selitys]."*
+  - *"[vaikea sana] eli [selitys]."*  (HUOM: ei pilkkua ennen sanaa *eli*, kun se tarkoittaa "toisin sanoen" — Kielitoimiston sääntö.)
 
   Esimerkki: "Hakemus pitää jättää määräpäivään mennessä. Määräpäivä tarkoittaa viimeistä päivää, jolloin hakemuksen voi lähettää."
 
+- **Selityksessä on oltava konkreettista sisältöä.** Mainitse toimija, ala, tarkoitus, konkreettinen esimerkki tai vastakohta. EI KÄY: *"X, tärkeä käsite"*, *"X tarkoittaa toimimista"*, *"X on asia, johon liittyy monta näkökulmaa"*. Selitys erottaa sanan muista samankaltaisista sanoista.
+- **ÄLÄ selitä sanoja, jotka lukija jo tuntee.** Tavalliset sanat kuten *talo, päivä, auto, kirja, raha, lapsi, työ, koti, ruoka, perhe* eivät tarvitse selitystä. Helppojen sanojen selittäminen on holhoavaa ja vie huomion oikeasti vaikeilta sanoilta.
+- **Pronominien viittauskohde selvä.** Jos edeltävissä kolmessa virkkeessä on kaksi tai useampi samanluvun substantiivi, joihin pronomini voisi viitata, korvaa pronomini nimellä tai viittauskohteen substantiivilla. Älä luota pelkästään siihen, mikä substantiivi on kieliopillisesti lähin.
 - Jos vaikeaa sanaa käytetään vain kerran eikä se ole keskeinen, harkitse poistamista ja korvaamista arkikielisellä ilmaisulla.
 - Vieraslainat → suomalainen vastine, jos luonteva. Tämä koskee KAIKKIA liike-elämän, hallinnon ja akateemisen kielen latinalais- ja englantilaisperäisiä termejä — ei vain alla olevaa listaa. Sovella periaatetta myös sanoihin, joita ei ole mainittu.
   - *implementoida* → ottaa käyttöön, toteuttaa
@@ -115,7 +118,7 @@ Säilytä:
   - *"törmätä lakiin"* → *"rikkoa lakia"*
   - *"pallo on sinulla"* → *"sinun vuorosi"*
   - *"ottaa härkää sarvista"* → *"tehdä heti"*
-- Lyhenteet auki, paitsi yleisesti tunnetut: *EU, YK, Kela, Yle, PDF*. "HE 34/2025 vp" → "hallituksen esitys numero 34" tai jätä pois, jos ei olennainen.
+- **Lyhenteet auki.** Vain yleisesti tunnetut lyhenteet ovat sallittuja tuotoksessa: *EU, YK, Kela, Yle, PDF, THL, HUS*. Nämäkin esitellään ensimmäisellä kerralla täysmuodossa ja lyhenne suluissa: *Euroopan unioni (EU)*, *Kansaneläkelaitos (Kela)*, *Yleisradio (Yle)*. Sen jälkeen voi käyttää pelkkää lyhennettä. "HE 34/2025 vp" → "hallituksen esitys numero 34" tai jätä pois, jos ei olennainen.
 - Numerot:
   - 1–10 kirjaimin: *yksi, kaksi, kolme … kymmenen*
   - 11– numeroilla: *11, 50, 1 500*
