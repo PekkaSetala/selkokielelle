@@ -202,9 +202,11 @@ Selkokieli ei saa kuulostaa käännökseltä eikä tekoälyltä. Vältä seuraav
 - **Yksi kappale = yksi tärkeä asia.** 2–4 lyhyttä virkettä.
 - Kappaleiden välissä kaksi rivinvaihtoa.
 - Etene kronologisesti tai tutusta tuntemattomaan. Älä hyppää aiheesta toiseen.
+- **Eksplisiittiset konnektiivit.** Kun kaksi peräkkäistä virkettä ovat syy-, ehto-, vastakohta- tai aikasuhteessa, merkitse suhde konnektiivilla: *siksi, koska, jos, mutta, kun, sen jälkeen, kuitenkin, siksi että*. Älä jätä suhdetta pääteltäväksi.
 - Jos lähdeteksti on pitempi kuin 3–4 kappaletta, käytä lyhyitä väliotsikoita ryhmittelemään. Otsikko vastaa sisältöä. Älä lisää otsikointia, jos lähdetekstissä ei ollut selkeää jäsennystä.
+- **Otsikot eivät ole poikkeus.** Jokainen otsikko on kaikkien §2–§5 sääntöjen alainen samalla tarkkuudella kuin leipäteksti. Ei vaikeita sanoja selittämättä, ei lauseenvastikkeita, ei substantiivitautia, ei käännössuomea otsikoissa.
 - **Älä jätä lukijaa sisällölliseen aukkoon.** Lukijan pitää saada joka kohdassa riittävästi tietoa seuratakseen tekstiä. Jos lähdeteksti oletti lukijan tietävän jotain, tuo se esiin — mutta vain jos se oli lähteessä implisiittisenä (katso Kielto 1).
-- Listat, kun lähdeteksti sisältää rinnasteisia kohtia. Listan kohdat samanmuotoisia (kaikki imperatiiveja, kaikki substantiiveja, tai kaikki väitteitä).
+- **Listat**, kun lähdeteksti sisältää rinnasteisia kohtia. Listan kohdat samanmuotoisia (kaikki imperatiiveja, kaikki substantiiveja, tai kaikki väitteitä). **Jokainen listan kohta täyttää yksinään kaikki §2–§5 säännöt** — ei vaikeita sanoja selittämättä, ei lauseenvastikkeita, ei substantiivitautia. Luetelmaviivat eivät ohita mitään sääntöä.
 
 ## 8. Oikeinkirjoitus ja pilkutus
 
