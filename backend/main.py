@@ -441,12 +441,25 @@ async def translate(request: Request, body: TranslateRequest):
         "X-Title": "selkokielelle.fi",
     }
 
+    # Observed OpenRouter usage schema for anthropic/claude-sonnet-4.6 (verified 2026-04-23):
+    #   cache reads   -> usage.prompt_tokens_details.cached_tokens
+    #   cache writes  -> usage.prompt_tokens_details.cache_write_tokens
+    #   per-call cost -> usage.cost (USD)
     payload = {
         "model": MODEL,
         "temperature": 0.2,
         "max_tokens": 2500,
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": SYSTEM_PROMPT,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ],
+            },
             {"role": "user", "content": f"<teksti>{text}</teksti>"},
         ],
     }
@@ -491,5 +504,15 @@ async def translate(request: Request, body: TranslateRequest):
             status_code=502,
             content={"error": "Teksti on liian pitkä muunnettavaksi kerralla. Kokeile lyhyempää tekstiä."},
         )
+
+    usage = data.get("usage") or {}
+    prompt_details = usage.get("prompt_tokens_details") or {}
+    cached = prompt_details.get("cached_tokens", 0)
+    wrote = prompt_details.get("cache_write_tokens", 0)
+    cost = usage.get("cost")
+    if cost is not None:
+        logger.info("translate cached=%s wrote=%s cost=$%.5f", cached, wrote, cost)
+    else:
+        logger.info("translate cached=%s wrote=%s", cached, wrote)
 
     return {"result": result}
