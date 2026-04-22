@@ -53,9 +53,14 @@ This pulls main, updates pip dependencies, and restarts the `selkokielelle` syst
 
 ```
 frontend/
-  index.html          # entire frontend: HTML + <style> + <script> in one file
-  tietosuoja.html     # privacy page
+  index.html          # main page — HTML + inline <style>; JS lives in app.js
+  app.js              # all frontend logic; API_URL on line 1
+  favicon.svg
+  tietoja.html        # about page
+  tietosuoja.html     # privacy page (301-redirected to tietoja.html by nginx)
   laajennos.html      # Chrome extension info and installation guide
+  robots.txt
+  sitemap.xml
 backend/
   main.py             # single FastAPI app: one POST /api/translate endpoint
   requirements.txt
