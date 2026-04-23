@@ -91,4 +91,4 @@ extension/
 
 ## System prompt
 
-The selkokieli conversion system prompt is defined directly in `backend/main.py` as `SYSTEM_PROMPT`. It encodes official Selkokeskus guidelines: vocabulary rules, sentence structure, passive→active voice, slang substitutions, and reader-first framing. When modifying it, preserve all sections and their constraints — the prompt is the core product logic.
+The selkokieli conversion system prompt is canonical at `prompts/v5.md` and loaded at backend startup. `backend/main.py` reads it via `Path(__file__).resolve().parent.parent / "prompts" / "v5.md"`. Changelog lives at `prompts/v5-changelog.md`. It encodes official Selkokeskus guidelines: vocabulary rules, sentence structure, passive→active voice, slang substitutions, and reader-first framing. When modifying it, preserve all sections and their constraints — the prompt is the core product logic.
